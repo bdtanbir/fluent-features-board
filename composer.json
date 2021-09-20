@@ -1,0 +1,17 @@
+{
+    "name": "bdtanbir/ninja-vue",
+    "description": "Ninja Vue simple Plugin",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [{
+        "name": "Tanbir Ahmed",
+        "email": "tanbirsylhet20@gmail.com"
+    }],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "includes/"
+        }
+    }
+}
