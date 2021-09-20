@@ -1,11 +1,18 @@
 <template>
-    <td>
-        <h1><span>1.</span> <a href="">Title</a></h1>
-        <div class="actions">
-            <a href="" class="edit">Edit</a>
-        </div>
-    </td>
-    
+    <tr class="ffb-features-list">
+        <th>
+            <div class="ffb-id">1</div>
+        </th>
+        <td>
+            <h1><a href="">Title</a></h1>
+            <div class="actions">
+                <a href="" class="edit">Edit</a>
+            </div>
+        </td>
+        <td>
+            <div class="ffb-shortcode">[Shortcodes]</div>
+        </td>
+    </tr>
 </template>
 
 <script>
@@ -35,6 +42,7 @@ export default {
         opacity: 1;
         visibility: visible;
     }
+    .ffb-featured-lists table tbody th,
     .ffb-featured-lists table tbody td {
         border-bottom: 1px solid #eee;
         padding-bottom: 4px;

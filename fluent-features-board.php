@@ -147,9 +147,9 @@ final class Fluent_Features_board {
      */
     public function includes() {
 
+        require_once FFB_INCLUDES . '/database/model-table.php';
         require_once FFB_INCLUDES . '/Assets.php';
         require_once FFB_INCLUDES . '/Shortcodes.php';
-        require_once FFB_INCLUDES . '/database/model-table.php';
 
         if ( $this->is_request( 'admin' ) ) {
             require_once FFB_INCLUDES . '/Admin.php';
@@ -181,6 +181,9 @@ final class Fluent_Features_board {
      */
     public function init_classes() {
 
+        // Model Table
+        $this->container['model_table'] = new FFB\FFB_Model_Table();
+
         // Admin
         if ( $this->is_request( 'admin' ) ) {
             $this->container['admin'] = new FFB\FFB_Admin();
@@ -199,9 +202,6 @@ final class Fluent_Features_board {
 
         // Shortcodes
         $this->container['hooks'] = new FFB\Shortcodes();
-
-        // Model Table
-        $this->container['model_table'] = new FFB\FFB_Model_Table();
     }
 
     /**

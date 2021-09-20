@@ -89,6 +89,7 @@
     opacity: 1;
     visibility: visible;
 }
+.ffb-featured-lists table tbody th,
 .ffb-featured-lists table tbody td {
     border-bottom: 1px solid #eee;
     padding-bottom: 4px;
@@ -103,6 +104,7 @@
 }
 .ffb-featured-lists table[data-v-73627687] {
     width: 100%;
+    text-align: left;
 }
 
 

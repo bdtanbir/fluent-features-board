@@ -1,10 +1,15 @@
 <template>
     <div class="ffb-featured-lists">
         <table class="ffb-featured-list-table">
-            <tbody>
-                <tr class="ffb-features-list">
-                    <FeaturedList />
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <th>Title</th>
+                    <th>Shortcode</th>
                 </tr>
+            </thead>
+            <tbody>
+                <FeaturedList />
             </tbody>
         </table>
     </div>
@@ -30,5 +35,6 @@ export default {
     }
     .ffb-featured-lists table {
         width: 100%;
+        text-align: left;
     }
 </style>

@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 export default {
     data() {
         return {
@@ -52,13 +53,19 @@ export default {
     methods: {
         formSubmited: function() {
             if (this.title && this.description && this.tmplTags) {
-                console.log('Submited');
+                $.ajax({
+                    type: "POST",
+                    url: ajax_url.ajaxurl,
+                    data: {
+                        action: "action_ffb_callback",
+                        title: this.title,
+                        description: this.description,
+                        tags: this.tmplTags,
+                    }
+                });
             }
         }
     },
-    mounted() {
-
-    }
 }
 </script>
 
