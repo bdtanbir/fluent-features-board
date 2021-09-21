@@ -6,6 +6,7 @@
                     <td>ID</td>
                     <th>Title</th>
                     <th>Shortcode</th>
+                    <th>Tags</th>
                 </tr>
             </thead>
             <tbody>

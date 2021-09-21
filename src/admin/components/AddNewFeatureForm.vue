@@ -24,7 +24,7 @@
                     <label for="feature-tags">
                         Tags
                     </label>
-                    <input type="text" id="feature-tags" required v-model="tmplTags">
+                    <input type="text" id="feature-tags" v-model="tmplTags">
                     <span class="description">
                         Add tags with <strong>comma</strong>
                     </span>
@@ -62,7 +62,7 @@ export default {
     },
     methods: {
         formSubmited: function() {
-            if (this.title && this.description && this.tmplTags) {
+            if (this.title && this.description && this.tags) {
                 const that = this;
                 this.isLoading = true;
                 setTimeout(() => {
@@ -85,7 +85,7 @@ export default {
                     });
                 },3000);
             }
-        }
+        },
     },
 }
 </script>
@@ -208,6 +208,24 @@ export default {
         border-radius: 4px;
         padding: 5px 13px;
         display: inline-block;
+    }
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .tags {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 8px;
+    }
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .tags span {
+        background: #eee;
+        border-radius: 30px;
+        margin-right: 5px;
+        padding: 1px 8px 3px 8px;
+        display: inline-block;
+        cursor: pointer;
+        transition: .2s;
+    }
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .tags span:hover {
+        opacity: 0.5;
     }
 
     @keyframes rotating {
