@@ -93,6 +93,7 @@ class FFB_Model_Table {
         $table_name = $wpdb->prefix . $this->fluent_features_board;
         $id = $_POST['id'];
         $wpdb->delete( $table_name, array( 'id' => $id ) );
+        die();
     }
     
 

@@ -24,7 +24,7 @@
                     <label for="feature-tags">
                         Tags
                     </label>
-                    <input type="text" id="feature-tags" v-model="tmplTags">
+                    <input type="text" id="feature-tags" required v-model="tmplTags">
                     <span class="description">
                         Add tags with <strong>comma</strong>
                     </span>
@@ -62,7 +62,7 @@ export default {
     },
     methods: {
         formSubmited: function() {
-            if (this.title && this.description && this.tags) {
+            // if (this.title && this.description && this.tags) {
                 const that = this;
                 this.isLoading = true;
                 setTimeout(() => {
@@ -84,7 +84,7 @@ export default {
                         }
                     });
                 },3000);
-            }
+            // }
         },
     },
 }

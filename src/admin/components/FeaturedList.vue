@@ -6,7 +6,7 @@
         <td>
             <h1>{{item.title}}</h1>
             <div class="actions">
-                <a href="" class="edit-column">Edit</a>
+                <a href="" class="edit-column">Edit</a> | 
                 <a href="#" @click="deleteHandle" class="delete-column">Delete</a>
             </div>
         </td>

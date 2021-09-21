@@ -3,9 +3,9 @@
         <div class="ffb-confirm-delete-table-inner">
             <h1>Are you sure?</h1>
             <p>Do you want to delete this row?</p>
-            <div class="ffb-confirm-delete-btns">
-                <button @click="cancelDeleteHandle" class="ffb-delete-btn no-btn">NO</button>
-                <button @click="deleteTableColumn" class="ffb-delete-btn yes-btn">
+            <div :class="isDeleting ? 'disabled-btn ffb-confirm-delete-btns': 'ffb-confirm-delete-btns'">
+                <button @click="cancelDeleteHandle" class="ffb-delete-btn no-btn" :disabled="isDeleting">NO</button>
+                <button @click="deleteTableColumn" class="ffb-delete-btn yes-btn" :disabled="isDeleting">
                     {{isDeleting ? 'Deleting...' : 'Yes'}}
                 </button>
             </div>
@@ -39,12 +39,9 @@ export default {
                         action: "delete_ffb_table_column",
                         id: this.id
                     },
-                    success: function(data) {
+                    success: function() {
                         this.isDeleting = false;
-                        // window.location.reload();
-                        setTimeout(() => {
-                            console.log('i am working');
-                        })
+                        window.location.reload();
                     }
                 });
             }, 2000)
@@ -94,6 +91,10 @@ export default {
         margin: 0 4px;
         box-shadow: 2px 2px 0px rgb(0 0 0 / 10%);
         transition: .2s;
+    }
+    .ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner .ffb-confirm-delete-btns.disabled-btn button {
+        opacity: 0.3;
+        cursor: no-drop;
     }
     .ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner .ffb-confirm-delete-btns button:hover {
         background: #ad0d0d;

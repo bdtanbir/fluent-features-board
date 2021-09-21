@@ -246,6 +246,10 @@
     box-shadow: 2px 2px 0px rgb(0 0 0 / 10%);
     transition: .2s;
 }
+.ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner .ffb-confirm-delete-btns.disabled-btn button[data-v-cf988d22] {
+    opacity: 0.3;
+    cursor: no-drop;
+}
 .ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner .ffb-confirm-delete-btns button[data-v-cf988d22]:hover {
     background: #ad0d0d;
 }
