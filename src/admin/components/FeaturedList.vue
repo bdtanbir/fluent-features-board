@@ -7,7 +7,7 @@
             <h1>{{item.title}}</h1>
             <div class="actions">
                 <a href="" class="edit-column">Edit</a>
-                <a href="#" @click="deleteTableColumn" class="delete-column">Delete</a>
+                <a href="#" @click="deleteHandle" class="delete-column">Delete</a>
             </div>
         </td>
         <td>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 
 
 export default {
@@ -32,21 +31,9 @@ export default {
         }
     },
     methods: {
-        deleteTableColumn: function(e) {
-            e.preventDefault();
-            const that = this;
-            $.ajax({
-                type: "POST",
-                url: ajax_url.ajaxurl,
-                data: {
-                    action: "delete_ffb_table_column",
-                    id: this.item.id
-                },
-                success: function(data) {
-                    // that.allLists = data.data;
-                }
-            });
-        },
+        deleteHandle: function() {
+            this.$emit('delete')
+        }
     },
     
 }
@@ -64,6 +51,9 @@ export default {
     .ffb-features-list .actions {
         opacity: 0;
         visibility: hidden;
+    }
+    .ffb-features-list .actions .delete-column {
+        color: red;
     }
     .ffb-featured-lists table tbody > tr:hover .actions {
         opacity: 1;

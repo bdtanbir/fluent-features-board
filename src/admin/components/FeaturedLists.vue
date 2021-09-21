@@ -1,5 +1,7 @@
 <template>
     <div class="ffb-featured-lists">
+        <FFBDeletePopup v-if="isDeleteModal" @cancelDelete="cancelDeleteTableRow" :id="currentId" />
+
         <table class="ffb-featured-list-table">
             <thead>
                 <tr>
@@ -10,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <FeaturedList v-for="list in allLists" :key="list.id" :item="list" />
+                <FeaturedList v-for="list in allLists" :key="list.id" :item="list" @delete="deleteTableRow(list.id)" />
             </tbody>
         </table>
     </div>
@@ -19,14 +21,27 @@
 <script>
 import $ from 'jquery';
 import FeaturedList from './FeaturedList.vue';
+import FFBDeletePopup from './FFBDeletePopup.vue';
 
 export default {
     components: {
-        FeaturedList
+        FeaturedList,
+        FFBDeletePopup
     },
     data() {
         return {
-            allLists: []
+            allLists: [],
+            isDeleteModal: false,
+            currentId: ''
+        }
+    },
+    methods: {
+        deleteTableRow: function(id) {
+            this.isDeleteModal = true;
+            this.currentId = id;
+        },
+        cancelDeleteTableRow: function() {
+            this.isDeleteModal = false;
         }
     },
     mounted() {

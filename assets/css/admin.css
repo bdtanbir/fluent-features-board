@@ -168,6 +168,9 @@
     opacity: 0;
     visibility: hidden;
 }
+.ffb-features-list .actions .delete-column {
+    color: red;
+}
 .ffb-featured-lists table tbody > tr:hover .actions {
     opacity: 1;
     visibility: visible;
@@ -200,6 +203,57 @@
 .ffb-featured-lists table tbody td #ffb-shortcode:focus {
     outline: none;
     box-shadow: none;
+}
+
+
+.ffb-confirm-delete-table-pop[data-v-cf988d22] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 0 0 / 60%);
+}
+.ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner[data-v-cf988d22] {
+    background: #fff;
+    max-width: 300px;
+    padding: 20px 30px 30px 30px;
+    box-sizing: border-box;
+    text-align: center;
+    margin: 20px auto auto auto;
+    border-radius: 4px;
+}
+.ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner h1[data-v-cf988d22] {
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+.ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner p[data-v-cf988d22] {
+    margin: 0 0 15px 0;
+}
+.ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner .ffb-confirm-delete-btns[data-v-cf988d22] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner .ffb-confirm-delete-btns button[data-v-cf988d22] {
+    background: #d21414;
+    border: none;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 4px;
+    box-shadow: 2px 2px 0px rgb(0 0 0 / 10%);
+    transition: .2s;
+}
+.ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner .ffb-confirm-delete-btns button[data-v-cf988d22]:hover {
+    background: #ad0d0d;
+}
+.ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner .ffb-confirm-delete-btns .yes-btn[data-v-cf988d22] {
+    background: #07d007;
+}
+.ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner .ffb-confirm-delete-btns .yes-btn[data-v-cf988d22]:hover {
+    background: #08b308;
 }
 
 
