@@ -9,19 +9,38 @@
                 </tr>
             </thead>
             <tbody>
-                <FeaturedList />
+                <FeaturedList v-for="list in allLists" :key="list.id" :item="list" />
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
+import $ from 'jquery';
 import FeaturedList from './FeaturedList.vue';
 
 export default {
     components: {
         FeaturedList
-    }
+    },
+    data() {
+        return {
+            allLists: []
+        }
+    },
+    mounted() {
+        const that = this;
+        $.ajax({
+            type: "POST",
+            url: ajax_url.ajaxurl,
+            data: {
+                action: "get_ffb_lists",
+            },
+            success: function(data) {
+                that.allLists = data.data;
+            }
+        });
+    },
     
 }
 </script>
@@ -36,5 +55,6 @@ export default {
     .ffb-featured-lists table {
         width: 100%;
         text-align: left;
+        border-spacing: 0;
     }
 </style>

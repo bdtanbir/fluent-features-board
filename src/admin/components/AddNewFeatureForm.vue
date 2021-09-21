@@ -36,7 +36,7 @@
                     <input type="checkbox" id="feature-privacy">
                 </div> -->
                 <div class="input-group">
-                    <button @click="formSubmitBtn" class="ffb-addnewfeature-submit">
+                    <button class="ffb-addnewfeature-submit">
                         Add New
                     </button>
                 </div>

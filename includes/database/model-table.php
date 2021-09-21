@@ -13,6 +13,8 @@ class FFB_Model_Table {
         add_action( 'admin_enqueue_scripts', [$this, 'ffb_admin_scripts'] );
         add_action( 'wp_ajax_action_ffb_callback', [$this, 'action_ffb_callback'] );
         add_action( 'wp_ajax_nopriv_action_ffb_callback', [$this, 'action_ffb_callback'] );
+        add_action( 'wp_ajax_get_ffb_lists', [$this, 'get_ffb_lists'] );
+        add_action( 'wp_ajax_nopriv_get_ffb_lists', [$this, 'get_ffb_lists'] );
     }
 
     public function ffb_tables_list() {
@@ -61,6 +63,25 @@ class FFB_Model_Table {
             ) 
         );
 
+        die();
+    }
+
+    public function get_ffb_lists() {
+        global $wpdb;
+
+        $request = $wpdb->get_results(
+            "SELECT * FROM {$wpdb->prefix}fluent_features_board"
+        );
+        error_log(print_r($request, 1));
+
+        // $searchUsername = (isset($_POST['search_username']) ? $_POST['search_username'] : '');
+        // $request = wp_remote_get( "https://api.github.com/search/users?q=".$searchUsername );
+        if( is_wp_error( $request ) ) {
+            return false;
+        }
+        // $ffb_data = json_decode(wp_remote_retrieve_body( $request ));
+        wp_send_json_success( $request, 200 ); // send a JSON response back to an Ajax request
+        
         die();
     }
     

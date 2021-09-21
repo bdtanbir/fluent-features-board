@@ -1,22 +1,27 @@
 <template>
     <tr class="ffb-features-list">
         <th>
-            <div class="ffb-id">1</div>
+            <div class="ffb-id">{{item.id}}</div>
         </th>
         <td>
-            <h1><a href="">Title</a></h1>
+            <h1><a href="">{{item.title}}</a></h1>
             <div class="actions">
                 <a href="" class="edit">Edit</a>
             </div>
         </td>
         <td>
-            <div class="ffb-shortcode">[Shortcodes]</div>
+            <input id="ffb-shortcode" value="[Shortcodes]" title="Click to Copy" readonly>
         </td>
     </tr>
 </template>
 
 <script>
 export default {
+    props: ['item'],
+    data() {
+        return {
+        }
+    },
     
 }
 </script>
@@ -26,6 +31,8 @@ export default {
         text-decoration: none;
         color: #000;
         display: inline-block;
+        font-size: 18px;
+        font-weight: 400;
     }
     .ffb-features-list h1 {
         font-size: 20px;
@@ -46,5 +53,25 @@ export default {
     .ffb-featured-lists table tbody td {
         border-bottom: 1px solid #eee;
         padding-bottom: 4px;
+        padding-top: 10px;
+    }
+    .ffb-featured-list-table thead tr th, .ffb-featured-list-table thead tr td {
+        border-bottom: 1px solid #eee;
+        padding: 8px 0 8px 8px;
+        background: #000;
+        color: #fff;
+        border: none;
+        border-width: 0;
+    }
+    .ffb-featured-lists table tbody td #ffb-shortcode {
+        border: none;
+        background: #eee;
+        padding: 4px 5px 7px 7px;
+        display: inline-block;
+        cursor: pointer;
+    }
+    .ffb-featured-lists table tbody td #ffb-shortcode:focus {
+        outline: none;
+        box-shadow: none;
     }
 </style>
