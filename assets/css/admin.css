@@ -27,6 +27,7 @@
 .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group + .input-group {
     margin-top: 15px;
 }
+.ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group textarea,
 .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group input {
     display: block;
     width: 100%;

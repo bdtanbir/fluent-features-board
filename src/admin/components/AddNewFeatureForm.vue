@@ -18,7 +18,8 @@
                     <label for="feature-description">
                         Description
                     </label>
-                    <input type="text" id="feature-description" required v-model="description">
+                    <!-- <input type="text" id="feature-description" required v-model="description"> -->
+                    <textarea name="content" id="feature-description" required v-model="tmplTags"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="feature-tags">
@@ -122,6 +123,7 @@ export default {
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group + .input-group {
         margin-top: 15px;
     }
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group textarea,
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group input {
         display: block;
         width: 100%;
