@@ -18,8 +18,7 @@
                     <label for="feature-description">
                         Description
                     </label>
-                    <!-- <input type="text" id="feature-description" required v-model="description"> -->
-                    <textarea name="content" id="feature-description" required v-model="tmplTags"></textarea>
+                    <textarea name="content" id="feature-description" required v-model="description"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="feature-tags">
