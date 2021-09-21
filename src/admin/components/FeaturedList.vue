@@ -65,6 +65,9 @@ export default {
         padding: 8px 0 8px 8px;
         transition: .3s;
     }
+    .ffb-featured-lists table tbody th {
+        vertical-align: top;
+    }
     .ffb-featured-lists table tbody tr:hover th,
     .ffb-featured-lists table tbody tr:hover td {
         background: #f6f9ff;
