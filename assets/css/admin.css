@@ -318,4 +318,9 @@
   outline: none;
   box-shadow: none;
 }
+#fluent-features-board-backend-app header nav ul li a.router-link-exact-active {
+  background: #2771b1;
+  color: #ffffff;
+  border-bottom: 2px solid #13395a;
+}
 

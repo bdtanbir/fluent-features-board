@@ -11,7 +11,7 @@
             </div>
         </td>
         <td>
-            <input id="ffb-shortcode" :value="'[fluent_features_board id=\''+item.id+'\']'" title="Click to Copy" readonly>
+            <input ref="ffb_copy" id="ffb-shortcode" :value="'[fluent_features_board id=\''+item.id+'\']'" title="Click to Copy" @click="copyURL" readonly>
         </td>
         <td>
             <div class="ffb-tags">
@@ -33,6 +33,11 @@ export default {
     methods: {
         deleteHandle: function() {
             this.$emit('delete')
+        },
+        copyURL() {
+            var Url = this.$refs.ffb_copy;
+            Url.select();
+            document.execCommand("copy");
         }
     },
     
