@@ -90,7 +90,7 @@ export default {
         background: #eee;
         padding: 5px 5px 6px 7px;
         display: inline-block;
-        cursor: pointer;
+        cursor: context-menu;
         font-weight: 300;
         font-size: 12px;
         width: 190px;
