@@ -40,4 +40,8 @@ export default {
     color: #000;
     border-bottom: 2px solid;
   }
+  #fluent-features-board-backend-app header nav ul li a:focus {
+    outline: none;
+    box-shadow: none;
+  }
 </style>

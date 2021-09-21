@@ -55,7 +55,6 @@ class FFB_Model_Table {
         $description = (isset($_POST['description']) ? $_POST['description'] : '');
         $tags = (isset($_POST['tags']) ? $_POST['tags'] : '');
 
-        error_log($title . $description . $tags);
         $wpdb->insert(
             $table_name,
             array( 
@@ -95,6 +94,14 @@ class FFB_Model_Table {
         $wpdb->delete( $table_name, array( 'id' => $id ) );
         die();
     }
+
+
+    /**
+     * Updating Table's row
+     */
+    // $data = [ 'a' => NULL ]; // NULL value.
+    // $where = [ 'id' => NULL ];
+    // $wpdb->update( $wpdb->prefix . 'my_table', $data, $where );
     
 
 }
