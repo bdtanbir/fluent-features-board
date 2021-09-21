@@ -5,19 +5,17 @@ if (!defined('ABSPATH')) {
 }
 
 class FFB_Model_Table {
-    public $table_name = 'ff_board';
     public $fluent_features_board = 'fluent_features_board';
 
     public function __construct()
     {
-        add_action( 'plugins_loaded', [$this, 'ffb_list_tables'] );
+        add_action( 'plugins_loaded', [$this, 'ffb_tables_list'] );
         add_action( 'admin_enqueue_scripts', [$this, 'ffb_admin_scripts'] );
         add_action( 'wp_ajax_action_ffb_callback', [$this, 'action_ffb_callback'] );
         add_action( 'wp_ajax_nopriv_action_ffb_callback', [$this, 'action_ffb_callback'] );
-
     }
 
-    public function ffb_list_tables() {
+    public function ffb_tables_list() {
         global $wpdb;
 
         // Tables

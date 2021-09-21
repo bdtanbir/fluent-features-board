@@ -1,25 +1,30 @@
 <template>
     <div class="ffb-add-new-feature-modal">
-        <div class="ffb-add-new-feature-modal-content">
+        <div :class=" isLoading ? 'adding-ffb ffb-add-new-feature-modal-content' : 'ffb-add-new-feature-modal-content'">
+            <div v-show="isLoading || isDone" :class="isDone ? 'added-ffb form-loader' : 'form-loader'">
+                <span></span>
+                <h2 v-if="isDone" class="ffb-form-added">Done</h2>
+                <a v-if="isDone" href="" class="done-btn">OK</a>
+            </div>
             <h1>Add New</h1>
-            <form @submit.prevent="formSubmited">
+            <form :class="isDone ? 'hidden-form': ''" @submit.prevent="formSubmited">
                 <div class="input-group">
                     <label for="feature-title">
                         Title
                     </label>
-                    <input type="text" id="feature-title" v-model="title">
+                    <input type="text" id="feature-title" required v-model="title">
                 </div>
                 <div class="input-group">
                     <label for="feature-description">
                         Description
                     </label>
-                    <input type="text" id="feature-description" v-model="description">
+                    <input type="text" id="feature-description" required v-model="description">
                 </div>
                 <div class="input-group">
                     <label for="feature-tags">
                         Tags
                     </label>
-                    <input type="text" id="feature-tags" v-model="tmplTags">
+                    <input type="text" id="feature-tags" required v-model="tmplTags">
                     <span class="description">
                         Add tags with <strong>comma</strong>
                     </span>
@@ -31,38 +36,54 @@
                     <input type="checkbox" id="feature-privacy">
                 </div> -->
                 <div class="input-group">
-                    <button class="ffb-addnewfeature-submit">
+                    <button @click="formSubmitBtn" class="ffb-addnewfeature-submit">
                         Add New
                     </button>
                 </div>
             </form>
+
         </div>
     </div>
 </template>
 
 <script>
 import $ from 'jquery';
+
+
 export default {
     data() {
         return {
             title: '',
             description: '',
-            tmplTags: ''
+            tmplTags: '',
+            isDone: false,
+            isLoading: false
         }
     },
     methods: {
         formSubmited: function() {
             if (this.title && this.description && this.tmplTags) {
-                $.ajax({
-                    type: "POST",
-                    url: ajax_url.ajaxurl,
-                    data: {
-                        action: "action_ffb_callback",
-                        title: this.title,
-                        description: this.description,
-                        tags: this.tmplTags,
-                    }
-                });
+                const that = this;
+                this.isLoading = true;
+                setTimeout(() => {
+                    $.ajax({
+                        type: "POST",
+                        url: ajax_url.ajaxurl,
+                        data: {
+                            action: "action_ffb_callback",
+                            title: this.title,
+                            description: this.description,
+                            tags: this.tmplTags,
+                        },
+                        success: function() {
+                            that.title = '';
+                            that.description = '';
+                            that.tmplTags = '';
+                            that.isDone = true
+                            that.isLoading = false;
+                        }
+                    });
+                },3000);
             }
         }
     },
@@ -88,6 +109,7 @@ export default {
         width: 100%;
         max-width: 500px;
         padding: 20px 30px 30px 30px;
+        position: relative;
     }
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content h1 {
         padding: 0;
@@ -126,5 +148,74 @@ export default {
     }
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .description strong {
         color: #000;
+    }
+    .form-loader {
+        position: absolute;
+        background: rgb(255 255 255 / 80%);
+        z-index: 99;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .added-ffb.form-loader {
+        background: #fff;
+    }
+    .form-loader span {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        border: 3px solid #eee;
+        border-radius: 100%;
+        border-top: 2px solid #2771b1;
+        position: relative;
+        transition: .3s;
+    }
+    .added-ffb.form-loader span {
+        border-color: #2771b1;
+    }
+    .adding-ffb .form-loader span {
+        animation: rotating 1s infinite linear;
+    }
+    .form-loader h2 {
+        margin: 15px 0 15px 0;
+        font-size: 20px;
+    }
+    .form-loader span:before {
+        content: '';
+        width: 16px;
+        height: 35px;
+        border-bottom: 2px solid #2771b1;
+        position: absolute;
+        border-right: 2px solid #2771b1;
+        transform: rotate(45deg) scale(0);
+        left: 33px;
+        top: 16px;
+        transition: .3s;
+    }
+    .added-ffb.form-loader span:before {
+        transform: rotate(45deg) scale(1);
+    }
+    .form-loader .done-btn {
+        background: #2771b1;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        padding: 5px 13px;
+        display: inline-block;
+    }
+
+    @keyframes rotating {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>
