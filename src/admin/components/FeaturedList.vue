@@ -11,7 +11,7 @@
             </div>
         </td>
         <td>
-            <input id="ffb-shortcode" value="[Shortcodes]" title="Click to Copy" readonly>
+            <input id="ffb-shortcode" :value="'[fluent_features_board id=\''+item.id+'\']'" title="Click to Copy" readonly>
         </td>
         <td>
             <div class="ffb-tags">
@@ -83,6 +83,9 @@ export default {
         padding: 5px 5px 6px 7px;
         display: inline-block;
         cursor: pointer;
+        font-weight: 300;
+        font-size: 12px;
+        width: 190px;
     }
     .ffb-featured-lists table tbody td #ffb-shortcode:focus {
         outline: none;

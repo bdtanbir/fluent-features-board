@@ -55,6 +55,8 @@ class FFB_Admin {
      * @return void
      */
     public function ffb_menu_page_template() {
+        echo do_shortcode( '[fluent_features_board id="7"]' );
+        echo '<hr/>';
         echo '<div class="wrap"><div id="fluent-features-board-app"></div></div>';
     }
 }

@@ -46,6 +46,7 @@ final class Fluent_Features_board {
         register_activation_hook( __FILE__, array( $this, 'activate' ) );
         register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 
+        add_action( 'wp_enqueue_scripts', [$this, 'ffb_frontend_scripts'] );
         add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
     }
 
@@ -113,6 +114,10 @@ final class Fluent_Features_board {
     public function init_plugin() {
         $this->includes();
         $this->init_hooks();        
+    }
+
+    public function ffb_frontend_scripts() {
+        wp_enqueue_style( 'fluent-features-board-admin', FFB_ASSETS .'/css/fluent-features-board.admin.css' );
     }
 
     /**
