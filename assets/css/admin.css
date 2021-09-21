@@ -269,11 +269,21 @@
     background: #fff;
     border-radius: 4px;
     padding: 10px 15px;
+    max-height: 650px;
+    overflow-x: hidden;
 }
 .ffb-featured-lists table[data-v-73627687] {
     width: 100%;
     text-align: left;
     border-spacing: 0;
+}
+.ffb-featured-lists[data-v-73627687]::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 30px;
+}
+.ffb-featured-lists[data-v-73627687]::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 30px;
 }
 
 

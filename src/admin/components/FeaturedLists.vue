@@ -67,10 +67,20 @@ export default {
         background: #fff;
         border-radius: 4px;
         padding: 10px 15px;
+        max-height: 650px;
+        overflow-x: hidden;
     }
     .ffb-featured-lists table {
         width: 100%;
         text-align: left;
         border-spacing: 0;
+    }
+    .ffb-featured-lists::-webkit-scrollbar {
+        width: 6px;
+        border-radius: 30px;
+    }
+    .ffb-featured-lists::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 30px;
     }
 </style>
