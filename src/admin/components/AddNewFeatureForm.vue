@@ -1,5 +1,5 @@
 <template>
-    <div class="ffb-add-new-feature-modal">
+    <div class="ffb-add-new-feature-modal" @click.self="hideAddNewFormhandle">
         <div :class=" isLoading ? 'adding-ffb ffb-add-new-feature-modal-content' : 'ffb-add-new-feature-modal-content'">
             <div v-show="isLoading || isDone" :class="isDone ? 'added-ffb form-loader' : 'form-loader'">
                 <span></span>
@@ -86,6 +86,9 @@ export default {
                 },3000);
             // }
         },
+        hideAddNewFormhandle() {
+            this.$emit('hideAddNewForm')
+        }
     },
 }
 </script>

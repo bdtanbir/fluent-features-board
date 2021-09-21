@@ -11,7 +11,7 @@
     </div>
     <router-view />
 
-    <AddNewFeatureForm v-if="isAddnewModal" />
+    <AddNewFeatureForm v-if="isAddnewModal" @hideAddNewForm="hideAddNewFormClb" />
   </div>
 </template>
 
@@ -31,6 +31,9 @@ export default {
   methods: {
     handleAddNewFeature: function() {
       this.isAddnewModal = true
+    },
+    hideAddNewFormClb() {
+      this.isAddnewModal = false;
     }
   },
 };

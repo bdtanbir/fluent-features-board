@@ -1,5 +1,5 @@
 <template>
-    <div class="ffb-confirm-delete-table-pop">
+    <div class="ffb-confirm-delete-table-pop" @click.self="cancelDeleteHandle">
         <div class="ffb-confirm-delete-table-inner">
             <h1>Are you sure?</h1>
             <p>Do you want to delete this row?</p>
