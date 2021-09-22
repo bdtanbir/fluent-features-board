@@ -445,10 +445,12 @@
     cursor: no-drop;
 }
 .ffb-single-wrap form .ffb-single-update-btn button .update-loader {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 100%;
     border: 2px dashed #fff;
+    border-top-color: #fff;
+    border-bottom-color: #fff;
     margin-right: 5px;
 }
 .ffb-single-wrap form .ffb-single-update-btn.updating-table button .update-loader {

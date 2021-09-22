@@ -42,7 +42,7 @@ export default {
             upd_title: '',
             tableInfos: this.$route.params.item ? this.$route.params.item : {},
             isUpdated: false,
-            isUpdating: false
+            isUpdating: false,
         }
     },
     methods: {
@@ -52,6 +52,9 @@ export default {
             const description = this.$refs.upd_description.value;
             const that = this;
             this.isUpdating = true;
+            that.tableInfos.title = title;
+            that.tableInfos.tags = tags;
+            that.tableInfos.description = description;
             setTimeout(() => {
                 $.ajax({
                     type: "POST",
@@ -147,10 +150,12 @@ export default {
         cursor: no-drop;
     }
     .ffb-single-wrap form .ffb-single-update-btn button .update-loader {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
         border-radius: 100%;
         border: 2px dashed #fff;
+        border-top-color: #fff;
+        border-bottom-color: #fff;
         margin-right: 5px;
     }
     .ffb-single-wrap form .ffb-single-update-btn.updating-table button .update-loader {
