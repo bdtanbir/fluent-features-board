@@ -21,6 +21,9 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_update_fluent_features_board', [$this, 'update_fluent_features_board'] );
     }
 
+    /**
+     * Creating Table
+     */
     public function ffb_tables_list() {
         global $wpdb;
 
@@ -40,6 +43,9 @@ class FFB_Model_Table {
         dbDelta( $sql );
     }
 
+    /**
+     * FFB Global Admin Scripts
+     */
     public function ffb_admin_scripts() {
         wp_enqueue_script( 'ffb', FFB_ASSETS .'/js/fluent-features-board.js', null, FFB_VERSION, true );
         wp_localize_script( 'ffb', 'ajax_url', array(
@@ -48,6 +54,9 @@ class FFB_Model_Table {
     }
 
 
+    /**
+     * Inserting Data
+     */
     public function action_ffb_callback() {
         global $wpdb;
         // Tables

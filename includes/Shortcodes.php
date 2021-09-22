@@ -18,7 +18,6 @@ class Shortcodes {
         $atts = array_change_key_case((array) $atts, CASE_LOWER);
         $ffb_atts = shortcode_atts( 
             array(
-                'title' => 'Shortcode Output',
                 'id'    => ''
             ), $atts
         );
