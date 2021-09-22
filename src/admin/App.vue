@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style>
+  *,*:before,*:after {
+    box-sizing: border-box;
+  }
   .ffb-single-wrap form .ffb-single-update-btn button,
   .addnew-features-list {
     display: inline-block;

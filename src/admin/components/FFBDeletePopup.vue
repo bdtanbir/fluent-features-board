@@ -53,12 +53,13 @@ export default {
 
 <style scoped>
     .ffb-confirm-delete-table-pop {
-        position: absolute;
+        position: fixed;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
         background: rgb(0 0 0 / 60%);
+        padding-top: 50px;
     }
     .ffb-confirm-delete-table-pop .ffb-confirm-delete-table-inner {
         background: #fff;

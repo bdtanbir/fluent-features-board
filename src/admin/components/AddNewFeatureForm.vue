@@ -1,6 +1,7 @@
 <template>
     <div class="ffb-add-new-feature-modal" @click.self="hideAddNewFormhandle">
         <div :class=" isLoading ? 'adding-ffb ffb-add-new-feature-modal-content' : 'ffb-add-new-feature-modal-content'">
+            <span @click="hideAddNewFormhandle" class="close-ffb-add-new-modal">+</span>
             <div v-show="isLoading || isDone" :class="isDone ? 'added-ffb form-loader' : 'form-loader'">
                 <span></span>
                 <h2 v-if="isDone" class="ffb-form-added">Done</h2>
@@ -230,6 +231,22 @@ export default {
     }
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .tags span:hover {
         opacity: 0.5;
+    }
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content .close-ffb-add-new-modal {
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        background: #fff;
+        border-radius: 50%;
+        transform: rotate(45deg);
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+        z-index: 999;
     }
 
     @keyframes rotating {

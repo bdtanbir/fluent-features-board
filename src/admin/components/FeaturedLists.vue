@@ -11,7 +11,7 @@
                     <th>Tags</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="allLists">
                 <FeaturedList v-for="list in allLists" :key="list.id" :item="list" @delete="deleteTableRow(list.id)" />
             </tbody>
         </table>
