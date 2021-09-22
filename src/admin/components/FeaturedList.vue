@@ -67,7 +67,7 @@ export default {
     }
     .ffb-featured-lists table tbody th,
     .ffb-featured-lists table tbody td {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #f3f3f3;
         padding: 8px 0 8px 8px;
         transition: .3s;
     }

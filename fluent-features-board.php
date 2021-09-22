@@ -118,7 +118,7 @@ final class Fluent_Features_board {
     }
 
     public function ffb_frontend_scripts() {
-        wp_enqueue_style( 'fluent-features-board-frontend', FFB_ASSETS .'/css/fluent-features-board.frontend.css' );
+        wp_enqueue_style( 'fluent-features-board-global-frontend', FFB_ASSETS .'/css/fluent-features-board.frontend.css' );
     }
 
     public function ffb_admin_scripts() {

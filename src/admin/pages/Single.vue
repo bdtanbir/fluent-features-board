@@ -12,16 +12,16 @@
                 <input type="text" id="upd_title" ref="upd_title" :value="tableInfos.title">
             </div>
             <div class="input-group">
-                <label for="upd_tags">
-                    Tags
-                </label>
-                <input type="text" id="upd_tags" ref="upd_tags" :value="tableInfos.tags">
-            </div>
-            <div class="input-group">
                 <label for="upd_description">
                     Description
                 </label>
                 <textarea name="upd_description" id="upd_description" ref="upd_description" :value="tableInfos.description"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="upd_tags">
+                    Tags
+                </label>
+                <input type="text" id="upd_tags" ref="upd_tags" :value="tableInfos.tags">
             </div>
             <div :class="isUpdating ? 'updating-table input-group ffb-single-update-btn' : 'input-group ffb-single-update-btn'">
                 <button :disabled="isUpdating">
@@ -128,6 +128,7 @@ export default {
     }
     .ffb-single-wrap form textarea {
         height: 60px;
+        resize: none;
     }
     .ffb-single-wrap form textarea:focus,
     .ffb-single-wrap form input:focus {
@@ -153,9 +154,9 @@ export default {
         width: 10px;
         height: 10px;
         border-radius: 100%;
-        border: 2px dashed #fff;
-        border-top-color: #fff;
-        border-bottom-color: #fff;
+        border: 2px solid #fff;
+        border-top: 2px solid transparent;
+        border-bottom: 2px solid transparent;
         margin-right: 5px;
     }
     .ffb-single-wrap form .ffb-single-update-btn.updating-table button .update-loader {
