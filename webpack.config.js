@@ -9,7 +9,7 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 var appName = 'app';
 var entryPoint = {
-    // frontend: './src/frontend/main.js',
+    frontend: './src/frontend/main.js',
     admin: './src/admin/main.js',
 };
 

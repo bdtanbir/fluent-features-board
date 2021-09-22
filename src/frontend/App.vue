@@ -1,6 +1,7 @@
 <template>
   <div id="vue-frontend-app">
-    <h2>Frontend App</h2>
+    <h2>App - </h2>
+    <router-link to="/Home">Home</router-link>
 
     <router-view />
   </div>

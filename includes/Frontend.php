@@ -9,7 +9,7 @@ class Frontend {
 
     public function __construct()
     {
-        add_shortcode( 'fluent-features-board', [$this, 'render_frontend'] );
+        add_shortcode( 'fluent_features_requests', [$this, 'render_frontend'] );
     }
 
     public function render_frontend($content) {
