@@ -107,8 +107,8 @@ export default {
         top: -8px !important;
     }
     .tooltip .tooltip-inner {
-        background: #fff;
-        color: #000;
+        background: #555;
+        color: #fff;
         border-radius: 4px;
         padding: 3px 8px;
         font-size: 12px;
@@ -118,7 +118,7 @@ export default {
         position: absolute;
         width: 10px;
         height: 10px;
-        background: #ffffff;
+        background: #555;
         transform: rotate(45deg);
         left: 50%;
         bottom: -5px;
