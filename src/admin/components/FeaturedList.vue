@@ -92,10 +92,11 @@ export default {
         padding: 5px 5px 6px 7px;
         display: inline-block;
         cursor: context-menu;
-        font-weight: 300;
-        font-size: 12px;
-        width: 195px;
+        font-weight: 400;
+        font-size: 13px;
+        width: 210px;
         text-align: center;
+        margin: 0;
     }
     .ffb-featured-lists table tbody td #ffb-shortcode:focus {
         outline: none;
