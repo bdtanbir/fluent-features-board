@@ -34,7 +34,6 @@ class Shortcodes {
                         <p>
                             <?php echo esc_html($item->description); ?>
                         </p>
-
                     <?php } ?>
                 </div>
             </div>
@@ -45,9 +44,5 @@ class Shortcodes {
 
     }
 
-
-
 }
 
-
-// 

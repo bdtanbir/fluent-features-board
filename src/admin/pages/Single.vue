@@ -63,7 +63,7 @@ export default {
                         tags: tags,
                         id: that.tableInfos.id
                     },
-                    success: function(res) {
+                    success: function() {
                         console.log('updated done');
                         that.isUpdating = false;
                         that.isUpdated  = true;
