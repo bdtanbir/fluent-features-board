@@ -1,20 +1,24 @@
 <template>
     <div class="ffb-featured-lists">
-        <FFBDeletePopup v-if="isDeleteModal" @cancelDelete="cancelDeleteTableRow" :id="currentId" />
+        <div class="ffb-featured-lists-inner">
+            <FFBDeletePopup v-if="isDeleteModal" @cancelDelete="cancelDeleteTableRow" :id="currentId" />
 
-        <table class="ffb-featured-list-table">
-            <thead>
-                <tr>
-                    <td>ID</td>
-                    <th>Title</th>
-                    <th>Shortcode</th>
-                    <th>Tags</th>
-                </tr>
-            </thead>
-            <tbody v-if="allLists">
-                <FeaturedList v-for="list in allLists" :key="list.id" :item="list" @delete="deleteTableRow(list.id)" />
-            </tbody>
-        </table>
+
+            <table class="ffb-featured-list-table">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <th>Title</th>
+                        <th>Shortcode</th>
+                        <th>Tags</th>
+                    </tr>
+                </thead>
+                <tbody v-if="allLists">
+                    <FeaturedList v-for="list in allLists" :key="list.id" :item="list" @delete="deleteTableRow(list.id)" />
+                </tbody>
+            </table>
+        </div>
+        <p class="ffb-features-total-row">({{allLists.length}}) Rows</p>
     </div>
 </template>
 
@@ -67,6 +71,8 @@ export default {
         background: #fff;
         border-radius: 4px;
         padding: 10px 15px;
+    }
+    .ffb-featured-lists .ffb-featured-lists-inner {
         max-height: 650px;
         overflow-x: hidden;
     }
@@ -82,5 +88,10 @@ export default {
     .ffb-featured-lists::-webkit-scrollbar-thumb {
         background-color: #ccc;
         border-radius: 30px;
+    }
+    .ffb-featured-lists .ffb-features-total-row {
+        text-align: right;
+        font-weight: 400;
+        margin: 15px 0 5px 0;
     }
 </style>

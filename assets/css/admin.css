@@ -294,6 +294,8 @@
     background: #fff;
     border-radius: 4px;
     padding: 10px 15px;
+}
+.ffb-featured-lists .ffb-featured-lists-inner[data-v-73627687] {
     max-height: 650px;
     overflow-x: hidden;
 }
@@ -309,6 +311,11 @@
 .ffb-featured-lists[data-v-73627687]::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 30px;
+}
+.ffb-featured-lists .ffb-features-total-row[data-v-73627687] {
+    text-align: right;
+    font-weight: 400;
+    margin: 15px 0 5px 0;
 }
 
 
