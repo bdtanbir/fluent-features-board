@@ -1,6 +1,9 @@
 <template>
     <div class="ffb-single-wrap">
         <router-link to="/" class="back-to-home-btn">Back</router-link>
+        <div v-if="isUpdated" class="ffb-updated-table">
+            Updated! <span class="close-ffb-updated-table">+</span>
+        </div>
         <form @submit.prevent="updateTable">
             <div class="input-group">
                 <label for="upd_title">
@@ -34,6 +37,7 @@ export default {
         return {
             upd_title: '',
             tableInfos: this.$route.params.item ? this.$route.params.item : {},
+            isUpdated: false,
         }
     },
     methods: {
@@ -99,5 +103,29 @@ export default {
         background: #33cc0d;
         padding: 8px 15px;
         box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    }
+    .ffb-updated-table {
+        border-left: 3px solid #00a32a;
+        padding: 10px 15px 10px 15px;
+        font-size: 14px;
+        box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+        margin-top: 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .ffb-updated-table .close-ffb-updated-table {
+        background: #e4e4e4;
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        line-height: 16px;
+        text-align: center;
+        border-radius: 50%;
+        cursor: pointer;
+        color: #000;
+        transform: rotate(45deg);
+        transition: .3s;
     }
 </style>

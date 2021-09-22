@@ -381,4 +381,28 @@
     padding: 8px 15px;
     box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
 }
+.ffb-updated-table {
+    border-left: 3px solid #00a32a;
+    padding: 10px 15px 10px 15px;
+    font-size: 14px;
+    box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ffb-updated-table .close-ffb-updated-table {
+    background: #e4e4e4;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #000;
+    transform: rotate(45deg);
+    transition: .3s;
+}
 
