@@ -17,6 +17,8 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_get_ffb_lists', [$this, 'get_ffb_lists'] );
         add_action( 'wp_ajax_delete_ffb_table_column', [$this, 'delete_ffb_table_column'] );
         add_action( 'wp_ajax_nopriv_delete_ffb_table_column', [$this, 'delete_ffb_table_column'] );
+        add_action( 'wp_ajax_update_fluent_features_board', [$this, 'update_fluent_features_board'] );
+        add_action( 'wp_ajax_nopriv_update_fluent_features_board', [$this, 'update_fluent_features_board'] );
     }
 
     public function ffb_tables_list() {
@@ -99,9 +101,19 @@ class FFB_Model_Table {
     /**
      * Updating Table's row
      */
-    // $data = [ 'a' => NULL ]; // NULL value.
-    // $where = [ 'id' => NULL ];
-    // $wpdb->update( $wpdb->prefix . 'my_table', $data, $where );
+    public function update_fluent_features_board() {
+        global $wpdb;
+        $id = (isset($_POST['id']) ? $_POST['id'] : '');
+        $title = (isset($_POST['title']) ? $_POST['title'] : '');
+        $tags = (isset($_POST['tags']) ? $_POST['tags'] : '');
+        $description = (isset($_POST['description']) ? $_POST['description'] : '');
+
+        $table_name = $wpdb->prefix . $this->fluent_features_board;
+        $data = [ 'title' => $title, 'tags' => $tags, 'description' => $description ]; // NULL value.
+        $where = [ 'id' => $id ];
+        $wpdb->update( $table_name, $data, $where );
+        die();
+    }
     
 
 }

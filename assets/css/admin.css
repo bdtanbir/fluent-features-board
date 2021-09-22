@@ -315,11 +315,13 @@
   font-weight: 600;
   color: #000;
   border-bottom: 2px solid;
+  transition: .3s;
 }
 #fluent-features-board-backend-app header nav ul li a:focus {
   outline: none;
   box-shadow: none;
 }
+#fluent-features-board-backend-app header nav ul li a:hover,
 #fluent-features-board-backend-app header nav ul li a.router-link-exact-active {
   background: #2771b1;
   color: #ffffff;
@@ -344,6 +346,9 @@
     transition: .3s;
     box-shadow: 2px 2px 0px rgb(0 0 0 / 15%);
     border: 1px solid #eee;
+}
+.ffb-single-wrap .back-to-home-btn:focus {
+    outline: none;
 }
 .ffb-single-wrap form {
     margin-top: 20px;
@@ -380,6 +385,10 @@
     background: #33cc0d;
     padding: 8px 15px;
     box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+.ffb-single-wrap form .ffb-single-update-btn.updating-table button {
+    opacity: 0.4;
+    cursor: no-drop;
 }
 .ffb-updated-table {
     border-left: 3px solid #00a32a;

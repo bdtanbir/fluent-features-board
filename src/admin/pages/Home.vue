@@ -39,11 +39,13 @@ export default {
     font-weight: 600;
     color: #000;
     border-bottom: 2px solid;
+    transition: .3s;
   }
   #fluent-features-board-backend-app header nav ul li a:focus {
     outline: none;
     box-shadow: none;
   }
+  #fluent-features-board-backend-app header nav ul li a:hover,
   #fluent-features-board-backend-app header nav ul li a.router-link-exact-active {
     background: #2771b1;
     color: #ffffff;

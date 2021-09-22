@@ -14,9 +14,10 @@
 }
 
 .ffb-shortcode-output .tags {
-    font-size: 12px;
+    font-size: 13px;
     display: block;
     text-transform: inherit;
+    margin-bottom: 10px;
 }
 
 .ffb-shortcode-output p {

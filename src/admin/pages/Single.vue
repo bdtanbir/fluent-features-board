@@ -2,7 +2,7 @@
     <div class="ffb-single-wrap">
         <router-link to="/" class="back-to-home-btn">Back</router-link>
         <div v-if="isUpdated" class="ffb-updated-table">
-            Updated! <span class="close-ffb-updated-table">+</span>
+            Updated! <span @click="closeUpdatedAlert" class="close-ffb-updated-table">+</span>
         </div>
         <form @submit.prevent="updateTable">
             <div class="input-group">
@@ -21,16 +21,20 @@
                 <label for="upd_description">
                     Description
                 </label>
-                <textarea name="upd_description" id="upd_description" :value="tableInfos.description"></textarea>
+                <textarea name="upd_description" id="upd_description" ref="upd_description" :value="tableInfos.description"></textarea>
             </div>
-            <div class="input-group ffb-single-update-btn">
-                <button>Update</button>
+            <div :class="isUpdating ? 'updating-table input-group ffb-single-update-btn' : 'input-group ffb-single-update-btn'">
+                <button :disabled="isUpdating">
+                    {{isUpdating ? 'Updating...' : 'Update'}}
+                </button>
             </div>
         </form>
     </div>
 </template>
 
 <script>
+import $ from 'jquery';
+
 export default {
     name: 'Single',
     data() {
@@ -38,12 +42,40 @@ export default {
             upd_title: '',
             tableInfos: this.$route.params.item ? this.$route.params.item : {},
             isUpdated: false,
+            isUpdating: false
         }
     },
     methods: {
         updateTable() {
-            const title = this.$refs.upd_title
-            console.log('updated: '+title.value);
+            const title       = this.$refs.upd_title.value;
+            const tags        = this.$refs.upd_tags.value;
+            const description = this.$refs.upd_description.value;
+            const that = this;
+            this.isUpdating = true;
+            setTimeout(() => {
+                $.ajax({
+                    type: "POST",
+                    url: ajax_url.ajaxurl,
+                    data: {
+                        action: "update_fluent_features_board",
+                        title: title,
+                        description: description,
+                        tags: tags,
+                        id: that.tableInfos.id
+                    },
+                    success: function(res) {
+                        console.log('updated done');
+                        that.isUpdating = false;
+                        that.isUpdated  = true;
+                        setTimeout(() => {
+                            that.isUpdated = false;
+                        }, 20000)
+                    }
+                });
+            }, 2000)
+        },
+        closeUpdatedAlert() {
+            this.isUpdated = false;
         }
     },
 }
@@ -67,6 +99,9 @@ export default {
         transition: .3s;
         box-shadow: 2px 2px 0px rgb(0 0 0 / 15%);
         border: 1px solid #eee;
+    }
+    .ffb-single-wrap .back-to-home-btn:focus {
+        outline: none;
     }
     .ffb-single-wrap form {
         margin-top: 20px;
@@ -103,6 +138,10 @@ export default {
         background: #33cc0d;
         padding: 8px 15px;
         box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    }
+    .ffb-single-wrap form .ffb-single-update-btn.updating-table button {
+        opacity: 0.4;
+        cursor: no-drop;
     }
     .ffb-updated-table {
         border-left: 3px solid #00a32a;
