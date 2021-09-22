@@ -94,7 +94,8 @@ export default {
         cursor: context-menu;
         font-weight: 300;
         font-size: 12px;
-        width: 190px;
+        width: 195px;
+        text-align: center;
     }
     .ffb-featured-lists table tbody td #ffb-shortcode:focus {
         outline: none;
@@ -110,7 +111,7 @@ export default {
         background: #555;
         color: #fff;
         border-radius: 4px;
-        padding: 3px 8px;
+        padding: 6px 10px;
         font-size: 12px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
