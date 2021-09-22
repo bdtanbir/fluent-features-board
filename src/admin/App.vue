@@ -40,6 +40,7 @@ export default {
 </script>
 
 <style>
+  .ffb-single-wrap form .ffb-single-update-btn button,
   .addnew-features-list {
     display: inline-block;
     background: #2771b1;

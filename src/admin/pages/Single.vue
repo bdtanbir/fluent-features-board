@@ -1,7 +1,6 @@
 <template>
     <div class="ffb-single-wrap">
         <router-link to="/" class="back-to-home-btn">Back</router-link>
-        <h1>{{tableInfos.title}}</h1>
         <form @submit.prevent="updateTable">
             <div class="input-group">
                 <label for="upd_title">
@@ -64,5 +63,41 @@ export default {
         transition: .3s;
         box-shadow: 2px 2px 0px rgb(0 0 0 / 15%);
         border: 1px solid #eee;
+    }
+    .ffb-single-wrap form {
+        margin-top: 20px;
+        max-width: 400px;
+    }
+    .ffb-single-wrap form .input-group + .input-group {
+        margin-top: 15px;
+    }
+    .ffb-single-wrap form label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+    .ffb-single-wrap form textarea,
+    .ffb-single-wrap form input {
+        display: block;
+        width: 100%;
+        border: 1px solid #eee;
+        padding: 3px 13px;
+        transition: .3s;
+    }
+    .ffb-single-wrap form textarea {
+        height: 60px;
+    }
+    .ffb-single-wrap form textarea:focus,
+    .ffb-single-wrap form input:focus {
+        box-shadow: none;
+        outline: none;
+        border-color: #2771b1;
+    }
+    .ffb-single-wrap form .ffb-single-update-btn button {
+        border: none;
+        margin-top: 0;
+        background: #33cc0d;
+        padding: 8px 15px;
+        box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
     }
 </style>
