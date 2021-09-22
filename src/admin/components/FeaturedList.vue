@@ -99,6 +99,7 @@ export default {
         width: 210px;
         text-align: center;
         margin: 0;
+        border-radius: 2px;
     }
     .ffb-featured-lists table tbody td #ffb-shortcode:focus {
         outline: none;

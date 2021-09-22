@@ -1,7 +1,7 @@
 <template>
     <div class="ffb-single-wrap">
         <router-link to="/" class="back-to-home-btn">Back</router-link>
-        <div v-if="isUpdated" class="ffb-updated-table">
+        <div v-if="isUpdated && tableInfos" class="ffb-updated-table">
             Updated! <span @click="closeUpdatedAlert" class="close-ffb-updated-table">+</span>
         </div>
         <form @submit.prevent="updateTable">
@@ -51,7 +51,7 @@ export default {
             const tags        = this.$refs.upd_tags.value;
             const description = this.$refs.upd_description.value;
             const that = this;
-            this.isUpdating = true;
+            that.isUpdating = true;
             that.tableInfos.title = title;
             that.tableInfos.tags = tags;
             that.tableInfos.description = description;
