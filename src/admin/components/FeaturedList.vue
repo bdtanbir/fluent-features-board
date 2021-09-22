@@ -11,7 +11,7 @@
             </div>
         </td>
         <td>
-            <input ref="ffb_copy" id="ffb-shortcode" :value="'[fluent_features_board id=\''+item.id+'\']'" title="Click to Copy" @click="copyURL" readonly>
+            <input ref="ffb_copy" id="ffb-shortcode" :value="'[fluent_features_board id=\''+item.id+'\']'"  v-tooltip.top-center="copyTooltip" @click="copyURL" readonly>
         </td>
         <td>
             <div class="ffb-tags">
@@ -28,6 +28,7 @@ export default {
     props: ['item'],
     data() {
         return {
+            copyTooltip: 'Click to Copy Shortcode'
         }
     },
     methods: {
@@ -98,5 +99,29 @@ export default {
     .ffb-featured-lists table tbody td #ffb-shortcode:focus {
         outline: none;
         box-shadow: none;
+    }
+
+    /* Tooltip */
+    .tooltip {
+        z-index: 10000;
+        top: -8px !important;
+    }
+    .tooltip .tooltip-inner {
+        background: #fff;
+        color: #000;
+        border-radius: 4px;
+        padding: 3px 8px;
+        font-size: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .tooltip .tooltip-arrow  {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #ffffff;
+        transform: rotate(45deg);
+        left: 50%;
+        bottom: -5px;
+        margin-left: -5px;
     }
 </style>
