@@ -385,10 +385,23 @@
     background: #33cc0d;
     padding: 8px 15px;
     box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 .ffb-single-wrap form .ffb-single-update-btn.updating-table button {
-    opacity: 0.4;
+    opacity: 0.7;
     cursor: no-drop;
+}
+.ffb-single-wrap form .ffb-single-update-btn button .update-loader {
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    border: 2px dashed #fff;
+    margin-right: 5px;
+}
+.ffb-single-wrap form .ffb-single-update-btn.updating-table button .update-loader {
+    animation: rotating 1s infinite linear;
 }
 .ffb-updated-table {
     border-left: 3px solid #00a32a;
