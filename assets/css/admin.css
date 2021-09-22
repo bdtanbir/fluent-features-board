@@ -212,10 +212,12 @@
 .ffb-featured-list-table thead tr th, .ffb-featured-list-table thead tr td {
     border-bottom: 1px solid #eee;
     padding: 8px 0 8px 8px;
-    background: #000;
     color: #fff;
     border: none;
     border-width: 0;
+}
+.ffb-featured-list-table thead {
+    background: linear-gradient(90deg, #ba42ec, #8f42ec);
 }
 .ffb-featured-lists table tbody td #ffb-shortcode {
     border: none;

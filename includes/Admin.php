@@ -25,7 +25,7 @@ class FFB_Admin {
             $capability, 
             $slug, 
             [ $this, 'ffb_menu_page_template' ], 
-            'dashicons-admin-users',
+            'dashicons-list-view',
             50
         );
 
@@ -47,6 +47,7 @@ class FFB_Admin {
      */
     public function enqueue_scripts() {
         wp_enqueue_style( 'fluent-features-board' );
+        wp_enqueue_style( 'fluent-features-board-admin', FFB_ASSETS .'/css/fluent-features-board.admin.css' );
         wp_enqueue_script( 'fluent-features-board' );
     }
 
