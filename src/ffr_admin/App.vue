@@ -6,12 +6,12 @@
         <ul><li><router-link to="/">All Items</router-link></li></ul>
       </nav> -->
     </header>
-    <button class="addnew-feature-request">
-      Add New Request
+    <button class="addnew-feature-request" @click="handleShowAddnewFFRModal">
+      New Feature Request
     </button>
     <router-view />
 
-    <AddFFRequestForm />
+    <AddFFRequestForm v-if="isAddnewFFRModal" @hideAddNewFFRForm="hideAddNewFFRForm" />
   </div>
 </template>
 
@@ -25,9 +25,16 @@ export default {
   },
   data() {
     return {
+      isAddnewFFRModal: false
     }
   },
   methods: {
+    handleShowAddnewFFRModal() {
+      this.isAddnewFFRModal = true;
+    },
+    hideAddNewFFRForm() {
+      this.isAddnewFFRModal = false;
+    }
       
   },
 };

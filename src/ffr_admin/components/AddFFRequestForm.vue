@@ -1,13 +1,13 @@
 <template>
-    <div class="ff-request-form-modal">
+    <div class="ff-request-form-modal" @click.self="handleHideAddNewFFRForm">
         <div class="ff-request-form-modal-content">
-            <span class="close-ffb-add-new-modal">+</span>
+            <span @click="handleHideAddNewFFRForm" class="close-ffb-add-new-modal">+</span>
             <!-- <div v-show="isLoading || isDone" :class="isDone ? 'added-ffb form-loader' : 'form-loader'">
                 <span></span>
                 <h2 v-if="isDone" class="ffb-form-added">Done</h2>
                 <a v-if="isDone" href="" class="done-btn">OK</a>
             </div> -->
-            <h1>Add New Request</h1>
+            <h1>New Feature Request</h1>
             <form class="hidden-form">
                 <div class="input-group">
                     <label for="ffr-title">
@@ -48,7 +48,11 @@
 </template>
 <script>
 export default {
-    
+    methods: {
+        handleHideAddNewFFRForm() {
+            this.$emit('hideAddNewFFRForm')
+        }
+    },
 }
 </script>
 <style>
