@@ -75,7 +75,7 @@ export default {
     }
     #ff-requests-frontend-app header .header-left .header-left-content h3 a {
         text-decoration: none;
-        color: #0084ff;
+        color: #ba42ec;
     }
     #ff-requests-frontend-app header .header-left .header-left-content .links a {
         color: #878787;
@@ -106,8 +106,8 @@ export default {
     }
     #ff-requests-frontend-app header .header-right ul .user-logout-dropdown a:hover,
     #ff-requests-frontend-app header .header-right ul .user-login:hover {
-        color: #0084ff;
-        background: #ebf5ff;
+        color: #ba42ec;
+        background: #f8e8ff;
     }
     #ff-requests-frontend-app header .header-right ul .user-logout-dropdown a:focus,
     #ff-requests-frontend-app header .header-right ul .user-login:focus {
@@ -144,7 +144,7 @@ export default {
         background: #fff;
         border: 1px solid #eee;
         border-radius: 4px;
-        box-shadow: 0 0 10px rgb(51 132 255 / 20%);
+        box-shadow: 0 0 10px rgb(187 68 236 / 17%);
         padding: 10px;
         min-width: 160px;
         right: 0;
@@ -183,10 +183,10 @@ export default {
         transition: .3s;
     }
     #ff-requests-frontend-app header .header-right ul .user-logout-dropdown a:hover .logout-power-icon {
-        border-color: #0084ff;
+        border-color: #ba42ec;
     }
     #ff-requests-frontend-app header .header-right ul .user-logout-dropdown a:hover .logout-power-icon:before {
-        box-shadow: 0 0 0 3px #ebf5ff;
-        background: #0084ff;
+        box-shadow: 0 0 0 3px #f8e8ff;
+        background: #ba42ec;
     }
 </style>
