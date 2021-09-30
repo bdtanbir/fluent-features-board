@@ -1,44 +1,44 @@
 <template>
-    <div class="ffb-add-new-feature-modal" @click.self="hideAddNewFormhandle">
-        <div :class=" isLoading ? 'adding-ffb ffb-add-new-feature-modal-content' : 'ffb-add-new-feature-modal-content'">
-            <span @click="hideAddNewFormhandle" class="close-ffb-add-new-modal">+</span>
-            <div v-show="isLoading || isDone" :class="isDone ? 'added-ffb form-loader' : 'form-loader'">
+    <div class="ff-request-form-modal">
+        <div class="ff-request-form-modal-content">
+            <span class="close-ffb-add-new-modal">+</span>
+            <!-- <div v-show="isLoading || isDone" :class="isDone ? 'added-ffb form-loader' : 'form-loader'">
                 <span></span>
                 <h2 v-if="isDone" class="ffb-form-added">Done</h2>
                 <a v-if="isDone" href="" class="done-btn">OK</a>
-            </div>
-            <h1>Add New</h1>
-            <form :class="isDone ? 'hidden-form': ''" @submit.prevent="formSubmited">
+            </div> -->
+            <h1>Add New Request</h1>
+            <form class="hidden-form">
                 <div class="input-group">
-                    <label for="feature-title">
+                    <label for="ffr-title">
                         Title
                     </label>
-                    <input type="text" id="feature-title" required v-model="title">
+                    <input type="text" id="ffr-title" required>
                 </div>
                 <div class="input-group">
-                    <label for="feature-description">
+                    <label for="ffr-description">
                         Description
                     </label>
-                    <textarea name="content" id="feature-description" required v-model="description"></textarea>
+                    <textarea name="content" id="ffr-description" required ></textarea>
                 </div>
                 <div class="input-group">
-                    <label for="feature-tags">
+                    <label for="ffr-tags">
                         Tags
                     </label>
-                    <input type="text" id="feature-tags" required v-model="tmplTags">
+                    <input type="text" id="ffr-tags" required >
                     <span class="description">
                         Add tags with <strong>comma</strong>
                     </span>
                 </div>
-                <!-- <div class="input-group">
-                    <label for="feature-privacy">
-                        Make it private
+                <div class="input-group input-checkbox">
+                    <input type="checkbox" id="ffr-status">
+                    <label for="ffr-status">
+                        Make it Private
                     </label>
-                    <input type="checkbox" id="feature-privacy">
-                </div> -->
+                </div>
                 <div class="input-group">
                     <button class="ffb-addnewfeature-submit">
-                        Add New
+                        Add New ffr
                     </button>
                 </div>
             </form>
@@ -46,56 +46,13 @@
         </div>
     </div>
 </template>
-
 <script>
-import $ from 'jquery';
-
-
 export default {
-    data() {
-        return {
-            title: '',
-            description: '',
-            tmplTags: '',
-            isDone: false,
-            isLoading: false
-        }
-    },
-    methods: {
-        formSubmited: function() {
-            // if (this.title && this.description && this.tags) {
-                const that = this;
-                this.isLoading = true;
-                setTimeout(() => {
-                    $.ajax({
-                        type: "POST",
-                        url: ajax_url.ajaxurl,
-                        data: {
-                            action: "action_ffb_callback",
-                            title: this.title,
-                            description: this.description,
-                            tags: this.tmplTags,
-                        },
-                        success: function() {
-                            that.title = '';
-                            that.description = '';
-                            that.tmplTags = '';
-                            that.isDone = true
-                            that.isLoading = false;
-                        }
-                    });
-                },3000);
-            // }
-        },
-        hideAddNewFormhandle() {
-            this.$emit('hideAddNewForm')
-        }
-    },
+    
 }
 </script>
-
-<style lang="css">
-    .ffb-add-new-feature-modal {
+<style>
+    .ff-request-form-modal {
         position: fixed;
         top: 0;
         left: 0;
@@ -106,8 +63,9 @@ export default {
         justify-content: center;
         background: rgba(0,0,0,0.5);
         z-index: 99;
+    display: none;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content {
+    .ff-request-form-modal .ff-request-form-modal-content {
         background: #fff;
         margin-top: 100px;
         border-radius: 4px;
@@ -116,27 +74,27 @@ export default {
         padding: 20px 30px 30px 30px;
         position: relative;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content h1 {
+    .ff-request-form-modal .ff-request-form-modal-content h1 {
         padding: 0;
         font-size: 22px;
         margin-bottom: 20px;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group + .input-group {
+    .ff-request-form-modal .ff-request-form-modal-content form .input-group + .input-group {
         margin-top: 15px;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group textarea,
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group input {
+    .ff-request-form-modal .ff-request-form-modal-content form .input-group textarea,
+    .ff-request-form-modal .ff-request-form-modal-content form .input-group input {
         display: block;
         width: 100%;
         border: 1px solid #eee;
         padding: 3px 13px;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group label {
+    .ff-request-form-modal .ff-request-form-modal-content form .input-group label {
         font-weight: 600;
         margin-bottom: 5px;
         display: inline-block;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group .ffb-addnewfeature-submit {
+    .ff-request-form-modal .ff-request-form-modal-content form .input-group .ffb-addnewfeature-submit {
         background: #2771b1;
         border: none;
         color: #fff;
@@ -144,7 +102,7 @@ export default {
         border-radius: 4px;
         cursor: pointer;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .description {
+    .ff-request-form-modal .ff-request-form-modal-content form .description {
         font-weight: 300;
         display: block;
         color: #aaa;
@@ -152,7 +110,7 @@ export default {
         font-style: italic;
         margin: 3px 0 0 0;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .description strong {
+    .ff-request-form-modal .ff-request-form-modal-content form .description strong {
         color: #000;
     }
     .form-loader {
@@ -215,13 +173,13 @@ export default {
         padding: 5px 13px;
         display: inline-block;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .tags {
+    .ff-request-form-modal .ff-request-form-modal-content form .tags {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         margin-top: 8px;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .tags span {
+    .ff-request-form-modal .ff-request-form-modal-content form .tags span {
         background: #eee;
         border-radius: 30px;
         margin-right: 5px;
@@ -230,10 +188,10 @@ export default {
         cursor: pointer;
         transition: .2s;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .tags span:hover {
+    .ff-request-form-modal .ff-request-form-modal-content form .tags span:hover {
         opacity: 0.5;
     }
-    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content .close-ffb-add-new-modal {
+    .ff-request-form-modal .ff-request-form-modal-content .close-ffb-add-new-modal {
         position: absolute;
         right: -10px;
         top: -10px;

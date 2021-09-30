@@ -64,7 +64,7 @@ class FFB_Admin {
     }
 
     public function ffr_enqueue_scripts() {
-        wp_enqueue_style( 'fluent-features-board' );
+        // wp_enqueue_style( 'fluent-features-board' );
         wp_enqueue_style( 'fluent-features-requests' );
         wp_enqueue_script( 'fluent-features-requests' );
     }

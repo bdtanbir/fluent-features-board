@@ -18,6 +18,7 @@ table {
     align-items: flex-start;
     justify-content: center;
     background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
 }
 
 .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content {
@@ -192,7 +193,12 @@ table {
     }
 }
 
-.addnew-feature-request,
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
 .ffb-single-wrap form .ffb-single-update-btn button,
 .addnew-features-list {
     display: inline-block;
@@ -202,14 +208,8 @@ table {
     border-radius: 4px;
     margin-top: 15px;
     cursor: pointer;
-    border: none;
 }
 
-.addnew-feature-request {
-    padding: 8px 15px;
-}
-
-.ff-request-list-table h1,
 .ffb-features-list h1 {
     color: #000;
     font-size: 16px;
@@ -219,81 +219,6 @@ table {
     display: inline-block;
 }
 
-.ff-request-list-table tbody .actions,
-.ffb-features-list .actions {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.ff-request-list-table .actions .delete-column,
-.ffb-features-list .actions .delete-column {
-    color: red;
-}
-
-.ff-request-list-table tbody>tr:hover .actions,
-.ffb-featured-lists table tbody>tr:hover .actions {
-    opacity: 1;
-    visibility: visible;
-}
-
-.ff-request-list-table tbody th,
-.ff-request-list-table tbody td,
-.ffb-featured-lists table tbody th,
-.ffb-featured-lists table tbody td {
-    border-bottom: 1px solid #f3f3f3;
-    padding: 8px 0 8px 8px;
-    transition: .3s;
-}
-
-.ff-request-list-table tbody th,
-.ffb-featured-lists table tbody th {
-    vertical-align: top;
-}
-
-.ff-request-list-table tbody tr:hover th,
-.ff-request-list-table tbody tr:hover td,
-.ffb-featured-lists table tbody tr:hover th,
-.ffb-featured-lists table tbody tr:hover td {
-    background: #f6f9ff;
-}
-
-.ff-request-list-table thead tr th,
-.ff-request-list-table thead tr td,
-.ffb-featured-list-table thead tr th,
-.ffb-featured-list-table thead tr td {
-    border-bottom: 1px solid #eee;
-    padding: 8px 0 8px 8px;
-    color: #fff;
-    border: none;
-    border-width: 0;
-}
-
-.ff-request-list-table thead,
-.ffb-featured-list-table thead {
-    background: linear-gradient(90deg, #ba42ec, #8f42ec);
-}
-
-.ff-request-list-table tbody td #ffr-shortcode,
-.ffb-featured-lists table tbody td #ffb-shortcode {
-    border: none;
-    background: #eee;
-    padding: 5px 5px 6px 7px;
-    display: inline-block;
-    cursor: context-menu;
-    font-weight: 400;
-    font-size: 13px;
-    width: 210px;
-    text-align: center;
-    margin: 0;
-    border-radius: 2px;
-}
-
-.ff-request-list-table tbody td #ffr-shortcode:focus,
-.ffb-featured-lists table tbody td #ffb-shortcode:focus {
-    outline: none;
-    box-shadow: none;
-}
-
 .ffb-features-list .actions {
     opacity: 0;
     visibility: hidden;
@@ -354,40 +279,6 @@ table {
 .ffb-featured-lists table tbody td #ffb-shortcode:focus {
     outline: none;
     box-shadow: none;
-}
-
-.ff-requests-lists {
-    margin-top: 30px;
-    background: #fff;
-    border-radius: 4px;
-    padding: 10px 15px;
-}
-
-.ff-requests-lists .ff-requests-lists-inner {
-    max-height: 650px;
-    overflow-x: hidden;
-}
-
-.ff-requests-lists table {
-    width: 100%;
-    text-align: left;
-    border-spacing: 0;
-}
-
-.ff-requests-lists::-webkit-scrollbar {
-    width: 6px;
-    border-radius: 30px;
-}
-
-.ff-requests-lists::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 30px;
-}
-
-.ff-requests-lists .ff-requests-total-rows {
-    text-align: right;
-    font-weight: 400;
-    margin: 15px 0 5px 0;
 }
 
 
@@ -482,35 +373,35 @@ table {
     background: #08b308;
 }
 
-.ffb-featured-lists {
+.ffb-featured-lists[data-v-73627687] {
     margin-top: 30px;
     background: #fff;
     border-radius: 4px;
     padding: 10px 15px;
 }
 
-.ffb-featured-lists .ffb-featured-lists-inner {
+.ffb-featured-lists .ffb-featured-lists-inner[data-v-73627687] {
     max-height: 650px;
     overflow-x: hidden;
 }
 
-.ffb-featured-lists table {
+.ffb-featured-lists table[data-v-73627687] {
     width: 100%;
     text-align: left;
     border-spacing: 0;
 }
 
-.ffb-featured-lists::-webkit-scrollbar {
+.ffb-featured-lists[data-v-73627687]::-webkit-scrollbar {
     width: 6px;
     border-radius: 30px;
 }
 
-.ffb-featured-lists::-webkit-scrollbar-thumb {
+.ffb-featured-lists[data-v-73627687]::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 30px;
 }
 
-.ffb-featured-lists .ffb-features-total-row {
+.ffb-featured-lists .ffb-features-total-row[data-v-73627687] {
     text-align: right;
     font-weight: 400;
     margin: 15px 0 5px 0;

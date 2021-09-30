@@ -11,14 +11,17 @@
     </button>
     <router-view />
 
+    <AddFFRequestForm />
   </div>
 </template>
 
 <script>
+import AddFFRequestForm from './components/AddFFRequestForm.vue';
 
 export default {
   name: "App",
   components: {
+    AddFFRequestForm
   },
   data() {
     return {

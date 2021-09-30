@@ -102,7 +102,7 @@ class FFB_Assets {
             'fluent-features-board' => [
                 'src' =>  FFB_ASSETS . '/css/admin.css'
             ],
-            'fluent-features-request' => [
+            'fluent-features-requests' => [
                 'src' =>  FFB_ASSETS . '/css/ffr_admin.css'
             ],
             'fluent-features-board-frontend' => [
