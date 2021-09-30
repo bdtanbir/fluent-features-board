@@ -1,17 +1,20 @@
 <template>
-  <div class="hello">
-    <span>{{ msg }}</span>
+  <div class="ff-requests-list-home">
+    <FFRequests />
   </div>
 </template>
 
 <script>
+import FFRequests from '../components/FFRequests.vue';
+
 export default {
-
   name: 'Home',
-
+  components: {
+    FFRequests
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js Frontend App'
+      
     }
   }
 }

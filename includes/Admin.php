@@ -28,8 +28,17 @@ class FFB_Admin {
             'dashicons-list-view',
             50
         );
+        $submenu = add_submenu_page( 
+            $slug, 
+            __('Features Request Lists', 'fluent-features-board'), 
+            __('Features Request Lists', 'fluent-features-board'),
+            $capability, 
+            'fluent-request-lists',
+            [$this, 'features_request_lists']
+        );
 
         add_action( 'load-' . $hook, [ $this, 'init_hooks'] );
+        add_action( 'load-' . $submenu, [ $this, 'init_submenu_hooks'] );
     }
 
     /**
@@ -38,6 +47,10 @@ class FFB_Admin {
      */
     public function init_hooks() {
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+    }
+
+    public function init_submenu_hooks() {
+        add_action( 'admin_enqueue_scripts', [ $this, 'ffr_enqueue_scripts' ] );
     }
 
     /**
@@ -50,11 +63,22 @@ class FFB_Admin {
         wp_enqueue_script( 'fluent-features-board' );
     }
 
+    public function ffr_enqueue_scripts() {
+        wp_enqueue_style( 'fluent-features-board' );
+        wp_enqueue_style( 'fluent-features-requests' );
+        wp_enqueue_script( 'fluent-features-requests' );
+    }
+
     /**
      * Render our admin page
      * @return void
      */
     public function ffb_menu_page_template() {
         echo '<div class="wrap"><div id="fluent-features-board-app"></div></div>';
+    }
+
+
+    public function features_request_lists() {
+        echo '<div class="wrap"><div id="fluent-features-requests-app"></div></div>';
     }
 }

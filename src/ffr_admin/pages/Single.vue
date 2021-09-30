@@ -1,0 +1,124 @@
+<template>
+    <div class="ffb-single-wrap">
+        <router-link to="/" class="back-to-home-btn">Back</router-link>
+        <h1>Single</h1>
+    </div>
+</template>
+
+<script>
+
+export default {
+    name: 'Single',
+    data() {
+        return {
+        }
+    },
+    methods: {
+        
+    },
+}
+</script>
+
+<style>
+    .ffb-single-wrap {
+        margin-top: 15px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 0 30px rgb(0 0 0 / 2%);
+        padding: 20px 20px 20px 20px;
+    }
+    .ffb-single-wrap .back-to-home-btn {
+        display: inline-block;
+        background: #fff;
+        text-decoration: none;
+        color: #000;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: .3s;
+        box-shadow: 2px 2px 0px rgb(0 0 0 / 15%);
+        border: 1px solid #eee;
+    }
+    .ffb-single-wrap .back-to-home-btn:focus {
+        outline: none;
+    }
+    .ffb-single-wrap form {
+        margin-top: 20px;
+        max-width: 400px;
+    }
+    .ffb-single-wrap form .input-group + .input-group {
+        margin-top: 15px;
+    }
+    .ffb-single-wrap form label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+    .ffb-single-wrap form textarea,
+    .ffb-single-wrap form input {
+        display: block;
+        width: 100%;
+        border: 1px solid #eee;
+        padding: 3px 13px;
+        transition: .3s;
+    }
+    .ffb-single-wrap form textarea {
+        height: 60px;
+        resize: none;
+    }
+    .ffb-single-wrap form textarea:focus,
+    .ffb-single-wrap form input:focus {
+        box-shadow: none;
+        outline: none;
+        border-color: #2771b1;
+    }
+    .ffb-single-wrap form .ffb-single-update-btn button {
+        border: none;
+        margin-top: 0;
+        background: #33cc0d;
+        padding: 8px 15px;
+        box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .ffb-single-wrap form .ffb-single-update-btn.updating-table button {
+        opacity: 0.7;
+        cursor: no-drop;
+    }
+    .ffb-single-wrap form .ffb-single-update-btn button .update-loader {
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        border: 2px solid #fff;
+        border-top: 2px solid transparent;
+        border-bottom: 2px solid transparent;
+        margin-right: 5px;
+    }
+    .ffb-single-wrap form .ffb-single-update-btn.updating-table button .update-loader {
+        animation: rotating 1s infinite linear;
+    }
+    .ffb-updated-table {
+        border-left: 3px solid #00a32a;
+        padding: 10px 15px 10px 15px;
+        font-size: 14px;
+        box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+        margin-top: 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .ffb-updated-table .close-ffb-updated-table {
+        background: #e4e4e4;
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        line-height: 16px;
+        text-align: center;
+        border-radius: 50%;
+        cursor: pointer;
+        color: #000;
+        transform: rotate(45deg);
+        transition: .3s;
+    }
+</style>

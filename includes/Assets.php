@@ -80,6 +80,12 @@ class FFB_Assets {
                 'deps'      => [ 'jquery', 'fluent-features-board-vendor', 'fluent-features-board-runtime' ],
                 'version'   => filemtime( FFB_PATH . '/assets/js/admin.js' ),
                 'in_footer' => true
+            ],
+            'fluent-features-requests' => [
+                'src'       => FFB_ASSETS . '/js/ffr_admin.js',
+                'deps'      => [ 'jquery', 'fluent-features-board-vendor', 'fluent-features-board-runtime' ],
+                'version'   => filemtime( FFB_PATH . '/assets/js/ffr_admin.js' ),
+                'in_footer' => true
             ]
         ];
 
@@ -95,6 +101,9 @@ class FFB_Assets {
         $styles = [
             'fluent-features-board' => [
                 'src' =>  FFB_ASSETS . '/css/admin.css'
+            ],
+            'fluent-features-request' => [
+                'src' =>  FFB_ASSETS . '/css/ffr_admin.css'
             ],
             'fluent-features-board-frontend' => [
                 'src' =>  FFB_ASSETS . '/css/frontend.css'

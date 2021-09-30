@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) {
 
 class FFB_Model_Table {
     public $fluent_features_board = 'fluent_features_board';
+    public $ff_requests_list = 'ff_requests_list';
 
     public function __construct()
     {
@@ -25,22 +26,7 @@ class FFB_Model_Table {
      * Creating Table
      */
     public function ffb_tables_list() {
-        global $wpdb;
-
-        // Tables
-        $table_name = $wpdb->prefix . $this->fluent_features_board;
-        $charset_collate = $wpdb->get_charset_collate();
-
-        $sql = "CREATE TABLE $table_name (
-        id mediumint(9) NOT NULL AUTO_INCREMENT,
-        title text NOT NULL,
-        tags text NOT NULL,
-        description text NOT NULL,
-        PRIMARY KEY  (id)
-        ) $charset_collate;";
-
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-        dbDelta( $sql );
+        
     }
 
     /**

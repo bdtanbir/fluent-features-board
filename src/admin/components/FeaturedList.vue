@@ -39,6 +39,10 @@ export default {
             var Url = this.$refs.ffb_copy;
             Url.select();
             document.execCommand("copy");
+            this.copyTooltip = 'Copied Shortcode';
+            setTimeout(() => {
+                this.copyTooltip = 'Click to Copy Shortcode';
+            }, 3000)
         }
     },
     

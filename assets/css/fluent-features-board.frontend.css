@@ -23,3 +23,17 @@
 .ffb-shortcode-output p {
     font-size: 16px;
 }
+
+.fluent-features-request-lists-wrapper {
+    background: #fff;
+}
+
+.fluent-features-request-lists-wrapper #main {
+    padding: 0;
+}
+
+.fluent-features-request-lists-wrapper #vue-frontend-app {
+    max-width: 1200px;
+    padding: 0 15px;
+    margin: auto;
+}

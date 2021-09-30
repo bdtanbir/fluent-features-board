@@ -1,7 +1,11 @@
-#toplevel_page_fluent-features-board a {
+#toplevel_page_fluent-features-board>a {
     background: linear-gradient(45deg, #ba42ec, #8f42ec, #0073aa, #ba42ec, #8f42ec) !important;
     background-size: 400% 400% !important;
     animation: gradientBGAnimation 10s ease infinite;
+}
+
+#toplevel_page_fluent-features-board>a:hover {
+    color: #ffffff;
 }
 
 @keyframes gradientBGAnimation {

@@ -34,6 +34,9 @@ final class Fluent_Features_board {
     private $container = array();
     public $columns = array();
 
+    public $fluent_features_board = 'fluent_features_board';
+    public $ff_requests_list = 'ff_requests_list';
+
     /**
      * Constructor for the Fluent_Features_board class
      * Sets up all the appropriate hooks and actions
@@ -114,7 +117,8 @@ final class Fluent_Features_board {
      */
     public function init_plugin() {
         $this->includes();
-        $this->init_hooks();        
+        $this->init_hooks();
+        $this->ffb_wpdb_tables();
     }
 
     public function ffb_frontend_scripts() {
@@ -161,9 +165,9 @@ final class Fluent_Features_board {
         require_once FFB_INCLUDES . '/Assets.php';
         require_once FFB_INCLUDES . '/Shortcodes.php';
 
-        if ( $this->is_request( 'admin' ) ) {
+        // if ( $this->is_request( 'admin' ) ) {
             require_once FFB_INCLUDES . '/Admin.php';
-        }
+        // }
         if ( $this->is_request( 'frontend' ) ) {
             require_once FFB_INCLUDES . '/Frontend.php';
         }
@@ -182,6 +186,40 @@ final class Fluent_Features_board {
 
         // Localize our plugin
         add_action( 'init', array( $this, 'localization_setup' ) );
+    }
+
+    public function ffb_wpdb_tables() {
+        global $wpdb;
+
+        // Tables
+        $table_name = $wpdb->prefix . $this->fluent_features_board;
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql = "CREATE TABLE $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        title text NOT NULL,
+        tags text NOT NULL,
+        description text NOT NULL,
+        PRIMARY KEY  (id)
+        ) $charset_collate;";
+
+
+        // Tables
+        $ffr_table_name = $wpdb->prefix . $this->ff_requests_list;
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql2 = "CREATE TABLE $ffr_table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        title text NOT NULL,
+        description text NOT NULL,
+        post_status text NOT NULL,
+        PRIMARY KEY  (id)
+        ) $charset_collate;";
+
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+        // require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql2 );
     }
 
     /**
