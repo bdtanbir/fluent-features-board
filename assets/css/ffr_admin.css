@@ -28,6 +28,19 @@
 .ff-request-form-modal .ff-request-form-modal-content form .input-group + .input-group {
     margin-top: 15px;
 }
+.ff-request-form-modal .ff-request-form-modal-content form .input-group .ffr-tags-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 7px;
+}
+.ff-request-form-modal .ff-request-form-modal-content form .input-group .ffr-tags-list span {
+    margin-right: 5px;
+    background: #f1f1f1;
+    padding: 2px 7px;
+    border-radius: 30px;
+    cursor: pointer;
+}
 .ff-request-form-modal .ff-request-form-modal-content form .input-group textarea,
 .ff-request-form-modal .ff-request-form-modal-content form .input-group input {
     display: block;

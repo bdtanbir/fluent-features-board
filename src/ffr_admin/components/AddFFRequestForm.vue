@@ -8,30 +8,33 @@
                 <a v-if="isDone" href="" class="done-btn">OK</a>
             </div> -->
             <h1>New Feature Request</h1>
-            <form class="hidden-form">
+            <form class="hidden-form" @submit.prevent="ffrequest_submit">
                 <div class="input-group">
                     <label for="ffr-title">
                         Title
                     </label>
-                    <input type="text" id="ffr-title" required>
+                    <input type="text" id="ffr-title" required v-model="title">
                 </div>
                 <div class="input-group">
                     <label for="ffr-description">
                         Description
                     </label>
-                    <textarea name="content" id="ffr-description" required ></textarea>
+                    <textarea name="description" id="ffr-description" required  v-model="description"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="ffr-tags">
                         Tags
                     </label>
-                    <input type="text" id="ffr-tags" required >
+                    <input type="text" id="ffr-tags" required v-model="tempSkill" @keyup.188="addSkill">
                     <span class="description">
                         Add tags with <strong>comma</strong>
                     </span>
+                    <div class="ffr-tags-list">
+                        <span v-for="skill in skills" :key="skill" @click="deleteSkill(skill)">{{skill}}</span>
+                    </div>
                 </div>
                 <div class="input-group input-checkbox">
-                    <input type="checkbox" id="ffr-status">
+                    <input type="checkbox" id="ffr-status" v-model="status">
                     <label for="ffr-status">
                         Make it Private
                     </label>
@@ -47,10 +50,38 @@
     </div>
 </template>
 <script>
+import $ from 'jquery';
+
 export default {
+    data() {
+        return {
+            title: '',
+            tempSkill: '',
+            skills: [],
+            description: '',
+            status: false
+        }
+    },
     methods: {
+        addSkill(e) {
+            this.tempSkill = this.tempSkill.replace(',', '')
+            if (e.key === "," && this.tempSkill) {
+                if (!this.skills.includes(this.tempSkill)) {
+                this.skills.push(this.tempSkill);
+                }
+                this.tempSkill = "";
+            }
+        },
+        deleteSkill(skill) {
+            this.skills = this.skills.filter((item) => {
+                return skill !== item;
+            });
+        },
         handleHideAddNewFFRForm() {
             this.$emit('hideAddNewFFRForm')
+        },
+        ffrequest_submit() {
+            console.log('submited');
         }
     },
 }
@@ -84,6 +115,19 @@ export default {
     }
     .ff-request-form-modal .ff-request-form-modal-content form .input-group + .input-group {
         margin-top: 15px;
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-group .ffr-tags-list {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 7px;
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-group .ffr-tags-list span {
+        margin-right: 5px;
+        background: #f1f1f1;
+        padding: 2px 7px;
+        border-radius: 30px;
+        cursor: pointer;
     }
     .ff-request-form-modal .ff-request-form-modal-content form .input-group textarea,
     .ff-request-form-modal .ff-request-form-modal-content form .input-group input {
