@@ -12,13 +12,13 @@ export default {
 
 <style>
     .ff-request-footer {
-        background: #ebf5ff;
+        background: #f8e8ff;
         text-align: center;
         padding: 15px 10px;
     }
     .ff-request-footer p a {
         text-decoration: none;
-        color: #0084ff;
+        color: #ba42ec;
         font-size: 15px;
     }
 </style>

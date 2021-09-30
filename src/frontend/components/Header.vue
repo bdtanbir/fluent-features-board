@@ -53,7 +53,7 @@ export default {
         padding: 10px 0;
     }
     #ff-requests-frontend-app .ffr-wrap {
-        max-width: 700px;
+        max-width: 600px;
         margin: auto;
     }
     #ff-requests-frontend-app header .ffr-wrap {
@@ -109,6 +109,10 @@ export default {
         color: #ba42ec;
         background: #f8e8ff;
     }
+    .ff-requests-header .ff-requests-search input:focus,
+    .ff-requests-header .ff-addnewrequest:focus,
+    .ff-requests-form .input-group textarea:focus,
+    .ff-requests-form .input-group input:focus,
     #ff-requests-frontend-app header .header-right ul .user-logout-dropdown a:focus,
     #ff-requests-frontend-app header .header-right ul .user-login:focus {
         outline: none;
@@ -182,6 +186,9 @@ export default {
         box-shadow: 0 0 0 3px #fff;
         transition: .3s;
     }
+    .ff-requests-header .ff-requests-search input:focus,
+    .ff-requests-form .input-group textarea:focus,
+    .ff-requests-form .input-group input:focus,
     #ff-requests-frontend-app header .header-right ul .user-logout-dropdown a:hover .logout-power-icon {
         border-color: #ba42ec;
     }
