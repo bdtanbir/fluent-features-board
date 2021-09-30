@@ -38,13 +38,14 @@ export default {
     box-sizing: border-box;
   }
   .ff-request-single-wrap form .ff-request-single-update-btn button,
-  .addnew-features-list {
+  .addnew-feature-request {
     display: inline-block;
     background: #2771b1;
     color: #fff;
-    padding: 6px 15px;
+    padding: 8px 15px;
     border-radius: 4px;
     margin-top: 15px;
     cursor: pointer;
+    border: none;
   }
 </style>

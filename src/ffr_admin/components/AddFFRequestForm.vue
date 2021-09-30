@@ -38,7 +38,7 @@
                 </div>
                 <div class="input-group">
                     <button class="ffb-addnewfeature-submit">
-                        Add New ffr
+                        Add New
                     </button>
                 </div>
             </form>
@@ -63,7 +63,6 @@ export default {
         justify-content: center;
         background: rgba(0,0,0,0.5);
         z-index: 99;
-    display: none;
     }
     .ff-request-form-modal .ff-request-form-modal-content {
         background: #fff;
@@ -93,6 +92,49 @@ export default {
         font-weight: 600;
         margin-bottom: 5px;
         display: inline-block;
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-group input[type="checkbox"] {
+        width: auto;
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-checkbox {
+        display: flex;
+        align-items: center;
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-checkbox input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        box-shadow: none;
+        border: 1px solid #eee;
+        border-radius: 2px;
+        margin: 0;
+        position: relative;
+        transition: .3s;
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-checkbox input[type="checkbox"]:before {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 3px;
+        width: 6px;
+        height: 10px;
+        border-bottom: 2px solid #fff;
+        border-right: 2px solid #fff;
+        transform: rotate(33deg) scale(0);
+        transition: .2s;
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-checkbox input[type="checkbox"]:checked:before {
+        left: 10px;
+        top: 6px;
+        transform: rotate(33deg) scale(1);
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-checkbox input[type="checkbox"]:checked {
+        background: #ba42ec;
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-checkbox input[type="checkbox"]:checked {
+        border-color: #ba42ec;
+    }
+    .ff-request-form-modal .ff-request-form-modal-content form .input-checkbox label {
+        margin: 0 0 0 8px;
     }
     .ff-request-form-modal .ff-request-form-modal-content form .input-group .ffb-addnewfeature-submit {
         background: #2771b1;
