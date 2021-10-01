@@ -28,15 +28,18 @@
 .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group + .input-group {
     margin-top: 15px;
 }
+.ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group select,
 .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group textarea,
 .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group input {
     display: block;
     width: 100%;
     border: 1px solid #eee;
     padding: 3px 13px;
+    max-width: 100%;
+    min-height: auto;
 }
 .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group label {
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 5px;
     display: inline-block;
 }

@@ -16,26 +16,40 @@
                     <input type="text" id="feature-title" required v-model="title">
                 </div>
                 <div class="input-group">
-                    <label for="feature-description">
-                        Description
+                    <label for="feature-logo">
+                        Logo
                     </label>
-                    <textarea name="content" id="feature-description" required v-model="description"></textarea>
+                    <input type="file" id="feature-logo" ref="logourl" @change="logouploader" required>
                 </div>
                 <div class="input-group">
-                    <label for="feature-tags">
-                        Tags
+                    <label for="sort_requests_by">
+                        Sort requests by
                     </label>
-                    <input type="text" id="feature-tags" required v-model="tmplTags">
-                    <span class="description">
-                        Add tags with <strong>comma</strong>
-                    </span>
+                    <select name="sort_requests_by" id="sort_requests_by" v-model="sort_requests_by">
+                        <option value="alphabetical">Alphabetical</option>
+                        <option value="random">Random</option>
+                        <option value="upvotes">Number of Upvotes</option>
+                        <option value="commets">Number of Comments</option>
+                    </select>
                 </div>
-                <!-- <div class="input-group">
-                    <label for="feature-privacy">
-                        Make it private
+                <div class="input-group">
+                    <label for="show_upvotes">
+                        Show upvotes
                     </label>
-                    <input type="checkbox" id="feature-privacy">
-                </div> -->
+                    <select name="show_upvotes" id="show_upvotes" v-model="show_upvotes">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="visibility">
+                        Visibility
+                    </label>
+                    <select name="visibility" id="visibility" v-model="visibility">
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </select>
+                </div>
                 <div class="input-group">
                     <button class="ffb-addnewfeature-submit">
                         Add New
@@ -55,10 +69,13 @@ export default {
     data() {
         return {
             title: '',
-            description: '',
-            tmplTags: '',
             isDone: false,
-            isLoading: false
+            isLoading: false,
+            sort_requests_by: 'alphabetical',
+            show_upvotes: 'yes',
+            visibility: 'public',
+            logo: '',
+            logourl: ''
         }
     },
     methods: {
@@ -66,30 +83,33 @@ export default {
             // if (this.title && this.description && this.tags) {
                 const that = this;
                 this.isLoading = true;
-                setTimeout(() => {
-                    $.ajax({
-                        type: "POST",
-                        url: ajax_url.ajaxurl,
-                        data: {
-                            action: "action_ffb_callback",
-                            title: this.title,
-                            description: this.description,
-                            tags: this.tmplTags,
-                        },
-                        success: function() {
-                            that.title = '';
-                            that.description = '';
-                            that.tmplTags = '';
-                            that.isDone = true
-                            that.isLoading = false;
-                        }
-                    });
-                },3000);
+                // setTimeout(() => {
+                //     $.ajax({
+                //         type: "POST",
+                //         url: ajax_url.ajaxurl,
+                //         data: {
+                //             action: "action_ffb_callback",
+                //             title: this.title,
+                //         },
+                //         success: function() {
+                //             that.title = '';
+                //             that.isDone = true
+                //             that.isLoading = false;
+                //         }
+                //     });
+                // },3000);
             // }
         },
         hideAddNewFormhandle() {
             this.$emit('hideAddNewForm')
+        },
+        logouploader(e) {
+            console.log(e);
         }
+    },
+    mounted() {
+            // this.logo = this.$refs.logourl.value
+            // console.log(this.logo);
     },
 }
 </script>
@@ -124,15 +144,18 @@ export default {
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group + .input-group {
         margin-top: 15px;
     }
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group select,
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group textarea,
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group input {
         display: block;
         width: 100%;
         border: 1px solid #eee;
         padding: 3px 13px;
+        max-width: 100%;
+        min-height: auto;
     }
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group label {
-        font-weight: 600;
+        font-weight: 400;
         margin-bottom: 5px;
         display: inline-block;
     }

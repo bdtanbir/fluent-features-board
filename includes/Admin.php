@@ -17,11 +17,11 @@ class FFB_Admin {
      */
     public function admin_menu() {
         $capability = 'manage_options';
-        $slug       = 'fluent-features-board';
+        $slug       = 'fluent-features-boards';
 
         $hook = add_menu_page( 
-            __( 'Fluent Features Board', 'fluent-features-board' ), 
-            __( 'Fluent Features Board', 'fluent-features-board' ), 
+            __( 'Fluent Features Boards', 'fluent-features-board' ), 
+            __( 'Fluent Features Boards', 'fluent-features-board' ), 
             $capability, 
             $slug, 
             [ $this, 'ffb_menu_page_template' ], 

@@ -1,12 +1,12 @@
 <template>
     <div class="ff-request-form-modal" @click.self="handleHideAddNewFFRForm">
-        <div class="ff-request-form-modal-content">
+        <div :class="isLoading ? 'adding-ffb ff-request-form-modal-content' : 'ff-request-form-modal-content'">
             <span @click="handleHideAddNewFFRForm" class="close-ffb-add-new-modal">+</span>
-            <!-- <div v-show="isLoading || isDone" :class="isDone ? 'added-ffb form-loader' : 'form-loader'">
+            <div v-show="isLoading || isDone" :class="isDone ? 'added-ffb form-loader' : 'form-loader'">
                 <span></span>
                 <h2 v-if="isDone" class="ffb-form-added">Done</h2>
                 <a v-if="isDone" href="" class="done-btn">OK</a>
-            </div> -->
+            </div>
             <h1>New Feature Request</h1>
             <form class="hidden-form" @submit.prevent="ffrequest_submit">
                 <div class="input-group">
@@ -26,8 +26,9 @@
                         Tags
                     </label>
                     <input type="text" id="ffr-tags" v-model="tempSkill" @keyup.188="addSkill">
+                    <!-- <input type="hidden" id="ffr-alltags"  :value="skills"> -->
                     <span class="description">
-                        Add tags with <strong>comma</strong>
+                        Add tags by using <strong>comma</strong>
                     </span>
                     <div class="ffr-tags-list">
                         <span v-for="skill in skills" :key="skill" @click="deleteSkill(skill)">{{skill}}</span>
@@ -50,7 +51,7 @@
     </div>
 </template>
 <script>
-import $ from 'jquery';
+// import $ from 'jquery';
 
 export default {
     data() {
@@ -59,7 +60,9 @@ export default {
             tempSkill: '',
             skills: [],
             description: '',
-            status: false
+            status: false,
+            isDone: false,
+            isLoading: false
         }
     },
     methods: {
@@ -81,7 +84,16 @@ export default {
             this.$emit('hideAddNewFFRForm')
         },
         ffrequest_submit() {
-            console.log('submited');
+            this.isLoading = true;
+            setTimeout(() => {
+                console.log('submited');
+                console.log('Title: '+this.title);
+                console.log('Description: '+this.description);
+                console.log('Skills: '+this.skills);
+                console.log('Status: '+this.status); 
+                this.isDone = true  
+                this.isLoading = false; 
+            }, 3000);
         }
     },
 }
