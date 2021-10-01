@@ -1,5 +1,9 @@
 <template>
   <div class="home">
+    <div class="addnew-features-list" @click="handleAddNewFeature">
+      Add New Feature Board
+    </div>
+    
     <FeaturedLists />
   </div>
 </template>

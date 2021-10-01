@@ -246,9 +246,12 @@
     margin: 0 0 2px 0;
     display: inline-block;
 }
-.ffb-features-list h1 img {
-    width: 50px;
-    height: 50px;
+.ffb-features-list h1 a {
+    color: #000;
+    text-decoration: none;
+}
+.ffb-features-list h1 a:hover {
+    color: #2771b1;
 }
 .ffb-features-list .actions {
     opacity: 0;
@@ -604,5 +607,82 @@
     opacity: 0;
     padding: 0;
     margin: 0;
+}
+
+
+.ffr-feature-board-single-header {
+    margin-top: 10px;
+}
+.ffr-feature-board-single-header .d-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ffr-feature-board-single-header .ff-addnewrequest {
+    background: #a8adb9;
+    color: #fff;
+    padding: 8px 16px;
+    display: inline-block;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    transition: .3s;
+    cursor: pointer;
+}
+.ffr-feature-board-single-header .ff-addnewrequest:active,
+.ffr-feature-board-single-header .ff-addnewrequest:hover {
+    background: #828897 !important;
+}
+.ffr-feature-board-single-header .ff-requests-search input {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 7px 15px;
+    font-size: 14px;
+    width: 300px;
+}
+.ff-requests-form {
+    border: 1px solid #e1eaea;
+    border-radius: 4px;
+    margin-top: 30px;
+    padding: 15px 20px 20px 20px;
+}
+.ff-requests-form h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+}
+.ff-requests-form .input-group textarea,
+.ff-requests-form .input-group input {
+    width: 100%;
+    padding: 6px 15px;
+    border: 1px solid #e1eaea;
+    border-radius: 4px;
+    font-size: 14px;
+    margin: 0;
+    transition: .2s;
+}
+.ff-requests-form .input-group + .input-group {
+    margin-top: 15px;
+}
+.ff-requests-form .input-group textarea {
+    height: 100px;
+    display: block;
+}
+.ff-requests-form .ff-request-submit {
+    background: #ba42ec !important;
+    color: #fff !important;
+    border: none;
+    padding: 8px 18px;
+    font-size: 15px;
+    border-radius: 4px;
+}
+.ff-requests-form-wrap {
+    max-height: 0;
+    transition: .5s;
+    overflow: hidden;
+}
+.active.ff-requests-form-wrap {
+    max-height: 400px;
 }
 
