@@ -25,7 +25,7 @@
                     <label for="ffr-tags">
                         Tags
                     </label>
-                    <input type="text" id="ffr-tags" required v-model="tempSkill" @keyup.188="addSkill">
+                    <input type="text" id="ffr-tags" v-model="tempSkill" @keyup.188="addSkill">
                     <span class="description">
                         Add tags with <strong>comma</strong>
                     </span>

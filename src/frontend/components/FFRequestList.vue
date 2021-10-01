@@ -55,8 +55,9 @@ export default {
         border-left: 6px solid transparent;
         transform: rotate(-45deg);
     }
-    .ff-requests-list-box .ff-request-item .ff-request-vote .ff-request-vote-btn:hover {
-        background: #828897;
+    .ff-requests-list-box .ff-request-item .ff-request-vote:hover .ff-request-vote-btn {
+        border-right-color: #828897;
+        border-top-color: #828897;
     }
     .ff-requests-list-box .ff-request-item .ff-request-vote .ff-request-vote-count {
         line-height: 14px;
@@ -104,6 +105,10 @@ export default {
         bottom: -2px;
         left: 3px;
         transform: skew(0deg, -43deg);
+    }
+    .ff-requests-list-box .ff-request-item .ff-request-comment-count:hover .comment-icon:before,
+    .ff-requests-list-box .ff-request-item .ff-request-comment-count:hover .comment-icon {
+        background: #828897;
     }
     .ff-requests-list-box .ff-request-item .ff-request-comment-count .comment-number {
         font-size: 15px;
