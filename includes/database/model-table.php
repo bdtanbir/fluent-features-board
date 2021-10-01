@@ -104,13 +104,23 @@ class FFB_Model_Table {
         global $wpdb;
         $id = (isset($_POST['id']) ? $_POST['id'] : '');
         $title = (isset($_POST['title']) ? $_POST['title'] : '');
-        $tags = (isset($_POST['tags']) ? $_POST['tags'] : '');
-        $description = (isset($_POST['description']) ? $_POST['description'] : '');
-
+        $logo = (isset($_POST['logo']) ? $_POST['logo'] : '');
+        $sort_by = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
+        $show_upvotes = (isset($_POST['show_upvotes']) ? $_POST['show_upvotes'] : '');
+        $visibility = (isset($_POST['visibility']) ? $_POST['visibility'] : '');
         $table_name = $wpdb->prefix . $this->fluent_features_board;
-        $data = [ 'title' => $title, 'tags' => $tags, 'description' => $description ]; // NULL value.
         $where = [ 'id' => $id ];
-        $wpdb->update( $table_name, $data, $where );
+        $wpdb->update( 
+            $table_name, 
+            array( 
+                'title'        => $title,
+                'logo'         => $logo,
+                'sort_by'      => $sort_by,
+                'show_upvotes' => $show_upvotes,
+                'visibility'   => $visibility,
+            ), 
+            $where 
+        );
         die();
     }
     

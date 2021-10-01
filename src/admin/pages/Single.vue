@@ -9,7 +9,7 @@
                 <label for="upd_title">
                     Title
                 </label>
-                <input type="text" id="upd_title" ref="upd_title" :value="tableInfos.title">
+                <input type="text" id="upd_title" ref="upd_title" :value="tableInfos.title" @change="upd_title">
             </div>
             <div class="input-group">
                 <label for="logourl">
@@ -17,7 +17,7 @@
                 </label>
                 <div class="logowrap">
                     <div v-if="tableInfos.logo" class="logo-preview">
-                        <img :src="tableInfos.logo" class="logo" alt="">
+                        <img ref="upd_logo" :src="tableInfos.logo" class="logo" alt="">
                         <span class="remove-preview-logo" @click="removePreviewLogo">
                             +
                         </span>
@@ -32,7 +32,7 @@
                 <label for="sort_requests_by">
                     Sort requests by
                 </label>
-                <select name="sort_requests_by" id="sort_requests_by" v-model="tableInfos.sort_by">
+                <select name="sort_requests_by" ref="upd_sort_by" id="sort_requests_by" v-model="tableInfos.sort_by">
                     <option value="alphabetical">Alphabetical</option>
                     <option value="random">Random</option>
                     <option value="upvotes">Number of Upvotes</option>
@@ -43,7 +43,7 @@
                 <label for="show_upvotes">
                     Show upvotes
                 </label>
-                <select name="show_upvotes" id="show_upvotes" v-model="tableInfos.show_upvotes">
+                <select name="show_upvotes" ref="upd_show_upvotes" id="show_upvotes" v-model="tableInfos.show_upvotes">
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
@@ -52,7 +52,7 @@
                 <label for="visibility">
                     Visibility
                 </label>
-                <select name="visibility" id="visibility" v-model="tableInfos.visibility">
+                <select name="visibility" id="visibility" ref="upd_visibility" v-model="tableInfos.visibility">
                     <option value="public">Public</option>
                     <option value="private">Private</option>
                 </select>
@@ -73,7 +73,7 @@ export default {
     name: 'Single',
     data() {
         return {
-            upd_title: '',
+            // upd_title: '',
             tableInfos: this.$route.params.item ? this.$route.params.item : {},
             isUpdated: false,
             isUpdating: false,
@@ -85,6 +85,7 @@ export default {
         },
         pickLogo () {
             let input = this.$refs.logourl
+            console.log(input);
             let file = input.files
             if (file && file[0]) {
                 let reader = new FileReader
@@ -98,13 +99,23 @@ export default {
         removePreviewLogo() {
             this.tableInfos.logo = null
         },
+        upd_title() {
+            this.tableInfos.title = this.$refs.upd_title.value;
+        },
         updateTable() {
-            const title       = this.$refs.upd_title.value;
-            const description = this.$refs.upd_description.value;
+            const title = this.$refs.upd_title.value;
+            const logo = this.$refs.upd_logo.src;
+            const sort_by = this.$refs.upd_sort_by.value;
+            const show_upvotes = this.$refs.upd_show_upvotes.value;
+            const visibility = this.$refs.upd_visibility.value;
             const that = this;
             that.isUpdating = true;
             that.tableInfos.title = title;
-            that.tableInfos.description = description;
+            that.tableInfos.logo = logo;
+            that.tableInfos.sort_by = sort_by;
+            that.tableInfos.show_upvotes = show_upvotes;
+            that.tableInfos.visibility = visibility;
+            
             setTimeout(() => {
                 $.ajax({
                     type: "POST",
@@ -112,7 +123,10 @@ export default {
                     data: {
                         action: "update_fluent_features_board",
                         title: title,
-                        description: description,
+                        logo: logo,
+                        sort_by: sort_by,
+                        show_upvotes: show_upvotes,
+                        visibility: visibility,
                         id: that.tableInfos.id
                     },
                     success: function() {

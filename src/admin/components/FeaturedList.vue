@@ -4,7 +4,7 @@
             <div class="ffb-id">{{item.id}}</div>
         </th>
         <td>
-            <h1>{{item.title}}</h1>
+            <h1>{{item.title}} <img :src="item.logo" alt=""></h1>
             <div class="actions">
                 <router-link :to="{name: 'Single', params:{item: item, id: item.id}}" class="edit-column">Edit</router-link> | 
                 <a href="#" @click="deleteHandle" class="delete-column">Delete</a>
@@ -62,6 +62,10 @@ export default {
         padding: 0;
         margin: 0 0 2px 0;
         display: inline-block;
+    }
+    .ffb-features-list h1 img {
+        width: 50px;
+        height: 50px;
     }
     .ffb-features-list .actions {
         opacity: 0;
