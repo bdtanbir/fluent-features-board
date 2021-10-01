@@ -12,16 +12,50 @@
                 <input type="text" id="upd_title" ref="upd_title" :value="tableInfos.title">
             </div>
             <div class="input-group">
-                <label for="upd_description">
-                    Description
+                <label for="logourl">
+                    Logo
                 </label>
-                <textarea name="upd_description" id="upd_description" ref="upd_description" :value="tableInfos.description"></textarea>
+                <div class="logowrap">
+                    <div v-if="tableInfos.logo" class="logo-preview">
+                        <img :src="tableInfos.logo" class="logo" alt="">
+                        <span class="remove-preview-logo" @click="removePreviewLogo">
+                            +
+                        </span>
+                    </div>
+                    <span @click="selectLogo">
+                        {{tableInfos.logo ? 'Change Logo' : 'Upload Logo'}}
+                    </span>
+                    <input ref="logourl" class="logourlinput" type="file" @input="pickLogo">
+                </div>
             </div>
             <div class="input-group">
-                <label for="upd_tags">
-                    Tags
+                <label for="sort_requests_by">
+                    Sort requests by
                 </label>
-                <input type="text" id="upd_tags" ref="upd_tags" :value="tableInfos.tags">
+                <select name="sort_requests_by" id="sort_requests_by" v-model="tableInfos.sort_by">
+                    <option value="alphabetical">Alphabetical</option>
+                    <option value="random">Random</option>
+                    <option value="upvotes">Number of Upvotes</option>
+                    <option value="comments">Number of Comments</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="show_upvotes">
+                    Show upvotes
+                </label>
+                <select name="show_upvotes" id="show_upvotes" v-model="tableInfos.show_upvotes">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="visibility">
+                    Visibility
+                </label>
+                <select name="visibility" id="visibility" v-model="tableInfos.visibility">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
             </div>
             <div :class="isUpdating ? 'updating-table input-group ffb-single-update-btn' : 'input-group ffb-single-update-btn'">
                 <button :disabled="isUpdating">
@@ -46,14 +80,30 @@ export default {
         }
     },
     methods: {
+        selectLogo () {
+          this.$refs.logourl.click()
+        },
+        pickLogo () {
+            let input = this.$refs.logourl
+            let file = input.files
+            if (file && file[0]) {
+                let reader = new FileReader
+                reader.onload = e => {
+                    this.tableInfos.logo = e.target.result
+                }
+                reader.readAsDataURL(file[0])
+                this.$emit('input', file[0])
+            }
+        },
+        removePreviewLogo() {
+            this.tableInfos.logo = null
+        },
         updateTable() {
             const title       = this.$refs.upd_title.value;
-            const tags        = this.$refs.upd_tags.value;
             const description = this.$refs.upd_description.value;
             const that = this;
             that.isUpdating = true;
             that.tableInfos.title = title;
-            that.tableInfos.tags = tags;
             that.tableInfos.description = description;
             setTimeout(() => {
                 $.ajax({
@@ -63,7 +113,6 @@ export default {
                         action: "update_fluent_features_board",
                         title: title,
                         description: description,
-                        tags: tags,
                         id: that.tableInfos.id
                     },
                     success: function() {
@@ -85,6 +134,40 @@ export default {
 </script>
 
 <style>
+    .logowrap .logo-preview {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    .logowrap .logo-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+    .logowrap .logo-preview .remove-preview-logo {
+        position: absolute;
+        right: -5px;
+        top: -5px;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        line-height: 13px;
+        text-align: center;
+        border-radius: 50%;
+        background: #878787;
+        color: #fff;
+        transform: rotate(45deg);
+        cursor: pointer;
+        box-shadow: 0 0 0 2px #fff;
+        transition: .3s;
+    }
+    .logowrap .logo-preview .remove-preview-logo:hover {
+        background: #ff0000;
+    }
+
     .ffb-single-wrap {
         margin-top: 15px;
         background: #fff;
@@ -118,6 +201,7 @@ export default {
         margin-bottom: 5px;
         display: block;
     }
+    .ffb-single-wrap form select,
     .ffb-single-wrap form textarea,
     .ffb-single-wrap form input {
         display: block;
@@ -125,11 +209,14 @@ export default {
         border: 1px solid #eee;
         padding: 3px 13px;
         transition: .3s;
+        max-width: 100%;
+        min-height: auto;
     }
     .ffb-single-wrap form textarea {
         height: 60px;
         resize: none;
     }
+    .ffb-single-wrap form select:focus,
     .ffb-single-wrap form textarea:focus,
     .ffb-single-wrap form input:focus {
         box-shadow: none;
@@ -185,5 +272,22 @@ export default {
         color: #000;
         transform: rotate(45deg);
         transition: .3s;
+    }
+    .ffb-single-wrap form .logowrap > span {
+        width: 100%;
+        display: block;
+        border: 1px solid #eee;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #f1f1f1;
+        text-align: center;
+    }
+    .ffb-single-wrap form .logowrap .logourlinput {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        padding: 0;
+        margin: 0;
     }
 </style>

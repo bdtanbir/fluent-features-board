@@ -212,6 +212,13 @@ export default {
         max-width: 100%;
         min-height: auto;
     }
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group select:focus,
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group textarea:focus,
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group input:focus {
+        outline: none;
+        border-color: #2771b1;
+        box-shadow: none;
+    }
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group label {
         font-weight: 400;
         margin-bottom: 5px;
