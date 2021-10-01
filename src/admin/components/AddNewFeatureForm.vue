@@ -19,15 +19,17 @@
                     <label for="logourl">
                         Logo
                     </label>
-                    <div class="logowrap" @click="selectLogo">
-                        <div class="logo-preview">
+                    <div class="logowrap">
+                        <div v-if="previewLogo" class="logo-preview">
                             <img :src="previewLogo" class="logo" alt="">
-                            <span class="remove-preview-logo">+</span>
+                            <span class="remove-preview-logo" @click="removePreviewLogo">
+                                +
+                            </span>
                         </div>
-                        <span>
-                            Upload Logo
+                        <span @click="selectLogo">
+                            {{previewLogo ? 'Change Logo' : 'Upload Logo'}}
                         </span>
-                        <input ref="logourl" class="logourlinput" type="file" @input="pickLogo" :placeholder="previewLogo ? 'Change Logo' : 'Upload Logo'" readonly>
+                        <input ref="logourl" class="logourlinput" type="file" @input="pickLogo">
                     </div>
                 </div>
                 <div class="input-group">
@@ -102,6 +104,9 @@ export default {
                 this.$emit('input', file[0])
             }
         },
+        removePreviewLogo() {
+            this.previewLogo = null
+        },
         formSubmited: function() {
             // if (this.title && this.description && this.tags) {
                 const that = this;
@@ -139,11 +144,34 @@ export default {
         width: 100px;
         height: 100px;
         position: relative;
+        border-radius: 5px;
+        margin-bottom: 10px;
     }
     .logowrap .logo-preview img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 5px;
+    }
+    .logowrap .logo-preview .remove-preview-logo {
+        position: absolute;
+        right: -5px;
+        top: -5px;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        line-height: 13px;
+        text-align: center;
+        border-radius: 50%;
+        background: #878787;
+        color: #fff;
+        transform: rotate(45deg);
+        cursor: pointer;
+        box-shadow: 0 0 0 2px #fff;
+        transition: .3s;
+    }
+    .logowrap .logo-preview .remove-preview-logo:hover {
+        background: #ff0000;
     }
     .ffb-add-new-feature-modal {
         position: fixed;

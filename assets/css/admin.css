@@ -3,11 +3,34 @@
     width: 100px;
     height: 100px;
     position: relative;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 .logowrap .logo-preview img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 5px;
+}
+.logowrap .logo-preview .remove-preview-logo {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    line-height: 13px;
+    text-align: center;
+    border-radius: 50%;
+    background: #878787;
+    color: #fff;
+    transform: rotate(45deg);
+    cursor: pointer;
+    box-shadow: 0 0 0 2px #fff;
+    transition: .3s;
+}
+.logowrap .logo-preview .remove-preview-logo:hover {
+    background: #ff0000;
 }
 .ffb-add-new-feature-modal {
     position: fixed;
