@@ -10,7 +10,8 @@
                         <td>ID</td>
                         <th>Title</th>
                         <th>Shortcode</th>
-                        <th>Tags</th>
+                        <th>Sort By</th>
+                        <th>Visibility</th>
                     </tr>
                 </thead>
                 <tbody v-if="allLists">

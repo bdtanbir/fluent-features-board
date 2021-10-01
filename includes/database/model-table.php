@@ -49,15 +49,19 @@ class FFB_Model_Table {
         $table_name = $wpdb->prefix . $this->fluent_features_board;
 
         $title = (isset($_POST['title']) ? $_POST['title'] : '');
-        $description = (isset($_POST['description']) ? $_POST['description'] : '');
-        $tags = (isset($_POST['tags']) ? $_POST['tags'] : '');
+        $logo = (isset($_POST['logo']) ? $_POST['logo'] : '');
+        $sort_by = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
+        $show_upvotes = (isset($_POST['show_upvotes']) ? $_POST['show_upvotes'] : '');
+        $visibility = (isset($_POST['visibility']) ? $_POST['visibility'] : '');
 
         $wpdb->insert(
             $table_name,
             array( 
-                'title' =>  $title, 
-                'description' => $description,
-                'tags' => $tags,
+                'title' =>  $title,
+                'logo' =>  $logo,
+                'sort_by' => $sort_by,
+                'show_upvotes' => $show_upvotes,
+                'visibility' => $visibility,
             ) 
         );
 

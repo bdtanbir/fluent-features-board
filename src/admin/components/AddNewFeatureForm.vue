@@ -7,7 +7,7 @@
                 <h2 v-if="isDone" class="ffb-form-added">Done</h2>
                 <a v-if="isDone" href="" class="done-btn">OK</a>
             </div>
-            <h1>Add New</h1>
+            <h1>Add New Feature Board</h1>
             <form :class="isDone ? 'hidden-form': ''" @submit.prevent="formSubmited">
                 <div class="input-group">
                     <label for="feature-title">
@@ -16,10 +16,19 @@
                     <input type="text" id="feature-title" required v-model="title">
                 </div>
                 <div class="input-group">
-                    <label for="feature-logo">
+                    <label for="logourl">
                         Logo
                     </label>
-                    <input type="file" id="feature-logo" ref="logourl" @change="logouploader" required>
+                    <div class="logowrap" @click="selectLogo">
+                        <div class="logo-preview">
+                            <img :src="previewLogo" class="logo" alt="">
+                            <span class="remove-preview-logo">+</span>
+                        </div>
+                        <span>
+                            Upload Logo
+                        </span>
+                        <input ref="logourl" class="logourlinput" type="file" @input="pickLogo" :placeholder="previewLogo ? 'Change Logo' : 'Upload Logo'" readonly>
+                    </div>
                 </div>
                 <div class="input-group">
                     <label for="sort_requests_by">
@@ -29,7 +38,7 @@
                         <option value="alphabetical">Alphabetical</option>
                         <option value="random">Random</option>
                         <option value="upvotes">Number of Upvotes</option>
-                        <option value="commets">Number of Comments</option>
+                        <option value="comments">Number of Comments</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -52,7 +61,7 @@
                 </div>
                 <div class="input-group">
                     <button class="ffb-addnewfeature-submit">
-                        Add New
+                        Add New Feature Board
                     </button>
                 </div>
             </form>
@@ -74,47 +83,68 @@ export default {
             sort_requests_by: 'alphabetical',
             show_upvotes: 'yes',
             visibility: 'public',
-            logo: '',
-            logourl: ''
+            previewLogo: null
         }
     },
     methods: {
+        selectLogo () {
+          this.$refs.logourl.click()
+        },
+        pickLogo () {
+            let input = this.$refs.logourl
+            let file = input.files
+            if (file && file[0]) {
+                let reader = new FileReader
+                reader.onload = e => {
+                    this.previewLogo = e.target.result
+                }
+                reader.readAsDataURL(file[0])
+                this.$emit('input', file[0])
+            }
+        },
         formSubmited: function() {
             // if (this.title && this.description && this.tags) {
                 const that = this;
                 this.isLoading = true;
-                // setTimeout(() => {
-                //     $.ajax({
-                //         type: "POST",
-                //         url: ajax_url.ajaxurl,
-                //         data: {
-                //             action: "action_ffb_callback",
-                //             title: this.title,
-                //         },
-                //         success: function() {
-                //             that.title = '';
-                //             that.isDone = true
-                //             that.isLoading = false;
-                //         }
-                //     });
-                // },3000);
+                setTimeout(() => {
+                    $.ajax({
+                        type: "POST",
+                        url: ajax_url.ajaxurl,
+                        data: {
+                            action: "action_ffb_callback",
+                            title: this.title,
+                            sort_by: this.sort_requests_by,
+                            show_upvotes: this.show_upvotes,
+                            visibility: this.visibility,
+                            logo: this.previewLogo
+                        },
+                        success: function() {
+                            that.title = '';
+                            that.isDone = true
+                            that.isLoading = false;
+                        }
+                    });
+                },3000);
             // }
         },
         hideAddNewFormhandle() {
             this.$emit('hideAddNewForm')
         },
-        logouploader(e) {
-            console.log(e);
-        }
-    },
-    mounted() {
-            // this.logo = this.$refs.logourl.value
-            // console.log(this.logo);
     },
 }
 </script>
 
 <style lang="css">
+    .logowrap .logo-preview {
+        width: 100px;
+        height: 100px;
+        position: relative;
+    }
+    .logowrap .logo-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
     .ffb-add-new-feature-modal {
         position: fixed;
         top: 0;
@@ -129,7 +159,7 @@ export default {
     }
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content {
         background: #fff;
-        margin-top: 100px;
+        margin-top: 70px;
         border-radius: 4px;
         width: 100%;
         max-width: 500px;
@@ -174,6 +204,13 @@ export default {
         font-size: 12px;
         font-style: italic;
         margin: 3px 0 0 0;
+    }
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group .logourlinput {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        padding: 0;
+        margin: 0;
     }
     .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .description strong {
         color: #000;
@@ -271,6 +308,16 @@ export default {
         cursor: pointer;
         box-shadow: 0 0 20px rgb(0 0 0 / 15%);
         z-index: 999;
+    }
+    .ffb-add-new-feature-modal .ffb-add-new-feature-modal-content form .input-group .logowrap > span {
+        width: 100%;
+        display: block;
+        border: 1px solid #eee;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #f1f1f1;
+        text-align: center;
     }
 
     @keyframes rotating {

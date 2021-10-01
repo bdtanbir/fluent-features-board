@@ -14,8 +14,13 @@
             <input ref="ffb_copy" id="ffb-shortcode" :value="'[fluent_features_board id=\''+item.id+'\']'"  v-tooltip.top-center="copyTooltip" @click="copyURL" readonly>
         </td>
         <td>
-            <div class="ffb-tags">
-                <span>{{item.tags}}</span>
+            <div class="ffb-sort-by">
+                <span>{{item.sort_by}}</span>
+            </div>
+        </td>
+        <td>
+            <div class="ffb-visibility">
+                <span>{{item.visibility}}</span>
             </div>
         </td>
     </tr>

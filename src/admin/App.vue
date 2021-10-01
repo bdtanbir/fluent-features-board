@@ -7,7 +7,7 @@
       </nav>
     </header>
     <div class="addnew-features-list" @click="handleAddNewFeature">
-      Add New
+      Add New Feature Board
     </div>
     <router-view />
 
