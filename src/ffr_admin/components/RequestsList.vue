@@ -7,29 +7,48 @@
                     <tr>
                         <td>ID</td>
                         <th>Title</th>
-                        <th>Shortcode</th>
-                        <th>Tags</th>
+                        <th>Description</th>
                         <th>Status</th>
+                        <th>Public</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <RequestList />
+                    <RequestList :item="list" v-for="list in lists" :key="list.id" />
                 </tbody>
             </table>
             
         </div>
-        <p class="ff-requests-total-rows">(1) Row</p>
+        <p class="ff-requests-total-rows">({{lists.length}}) Row</p>
     </div>
 </template>
 
 <script>
+import $ from 'jquery';
 import RequestList from './RequestList.vue';
 
 export default {
     components: {
         RequestList
-    }
+    },
+    data() {
+        return {
+            lists: []
+        }
+    },
+    mounted() {
+        const that = this;
+        $.ajax({
+            type: "POST",
+            url: ajax_url.ajaxurl,
+            data: {
+                action: 'getAllFeatureRequests'
+            },
+            success: function(res) {
+                that.lists = res.data;
+            }
+        })
+    },
 }
 </script>
 

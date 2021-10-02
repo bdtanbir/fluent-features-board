@@ -1,26 +1,30 @@
 <template>
     <tr class="ff-request-list">
         <th>
-            <div class="ffr-id">1</div>
+            <div class="ffr-id">{{item.id}}</div>
         </th>
         <td>
-            <h1>1st Title</h1>
+            <h1>
+                {{item.title}}
+            </h1>
             <div class="actions">
                 <a href="" class="edit-column">Edit</a> | 
                 <a href="#" class="delete-column">Delete</a>
             </div>
         </td>
         <td>
-            <input ref="ffr_copy" id="ffr-shortcode" v-tooltip.top-center="copyTooltip" value="[fluent_features_request id='1']" @click="copyURL" readonly>
+            <p>
+                {{item.description.substr(0, 40)}}
+            </p>
         </td>
         <td>
             <div class="ffr-tags">
-                <span>HTML</span>
+                <span>{{item.status}}</span>
             </div>
         </td>
         <td>
             <span class="ffr-post-status">
-                Publish
+                {{item.is_public}}
             </span>
         </td>
     </tr>
@@ -28,21 +32,14 @@
 
 <script>
 export default {
+    props: ['item'],
     data() {
         return {
-            copyTooltip: 'Click to Copy Shortcode'
+
         }
     },
     methods: {
-        copyURL() {
-            var Url = this.$refs.ffr_copy;
-            Url.select();
-            document.execCommand("copy");
-            this.copyTooltip = 'Copied Shortcode';
-            setTimeout(() => {
-                this.copyTooltip = 'Click to Copy Shortcode';
-            }, 3000)
-        }
+        
     }
 }
 </script>

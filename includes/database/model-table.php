@@ -1,5 +1,8 @@
 <?php
 namespace FFB;
+
+use Error;
+
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
@@ -25,6 +28,8 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_submit_feature_request', [$this, 'submit_feature_request'] );
         add_action( 'wp_ajax_get_feature_requests_list', [$this, 'get_feature_requests_list'] );
         add_action( 'wp_ajax_nopriv_get_feature_requests_list', [$this, 'get_feature_requests_list'] );
+        add_action( 'wp_ajax_getAllFeatureRequests', [$this, 'getAllFeatureRequests'] );
+        add_action( 'wp_ajax_nopriv_getAllFeatureRequests', [$this, 'getAllFeatureRequests'] );
         
     }
 
@@ -131,6 +136,9 @@ class FFB_Model_Table {
     }
 
 
+    /**
+     * Inserting New Feature Request
+     */
     public function submit_feature_request() {
         global $wpdb;
         $table_tag  = $wpdb->prefix . $this->ffr_tags;
@@ -171,6 +179,7 @@ class FFB_Model_Table {
         }
     }
 
+    // Getting all requests list by related board
     public function get_feature_requests_list() {
         global $wpdb;
         $post_id          = (isset($_POST['id']) ? $_POST['id'] : '');
@@ -182,7 +191,22 @@ class FFB_Model_Table {
             return false;
         }
         wp_send_json_success( $feature_request_lists, 200 ); 
+        die();
+    }
 
+
+    /**
+     * Getting All Feature Requests
+     */
+    public function getAllFeatureRequests() {
+        global $wpdb;
+        $requests = $wpdb->get_results(
+            "SELECT * FROM {$wpdb->prefix}ff_requests_list"
+        );
+        if( is_wp_error( $requests ) ) {
+            return false;
+        }
+        wp_send_json_success( $requests, 200 ); 
         die();
     }
     
