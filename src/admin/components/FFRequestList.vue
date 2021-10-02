@@ -5,8 +5,8 @@
             <span class="ff-request-vote-count">10</span>
         </div>
         <div class="ff-request-content">
-            <h3>Fluent feature request</h3>
-            <p>{{item.description.substr(0,100)}}</p>
+            <h3 v-if="item.title">{{item.title}}</h3>
+            <p v-if="item.description">{{item.description.substr(0,100)}}</p>
         </div>
         <div class="ff-request-comment-count">
             <span class="comment-icon"></span>
@@ -20,7 +20,6 @@ export default {
     props: ['item'],
     data() {
         return {
-            shortDesc: '',
         }
     }    
 }
