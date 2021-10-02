@@ -6,6 +6,9 @@
         <ul><li><router-link to="/">All Items</router-link></li></ul>
       </nav>
     </header>
+    <div class="addnew-features-list" @click="handleAddNewFeature">
+      Add New Feature Board
+    </div>
     <router-view />
 
     <AddNewFeatureForm v-if="isAddnewModal" @hideAddNewForm="hideAddNewFormClb" />
