@@ -28,7 +28,7 @@
                     <input type="text" id="ffr-tags" v-model="tempSkill" @keyup.188="addSkill">
                     <!-- <input type="hidden" id="ffr-alltags"  :value="skills"> -->
                     <span class="description">
-                        Add tags by using <strong>comma</strong>
+                        Separate tags with <strong>commas</strong>
                     </span>
                     <div class="ffr-tags-list">
                         <span v-for="skill in skills" :key="skill" @click="deleteSkill(skill)">{{skill}}</span>

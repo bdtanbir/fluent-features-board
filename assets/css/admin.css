@@ -670,12 +670,40 @@
     display: block;
 }
 .ff-requests-form .ff-request-submit {
-    background: #ba42ec !important;
-    color: #fff !important;
+    background: #ba42ec;
+    color: #fff;
     border: none;
-    padding: 8px 18px;
+    padding: 10px 18px;
     font-size: 15px;
     border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.ff-requests-form .ff-request-submit.submitting-request {
+    opacity: 0.3;
+}
+.ff-requests-form .ff-request-submit .update-loader {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    margin-right: 5px;
+}
+.ff-requests-form .ff-request-submit.submitting-request .update-loader {
+    animation: rotating 1s infinite linear;
+}
+.ff-requests-form .input-group .description {
+    color: #aaa;
+    font-weight: 300;
+    margin-top: 3px;
+    display: block;
+}
+.ff-requests-form .input-group .description strong {
+    color: #000;
 }
 .ff-requests-form-wrap {
     max-height: 0;
@@ -683,6 +711,36 @@
     overflow: hidden;
 }
 .active.ff-requests-form-wrap {
-    max-height: 400px;
+    max-height: 1000px;
+}
+.ff-requests-form .input-group .ffr-tags-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+.ff-requests-form .input-group .ffr-tags-list span {
+    margin-right: 5px;
+    background: #f1f1f1;
+    border-radius: 40px;
+    padding: 3px 10px;
+    cursor: pointer;
+    display: inline-block;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+}
+.ff-requests-form .input-group .ffr-tags-list span:hover {
+    background: #ba42ec;
+    color: #ffffff;
+}
+.error-text {
+    color: red;
+    font-size: 13px;
+    font-weight: 300;
+    margin: 2px 0 0 0;
+    font-style: italic;
 }
 

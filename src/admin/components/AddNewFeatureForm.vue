@@ -108,29 +108,27 @@ export default {
             this.previewLogo = null
         },
         formSubmited: function() {
-            // if (this.title && this.description && this.tags) {
-                const that = this;
-                this.isLoading = true;
-                setTimeout(() => {
-                    $.ajax({
-                        type: "POST",
-                        url: ajax_url.ajaxurl,
-                        data: {
-                            action: "action_ffb_callback",
-                            title: this.title,
-                            sort_by: this.sort_requests_by,
-                            show_upvotes: this.show_upvotes,
-                            visibility: this.visibility,
-                            logo: this.previewLogo
-                        },
-                        success: function() {
-                            that.title = '';
-                            that.isDone = true
-                            that.isLoading = false;
-                        }
-                    });
-                },3000);
-            // }
+            const that = this;
+            this.isLoading = true;
+            setTimeout(() => {
+                $.ajax({
+                    type: "POST",
+                    url: ajax_url.ajaxurl,
+                    data: {
+                        action: "action_ffb_callback",
+                        title: this.title,
+                        sort_by: this.sort_requests_by,
+                        show_upvotes: this.show_upvotes,
+                        visibility: this.visibility,
+                        logo: this.previewLogo
+                    },
+                    success: function() {
+                        that.title = '';
+                        that.isDone = true
+                        that.isLoading = false;
+                    }
+                });
+            },3000);
         },
         hideAddNewFormhandle() {
             this.$emit('hideAddNewForm')
