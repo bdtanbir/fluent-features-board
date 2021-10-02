@@ -23,6 +23,9 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_update_fluent_features_board', [$this, 'update_fluent_features_board'] );
         add_action( 'wp_ajax_submit_feature_request', [$this, 'submit_feature_request'] );
         add_action( 'wp_ajax_nopriv_submit_feature_request', [$this, 'submit_feature_request'] );
+        add_action( 'wp_ajax_get_feature_requests_list', [$this, 'get_feature_requests_list'] );
+        add_action( 'wp_ajax_nopriv_get_feature_requests_list', [$this, 'get_feature_requests_list'] );
+        
     }
 
     /**
@@ -139,9 +142,9 @@ class FFB_Model_Table {
         $status      = (isset($_POST['status']) ? $_POST['status'] : '');
         $is_public   = (isset($_POST['is_public']) ? $_POST['is_public'] : '');
         if( $is_public == true ) {
-            $public = 'Yes';
+            $public = 'yes';
         } else {
-            $public = 'No';
+            $public = 'no';
         }
 
         $wpdb->insert(
@@ -150,6 +153,7 @@ class FFB_Model_Table {
                 'title'       =>  $title,
                 'description' =>  $description,
                 'status' =>  $status,
+                'parent_id' => $id,
                 'is_public' =>  $public,
             ) 
         );
@@ -165,7 +169,21 @@ class FFB_Model_Table {
                 ) 
             );
         }
+    }
+
+    public function get_feature_requests_list() {
+        global $wpdb;
+        $post_id          = (isset($_POST['id']) ? $_POST['id'] : '');
+        $feature_request_lists = $wpdb->get_results(
+            "SELECT * FROM {$wpdb->prefix}ff_requests_list WHERE parent_id = {$post_id}"
+        );
         
+        if( is_wp_error( $feature_request_lists ) ) {
+            return false;
+        }
+        wp_send_json_success( $feature_request_lists, 200 ); 
+
+        die();
     }
     
 

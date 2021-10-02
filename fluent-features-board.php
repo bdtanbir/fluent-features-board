@@ -216,6 +216,7 @@ final class Fluent_Features_board {
         title text NOT NULL,
         description text NOT NULL,
         status text NOT NULL,
+        parent_id int NOT NULL,
         is_public text NOT NULL,
         PRIMARY KEY  (id)
         ) $charset_collate;";

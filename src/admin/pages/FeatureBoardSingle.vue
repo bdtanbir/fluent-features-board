@@ -3,6 +3,9 @@
         <router-link to="/" class="back-to-home-btn">Back</router-link>
         
         <div class="ffr-feature-board-single-header">
+            <div v-if="isSubmitted" class="ffr-submitted-table">
+                Submitted! <span @click="closeSubmittedAlert" class="close-ffr-submitted-table">+</span>
+            </div>
             <div class="d-flex">
                 <button class="ff-addnewrequest" @click="handleFFRequestForm">
                     New Feature Request
@@ -26,7 +29,6 @@
                     <div class="input-group">
                         <label for="status">Status</label>
                         <select name="status" id="status" v-model="status">
-                            <option value="untriaged">Untriaged</option>
                             <option value="planned">Planned</option>
                             <option value="inprogress">In Progress</option>
                             <option value="shipped">Shipped</option>
@@ -60,26 +62,35 @@
             </div>
         </div>
 
+        <!-- Feature Requests List -->
+        <FFRequestsList :items="requestsList" />
+
     </div>
 </template>
 
 <script>
 import $ from 'jquery';
+import FFRequestsList from '../components/FFRequestsList.vue'
 export default {
+    components: {
+        FFRequestsList
+    },
     data() {
         return {
             FRBsingle: this.$route.params.board ? this.$route.params.board : {},
             isFeatureRequestForm: false,
             tempTag: '',
             tags: [],
-            status: 'untriaged',
+            status: 'planned',
             is_public: true,
             isEmptyTitle: false,
             isEmptyDesc: false,
             title: '',
             description: '',
             isSubmitting: false,
-            submitBtnText: 'Suggest Feature'
+            isSubmitted: false,
+            submitBtnText: 'Suggest Feature',
+            requestsList: []
         }
     },    
     methods: {
@@ -128,15 +139,24 @@ export default {
                         status: that.status,
                         is_public: that.is_public,
                         id: that.FRBsingle.id
+                    },
+                    success: function() {
+                        that.isSubmitting = false
+                        that.submitBtnText = 'Suggest Feature';
+                        that.isSubmitted = true;
+                        that.title = '';
+                        that.description = '';
+                        that.tags = [];
+                        setTimeout(() => {
+                            that.isSubmitted = false;
+                        }, 100000);
                     }
-                })
-                this.isSubmitting = false
-                this.submitBtnText = 'Submitted'
-                setTimeout(() => {
-                    this.submitBtnText = 'Suggest Feature';
-                }, 1500);
+                });
             }, 3000);
 
+        },
+        closeSubmittedAlert() {
+            this.isSubmitted = false;
         }
     },
     mounted() {
@@ -147,18 +167,15 @@ export default {
             data: {
                 action: 'get_feature_requests_list',
                 id: that.FRBsingle.id
+            },
+            success: function(res) {
+                that.requestsList = res.data;
             }
         })
     },
 }
 </script>
-<!--
-SELECT post_id, COUNT(post_id) AS tag_count
-FROM Post_tag_nn
-WHERE tag_id IN ($array_of_tag_ids)
-GROUP BY post_id
-ORDER BY tag_count DESC;
--->
+
 
 <style>
     .ffr-feature-board-single-header {
@@ -337,5 +354,30 @@ ORDER BY tag_count DESC;
     }
     .ff-requests-form .input-group.input-checkbox label {
         margin: 0 0 0 5px;
+    }
+    .ffr-submitted-table {
+        border-left: 3px solid #00a32a;
+        padding: 10px 15px 10px 15px;
+        font-size: 14px;
+        box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+        margin-top: 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+    .ffr-submitted-table .close-ffr-submitted-table {
+        background: #e4e4e4;
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        line-height: 16px;
+        text-align: center;
+        border-radius: 50%;
+        cursor: pointer;
+        color: #000;
+        transform: rotate(45deg);
+        transition: .3s;
     }
 </style>
