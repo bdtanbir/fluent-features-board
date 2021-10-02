@@ -1,27 +1,27 @@
 <template>
   <div id="fluent-features-requests-app">
     <header>
-      <h1>Fluent Features Requests</h1>
-      <!-- <nav>
+      <h1>Features Requests</h1>
+      <nav>
         <ul><li><router-link to="/">All Items</router-link></li></ul>
-      </nav> -->
+      </nav>
     </header>
-    <button class="addnew-feature-request" @click="handleShowAddnewFFRModal">
+    <!-- <button class="addnew-feature-request" @click="handleShowAddnewFFRModal">
       New Feature Request
-    </button>
+    </button> -->
     <router-view />
 
-    <AddFFRequestForm v-if="isAddnewFFRModal" @hideAddNewFFRForm="hideAddNewFFRForm" />
+    <!-- <AddFFRequestForm v-if="isAddnewFFRModal" @hideAddNewFFRForm="hideAddNewFFRForm" /> -->
   </div>
 </template>
 
 <script>
-import AddFFRequestForm from './components/AddFFRequestForm.vue';
+// import AddFFRequestForm from './components/AddFFRequestForm.vue';
 
 export default {
   name: "App",
   components: {
-    AddFFRequestForm
+    // AddFFRequestForm
   },
   data() {
     return {
@@ -29,9 +29,9 @@ export default {
     }
   },
   methods: {
-    handleShowAddnewFFRModal() {
-      this.isAddnewFFRModal = true;
-    },
+    // handleShowAddnewFFRModal() {
+    //   this.isAddnewFFRModal = true;
+    // },
     hideAddNewFFRForm() {
       this.isAddnewFFRModal = false;
     }

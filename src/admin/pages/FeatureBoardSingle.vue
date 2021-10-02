@@ -24,17 +24,32 @@
                         <p class="error-text" v-if="isEmptyDesc">You forgot to enter the description</p>
                     </div>
                     <div class="input-group">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" v-model="status">
+                            <option value="untriaged">Untriaged</option>
+                            <option value="planned">Planned</option>
+                            <option value="inprogress">In Progress</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
                         <label for="ffr-tags">
                             Tags
                         </label>
-                        <input type="text" id="ffr-tags" v-model="tempSkill" @keyup.188="addSkill">
+                        <input type="text" id="ffr-tags" v-model="tempTag" @keyup.188="addTag">
                         <span class="description">
                             Separate tags with <strong>commas</strong>
                         </span>
                         <div class="ffr-tags-list">
-                            {{skills}}
-                            <span v-for="skill in skills" :key="skill" v-tooltip.top-center="'Click To Remove'" @click="deleteSkill(skill)">{{skill}}</span>
+                            <span v-for="tag in tags" :key="tag" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag)">{{tag}}</span>
                         </div>
+                    </div>
+                    <div class="input-group input-checkbox">
+                        <input type="checkbox" id="is_public" v-model="is_public">
+                        <label for="is_public">
+                            Is Public
+                        </label>
                     </div>
                     <div class="input-group">
                         <button :class="isSubmitting ? 'submitting-request ff-request-submit' : 'ff-request-submit'">
@@ -49,12 +64,16 @@
 </template>
 
 <script>
+import $ from 'jquery';
 export default {
     data() {
         return {
+            FRBsingle: this.$route.params.board ? this.$route.params.board : {},
             isFeatureRequestForm: false,
-            tempSkill: '',
-            skills: [],
+            tempTag: '',
+            tags: [],
+            status: 'untriaged',
+            is_public: true,
             isEmptyTitle: false,
             isEmptyDesc: false,
             title: '',
@@ -64,24 +83,25 @@ export default {
         }
     },    
     methods: {
-        addSkill(e) {
-            this.tempSkill = this.tempSkill.replace(',', '')
-            if (e.key === "," && this.tempSkill) {
-                if (!this.skills.includes(this.tempSkill)) {
-                this.skills.push(this.tempSkill);
+        addTag(e) {
+            this.tempTag = this.tempTag.replace(',', '')
+            if (e.key === "," && this.tempTag) {
+                if (!this.tags.includes(this.tempTag)) {
+                this.tags.push(this.tempTag);
                 }
-                this.tempSkill = "";
+                this.tempTag = "";
             }
         },
-        deleteSkill(skill) {
-            this.skills = this.skills.filter((item) => {
-                return skill !== item;
+        deleteTag(tag) {
+            this.tags = this.tags.filter((item) => {
+                return tag !== item;
             });
         },
         handleFFRequestForm() {
             this.isFeatureRequestForm  = !this.isFeatureRequestForm;
         },
         submitFeatureRequest() {
+            const that = this;
             if(!this.title) {
                 this.isEmptyTitle = true;
                 return false;
@@ -95,14 +115,23 @@ export default {
                 this.isEmptyDesc = false;
             }
             this.isSubmitting = true;
-            this.submitBtnText = 'Submitting...'
+            this.submitBtnText = 'Submitting...';
             setTimeout(() => {
+                $.ajax({
+                    type: "POST",
+                    url: ajax_url.ajaxurl,
+                    data: {
+                        action: 'submit_feature_request',
+                        title: that.title,
+                        description: that.description,
+                        tags: that.tags,
+                        status: that.status,
+                        is_public: that.is_public,
+                        id: that.FRBsingle.id
+                    }
+                })
                 this.isSubmitting = false
                 this.submitBtnText = 'Submitted'
-                console.log('Title: '+this.title);
-                console.log('Description: '+this.description);
-                console.log('Tags: '+this.skills);
-                console.log('Submited');
                 setTimeout(() => {
                     this.submitBtnText = 'Suggest Feature';
                 }, 1500);
@@ -110,8 +139,26 @@ export default {
 
         }
     },
+    mounted() {
+        const that = this;
+        $.ajax({
+            type: 'POST',
+            url: ajax_url.ajaxurl,
+            data: {
+                action: 'get_feature_requests_list',
+                id: that.FRBsingle.id
+            }
+        })
+    },
 }
 </script>
+<!--
+SELECT post_id, COUNT(post_id) AS tag_count
+FROM Post_tag_nn
+WHERE tag_id IN ($array_of_tag_ids)
+GROUP BY post_id
+ORDER BY tag_count DESC;
+-->
 
 <style>
     .ffr-feature-board-single-header {
@@ -128,8 +175,8 @@ export default {
         padding: 8px 16px;
         display: inline-block;
         border-radius: 4px;
-        font-size: 16px;
-        font-weight: 400;
+        font-size: 14px;
+        font-weight: 300;
         border: none;
         transition: .3s;
         cursor: pointer;
@@ -246,5 +293,49 @@ export default {
         font-weight: 300;
         margin: 2px 0 0 0;
         font-style: italic;
+    }
+
+
+
+    .ff-requests-form .input-group.input-checkbox {
+        display: flex;
+        align-items: center;
+    }
+    .ff-requests-form .input-group.input-checkbox input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        box-shadow: none;
+        border: 1px solid #eee;
+        background: #eee;
+        border-radius: 2px;
+        margin: 0;
+        position: relative;
+        transition: .3s;
+    }
+    .ff-requests-form .input-group.input-checkbox input[type="checkbox"]:before {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 3px;
+        width: 6px;
+        height: 10px;
+        border-bottom: 2px solid #fff;
+        border-right: 2px solid #fff;
+        transform: rotate(33deg) scale(0);
+        transition: .2s;
+    }
+    .ff-requests-form .input-group.input-checkbox input[type="checkbox"]:checked:before {
+        left: 10px;
+        top: 6px;
+        transform: rotate(33deg) scale(1);
+    }
+    .ff-requests-form .input-group.input-checkbox input[type="checkbox"]:checked {
+        background: #ba42ec;
+    }
+    .ff-requests-form .input-group.input-checkbox input[type="checkbox"]:checked {
+        border-color: #ba42ec;
+    }
+    .ff-requests-form .input-group.input-checkbox label {
+        margin: 0 0 0 5px;
     }
 </style>

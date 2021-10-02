@@ -1,7 +1,7 @@
 <template>
   <div id="fluent-features-board-backend-app">
     <header>
-      <h1>Fluent Features Board</h1>
+      <h1>Fluent Features Boards</h1>
       <nav>
         <ul><li><router-link to="/">All Items</router-link></li></ul>
       </nav>

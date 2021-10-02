@@ -4,7 +4,7 @@
             <div class="ffb-id">{{item.id}}</div>
         </th>
         <td>
-            <h1><router-link :to="{name: 'FeatureBoardSingle', params: {item: item, id: item.id}}">{{item.title}}</router-link></h1>
+            <h1><router-link :to="{name: 'FeatureBoardSingle', params: {board: item, id: item.id}}">{{item.title}}</router-link></h1>
             <div class="actions">
                 <router-link :to="{name: 'Single', params:{item: item, id: item.id}}" class="edit-column">Edit</router-link> | 
                 <a href="#" @click="deleteHandle" class="delete-column">Delete</a>

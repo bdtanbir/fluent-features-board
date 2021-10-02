@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) {
 class FFB_Model_Table {
     public $fluent_features_board = 'fluent_features_board';
     public $ff_requests_list = 'ff_requests_list';
+    public $ffr_tags = 'ffr_tags';
 
     public function __construct()
     {
@@ -20,6 +21,8 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_delete_ffb_table_column', [$this, 'delete_ffb_table_column'] );
         add_action( 'wp_ajax_update_fluent_features_board', [$this, 'update_fluent_features_board'] );
         add_action( 'wp_ajax_nopriv_update_fluent_features_board', [$this, 'update_fluent_features_board'] );
+        add_action( 'wp_ajax_submit_feature_request', [$this, 'submit_feature_request'] );
+        add_action( 'wp_ajax_nopriv_submit_feature_request', [$this, 'submit_feature_request'] );
     }
 
     /**
@@ -122,6 +125,47 @@ class FFB_Model_Table {
             $where 
         );
         die();
+    }
+
+
+    public function submit_feature_request() {
+        global $wpdb;
+        $table_tag  = $wpdb->prefix . $this->ffr_tags;
+        $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
+        $id          = (isset($_POST['id']) ? $_POST['id'] : '');
+        $title       = (isset($_POST['title']) ? $_POST['title'] : '');
+        $description = (isset($_POST['description']) ? $_POST['description'] : '');
+        $tags        = (isset($_POST['tags']) ? $_POST['tags'] : '');
+        $status      = (isset($_POST['status']) ? $_POST['status'] : '');
+        $is_public   = (isset($_POST['is_public']) ? $_POST['is_public'] : '');
+        if( $is_public == true ) {
+            $public = 'Yes';
+        } else {
+            $public = 'No';
+        }
+
+        $wpdb->insert(
+            $table_ffr,
+            array( 
+                'title'       =>  $title,
+                'description' =>  $description,
+                'status' =>  $status,
+                'is_public' =>  $public,
+            ) 
+        );
+
+        foreach( $tags as $tag) {
+            $tagSlug = strtolower(str_replace(' ', '-', $tag));
+            $wpdb->insert(
+                $table_tag,
+                array( 
+                    'name'     =>  $tag,
+                    'slug'     =>  $tagSlug,
+                    'board_id' => $id,
+                ) 
+            );
+        }
+        
     }
     
 

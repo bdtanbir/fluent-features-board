@@ -36,6 +36,7 @@ final class Fluent_Features_board {
 
     public $fluent_features_board = 'fluent_features_board';
     public $ff_requests_list = 'ff_requests_list';
+    public $ffr_tags = 'ffr_tags';
 
     /**
      * Constructor for the Fluent_Features_board class
@@ -208,13 +209,27 @@ final class Fluent_Features_board {
 
         // Tables
         $ffr_table_name = $wpdb->prefix . $this->ff_requests_list;
-        $charset_collate = $wpdb->get_charset_collate();
+        // $charset_collate = $wpdb->get_charset_collate();
 
         $sql2 = "CREATE TABLE $ffr_table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
         title text NOT NULL,
         description text NOT NULL,
-        post_status text NOT NULL,
+        status text NOT NULL,
+        is_public text NOT NULL,
+        PRIMARY KEY  (id)
+        ) $charset_collate;";
+
+
+        // Tables
+        $ffr_tags_table = $wpdb->prefix . $this->ffr_tags;
+        // $charset_collate = $wpdb->get_charset_collate();
+
+        $sql3 = "CREATE TABLE $ffr_tags_table (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        name text NOT NULL,
+        slug text NOT NULL,
+        board_id int NOT NULL,
         PRIMARY KEY  (id)
         ) $charset_collate;";
 
@@ -222,6 +237,7 @@ final class Fluent_Features_board {
         dbDelta( $sql );
         // require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql2 );
+        dbDelta( $sql3 );
     }
 
     /**

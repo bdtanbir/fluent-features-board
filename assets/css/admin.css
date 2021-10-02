@@ -624,8 +624,8 @@
     padding: 8px 16px;
     display: inline-block;
     border-radius: 4px;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 300;
     border: none;
     transition: .3s;
     cursor: pointer;
@@ -742,5 +742,46 @@
     font-weight: 300;
     margin: 2px 0 0 0;
     font-style: italic;
+}
+.ff-requests-form .input-group.input-checkbox {
+    display: flex;
+    align-items: center;
+}
+.ff-requests-form .input-group.input-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    box-shadow: none;
+    border: 1px solid #eee;
+    background: #eee;
+    border-radius: 2px;
+    margin: 0;
+    position: relative;
+    transition: .3s;
+}
+.ff-requests-form .input-group.input-checkbox input[type="checkbox"]:before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 3px;
+    width: 6px;
+    height: 10px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(33deg) scale(0);
+    transition: .2s;
+}
+.ff-requests-form .input-group.input-checkbox input[type="checkbox"]:checked:before {
+    left: 10px;
+    top: 6px;
+    transform: rotate(33deg) scale(1);
+}
+.ff-requests-form .input-group.input-checkbox input[type="checkbox"]:checked {
+    background: #ba42ec;
+}
+.ff-requests-form .input-group.input-checkbox input[type="checkbox"]:checked {
+    border-color: #ba42ec;
+}
+.ff-requests-form .input-group.input-checkbox label {
+    margin: 0 0 0 5px;
 }
 
