@@ -8,7 +8,7 @@
                 {{item.title}}
             </h1>
             <div class="actions">
-                <a href="" class="edit-column">Edit</a> | 
+                <router-link :to="{name: 'Single', params: {item: item, id: item.id}}" class="edit-column">Edit</router-link> | 
                 <a href="#" class="delete-column">Delete</a>
             </div>
         </td>

@@ -1,7 +1,47 @@
 <template>
     <div class="ffb-single-wrap">
         <router-link to="/" class="back-to-home-btn">Back</router-link>
-        <h1>Single</h1>
+        <div class="ffb-updated-table">
+            Updated! <span class="close-ffb-updated-table">+</span>
+        </div>
+
+        <form>
+            <div class="input-group">
+                <label for="upd_title">Title</label>
+                <input type="text" id="upd_title" ref="upd_title" placeholder="Title" :value="details.title">
+            </div>
+            <div class="input-group">
+                <label for="upd_description">Description</label>
+                <textarea name="upd_description" id="upd_description" placeholder="Why do you want this" ref="upd_description" :value="details.description"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="status">Status</label>
+                <select name="status" id="status" ref="upd_status" :value="details.status">
+                    <option value="planned">Planned</option>
+                    <option value="inprogress">In Progress</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="ffr-tags">
+                    Tags
+                </label>
+                <input type="text" id="ffr-tags" ref="tempTag" @keyup.188="addTag">
+                <span class="description">
+                    Separate tags with <strong>commas</strong>
+                </span>
+                <div class="ffr-tags-list">
+                    <span v-for="tag in tags" :key="tag" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag)">{{tag}}</span>
+                </div>
+            </div>
+            <div class="input-group input-checkbox">
+                <input type="checkbox" id="is_public" ref="is_public">
+                <label for="is_public">
+                    Is Public
+                </label>
+            </div>
+        </form>
     </div>
 </template>
 
@@ -11,9 +51,28 @@ export default {
     name: 'Single',
     data() {
         return {
+            details: this.$route.params.item ? this.$route.params.item : {},
+            tempTag: '',
+            tags: [],
         }
     },
     methods: {
+        addTag(e) {
+            this.tempTag = this.tempTag.replace(',', '')
+            if (e.key === "," && this.tempTag) {
+                if (!this.tags.includes(this.tempTag)) {
+                this.tags.push(this.tempTag);
+                }
+                this.tempTag = "";
+            }
+        },
+        deleteTag(tag) {
+            this.tags = this.tags.filter((item) => {
+                return tag !== item;
+            });
+        },
+    },
+    mounted() {
         
     },
 }
@@ -53,22 +112,30 @@ export default {
         margin-bottom: 5px;
         display: block;
     }
+    .ffb-single-wrap form select,
     .ffb-single-wrap form textarea,
     .ffb-single-wrap form input {
         display: block;
         width: 100%;
-        border: 1px solid #eee;
-        padding: 3px 13px;
-        transition: .3s;
+        padding: 6px 15px;
+        border: 1px solid #e1eaea;
+        border-radius: 4px;
+        font-size: 14px;
+        margin: 0;
+        transition: .2s;
+        max-width: 100%;
+        min-height: auto;
     }
     .ffb-single-wrap form textarea {
-        height: 60px;
-        resize: none;
+        height: 100px;
+        display: block;
     }
+    .ffb-single-wrap form select:focus,
     .ffb-single-wrap form textarea:focus,
     .ffb-single-wrap form input:focus {
         box-shadow: none;
         outline: none;
+        box-shadow: none;
         border-color: #2771b1;
     }
     .ffb-single-wrap form .ffb-single-update-btn button {

@@ -149,11 +149,6 @@ class FFB_Model_Table {
         $tags        = (isset($_POST['tags']) ? $_POST['tags'] : '');
         $status      = (isset($_POST['status']) ? $_POST['status'] : '');
         $is_public   = (isset($_POST['is_public']) ? $_POST['is_public'] : '');
-        if( $is_public == true ) {
-            $public = 'yes';
-        } else {
-            $public = 'no';
-        }
 
         $wpdb->insert(
             $table_ffr,
@@ -162,7 +157,7 @@ class FFB_Model_Table {
                 'description' =>  $description,
                 'status' =>  $status,
                 'parent_id' => $id,
-                'is_public' =>  $public,
+                'is_public' =>  $is_public,
             ) 
         );
 
