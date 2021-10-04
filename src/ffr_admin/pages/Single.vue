@@ -71,9 +71,9 @@ export default {
         addTag(e) {
             this.$refs.tempTag.value = this.$refs.tempTag.value.replace(',', '')
             if (e.key === "," && this.$refs.tempTag.value) {
-                // if (!this.tags.includes(this.$refs.tempTag.value)) {
-                this.tags.push(this.$refs.tempTag.value);
-                // }
+                if (!this.tags.includes(this.$refs.tempTag.value)) {
+                    this.tags.push(this.$refs.tempTag.value);
+                }
                 this.$refs.tempTag.value = "";
             }
         },
