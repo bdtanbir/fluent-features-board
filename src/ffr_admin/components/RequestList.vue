@@ -9,7 +9,7 @@
             </h1>
             <div class="actions">
                 <router-link :to="{name: 'Single', params: {item: item, id: item.id}}" class="edit-column">Edit</router-link> | 
-                <a href="#" class="delete-column">Delete</a>
+                <a @click.prevent="deleteHandle" href="#" class="delete-column">Delete</a>
             </div>
         </td>
         <td>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import $ from 'jquery';
+
 export default {
     props: ['item'],
     data() {
@@ -39,7 +41,9 @@ export default {
         }
     },
     methods: {
-        
+        deleteHandle: function() {
+            this.$emit('delete')
+        },
     }
 }
 </script>

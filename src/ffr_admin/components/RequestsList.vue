@@ -1,6 +1,7 @@
 <template>
     <div class="ff-requests-lists">
         <div class="ff-requests-lists-inner">
+            <FFRDeletePopup v-if="isDeleteModal" :id="currentId" @cancelDelete="cancelDeleteTableRow" />
 
             <table class="ff-request-list-table">
                 <thead>
@@ -14,7 +15,7 @@
                 </thead>
 
                 <tbody>
-                    <RequestList :item="list" v-for="list in lists" :key="list.id" />
+                    <RequestList @delete="deleteTableRow(list.id)" :item="list" v-for="list in lists" :key="list.id" />
                 </tbody>
             </table>
             
@@ -26,14 +27,27 @@
 <script>
 import $ from 'jquery';
 import RequestList from './RequestList.vue';
+import FFRDeletePopup from './FFRDeletePopup.vue'
 
 export default {
     components: {
-        RequestList
+        RequestList,
+        FFRDeletePopup
     },
     data() {
         return {
-            lists: []
+            lists: [],
+            currentId: '',
+            isDeleteModal: false
+        }
+    },
+    methods: {
+        deleteTableRow(id) {
+            this.isDeleteModal = true;
+            this.currentId = id;
+        },
+        cancelDeleteTableRow: function() {
+            this.isDeleteModal = false;
         }
     },
     mounted() {

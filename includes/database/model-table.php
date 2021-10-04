@@ -34,6 +34,8 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_getTagsByCurrentRequest', [$this, 'getTagsByCurrentRequest'] );
         add_action( 'wp_ajax_updateFeatureRequestList', [$this, 'updateFeatureRequestList'] );
         add_action( 'wp_ajax_nopriv_updateFeatureRequestList', [$this, 'updateFeatureRequestList'] );
+        add_action( 'wp_ajax_action_deleteFeatureRequestRow', [$this, 'action_deleteFeatureRequestRow'] );
+        add_action( 'wp_ajax_nopriv_action_deleteFeatureRequestRow', [$this, 'action_deleteFeatureRequestRow'] );
         
     }
 
@@ -259,6 +261,18 @@ class FFB_Model_Table {
             return false;
         }
         wp_send_json_success( $ffr_tags, 200 );
+        die();
+    }
+
+
+    /**
+     * Deleting Feature Request Row
+     */
+    public function action_deleteFeatureRequestRow() {
+        global $wpdb;
+        $table_name = $wpdb->prefix . $this->ff_requests_list;
+        $id    = (isset($_POST['id']) ? $_POST['id'] : '');
+        $wpdb->delete( $table_name, array( 'id' => $id ) );
         die();
     }
     
