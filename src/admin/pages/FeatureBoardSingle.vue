@@ -35,7 +35,7 @@
                             <option value="closed">Closed</option>
                         </select>
                     </div>
-                    <div class="input-group">
+                    <!-- <div class="input-group">
                         <label for="ffr-tags">
                             Tags
                         </label>
@@ -46,12 +46,15 @@
                         <div class="ffr-tags-list">
                             <span v-for="tag in tags" :key="tag" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag)">{{tag}}</span>
                         </div>
-                    </div>
-                    <div class="input-group input-checkbox">
-                        <input type="checkbox" id="is_public" v-model="is_public">
+                    </div> -->
+                    <div class="input-group">
                         <label for="is_public">
                             Is Public
                         </label>
+                        <select name="is_public" id="is_public" v-model="is_public">
+                            <option value="true">Public</option>
+                            <option value="false">Private</option>
+                        </select>
                     </div>
                     <div class="input-group">
                         <button :class="isSubmitting ? 'submitting-request ff-request-submit' : 'ff-request-submit'">
@@ -79,10 +82,10 @@ export default {
         return {
             FRBsingle: this.$route.params.board ? this.$route.params.board : {},
             isFeatureRequestForm: false,
-            tempTag: '',
-            tags: [],
+            // tempTag: '',
+            // tags: [],
             status: 'planned',
-            is_public: true,
+            is_public: 'true',
             isEmptyTitle: false,
             isEmptyDesc: false,
             title: '',
@@ -94,20 +97,20 @@ export default {
         }
     },    
     methods: {
-        addTag(e) {
-            this.tempTag = this.tempTag.replace(',', '')
-            if (e.key === "," && this.tempTag) {
-                if (!this.tags.includes(this.tempTag)) {
-                this.tags.push(this.tempTag);
-                }
-                this.tempTag = "";
-            }
-        },
-        deleteTag(tag) {
-            this.tags = this.tags.filter((item) => {
-                return tag !== item;
-            });
-        },
+        // addTag(e) {
+        //     this.tempTag = this.tempTag.replace(',', '')
+        //     if (e.key === "," && this.tempTag) {
+        //         if (!this.tags.includes(this.tempTag)) {
+        //         this.tags.push(this.tempTag);
+        //         }
+        //         this.tempTag = "";
+        //     }
+        // },
+        // deleteTag(tag) {
+        //     this.tags = this.tags.filter((item) => {
+        //         return tag !== item;
+        //     });
+        // },
         handleFFRequestForm() {
             this.isFeatureRequestForm  = !this.isFeatureRequestForm;
         },
@@ -135,7 +138,7 @@ export default {
                         action: 'submit_feature_request',
                         title: that.title,
                         description: that.description,
-                        tags: that.tags,
+                        // tags: that.tags,
                         status: that.status,
                         is_public: that.is_public,
                         id: that.FRBsingle.id
@@ -146,7 +149,7 @@ export default {
                         that.isSubmitted = true;
                         that.title = '';
                         that.description = '';
-                        that.tags = [];
+                        // that.tags = [];
                         setTimeout(() => {
                             that.isSubmitted = false;
                         }, 100000);
