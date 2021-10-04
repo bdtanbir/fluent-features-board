@@ -36,7 +36,7 @@ class Shortcodes {
                 $col .= '<div class="header-left-content">';
                 $col .= '<h3><a href="">'.$board->title.'</a></h3>';
                 $col .= '<div class="links">';
-                $col .= '<a href="https://adreastrian.com/">AuthLab Homepage</a>';
+                $col .= '<a href="https://adreastrian.com/">'.esc_html__('AuthLab Homepage', 'fluent-features-board').'</a>';
                 $col .= '</div>';
                 $col .= '</div>';
                 $col .= '</div>';
@@ -44,7 +44,7 @@ class Shortcodes {
 
                 $col .= '<ul>';
                 if(!is_user_logged_in(  )) {
-                    $col .= '<li><a class="user-login user-in" href="#">Login</a></li>';
+                    $col .= '<li><a class="user-login user-in" href="#">'.esc_html__('Login', 'fluent-features-board').'</a></li>';
                 } else {
                     $col .= '<li class="user-logout user-out">';
                     $col .= '<a href="#">';
@@ -52,7 +52,7 @@ class Shortcodes {
                     $col .= '</a>';
                     $col .= '<div class="user-logout-dropdown">';
                     $col .= '<a class="user-logout" href="'.wp_logout_url( home_url() ).'">';
-                    $col .= '<span class="logout-power-icon"></span> Logout';
+                    $col .= '<span class="logout-power-icon"></span> '.esc_html__('Logout', 'fluent-features-board');
                     $col .= '</a>';
                     $col .= '</div>';
                     $col .= '</li>';
@@ -73,15 +73,15 @@ class Shortcodes {
                 $col .= 'New Feature Request';
                 $col .= '</button>';
                 $col .= '<div class="ff-requests-search">';
-                $col .= '<input id="search-request" type="text" name="search" placeholder="Search feature requests">';
+                $col .= '<input id="search-request" type="text" name="search" placeholder="'.esc_attr__('Search feature requests', 'fluent-features-board').'">';
                 $col .= '</div>';
                 $col .= '</div>';
 
                 $col .= '<div class="ff-requests-form-wrap">';
                 $col .= '<form class="ff-requests-form" id="ff-request-frontend-form">';
-                $col .= '<h1>Suggest new feature</h1>';
+                $col .= '<h1>'.esc_html__('Suggest new feature', 'fluent-features-board').'</h1>';
                 $col .= '<div class="input-group">';
-                $col .= '<input id="search-request" type="text" name="title" placeholder="Title">';
+                $col .= '<input id="search-request" type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'">';
                 $col .= '</div>';
                 $col .= '<div class="input-group">';
                 $col .= '<textarea name="description" id="description" placeholder="Why do you want this"></textarea>';
