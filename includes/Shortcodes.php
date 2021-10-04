@@ -48,7 +48,7 @@ class Shortcodes {
                 } else {
                     $col .= '<li class="user-logout user-out">';
                     $col .= '<a href="#">';
-                    $col .= 'Hi Tanbir <span class="downicon"></span>';
+                    $col .= 'Hi, '.get_the_author().' <span class="downicon"></span>';
                     $col .= '</a>';
                     $col .= '<div class="user-logout-dropdown">';
                     $col .= '<a class="user-logout" href="'.wp_logout_url( home_url() ).'">';
