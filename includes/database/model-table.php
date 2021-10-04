@@ -205,8 +205,8 @@ class FFB_Model_Table {
     public function updateFeatureRequestList() {
         global $wpdb;
         $table_tag  = $wpdb->prefix . $this->ffr_tags;
-        $table_ffr = $wpdb->prefix . $this->ff_requests_list;
-        $id = (isset($_POST['id']) ? $_POST['id'] : '');
+        $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
+        $id       = (isset($_POST['id']) ? $_POST['id'] : '');
         $parent_id = (isset($_POST['parent_id']) ? $_POST['parent_id'] : '');
         $title = (isset($_POST['title']) ? $_POST['title'] : '');
         $description = (isset($_POST['description']) ? $_POST['description'] : '');
@@ -229,7 +229,7 @@ class FFB_Model_Table {
         );
 
         foreach( $tags as $tag) {
-            $tagSlug = strtolower(str_replace(' ', '-', $tag));
+            $tagSlug = str_replace(' ', '-', $tag);
             $wpdb->insert(
                 $table_tag,
                 array( 
@@ -248,7 +248,18 @@ class FFB_Model_Table {
      * Getting Current Request List's Tags
      */
     public function getTagsByCurrentRequest() {
-        // error_log('i am from current request list"s tags');
+        global $wpdb;
+        $post_id    = (isset($_POST['id']) ? $_POST['id'] : '');
+        $table_tag  = $wpdb->prefix . $this->ffr_tags;
+        $ffr_tags   = $wpdb->get_results(
+            "SELECT * FROM {$table_tag} WHERE board_id = {$post_id}"
+        );
+
+        if( is_wp_error( $ffr_tags ) ) {
+            return false;
+        }
+        wp_send_json_success( $ffr_tags, 200 );
+        die();
     }
     
 

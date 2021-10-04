@@ -1,8 +1,8 @@
 <template>
     <div class="ffb-single-wrap">
         <router-link to="/" class="back-to-home-btn">Back</router-link>
-        <div class="ffb-updated-table">
-            Updated! <span class="close-ffb-updated-table">+</span>
+        <div v-if="updateDone" class="ffb-updated-table">
+            Updated! <span @click="closeUpdateDone" class="close-ffb-updated-table">+</span>
         </div>
 
         <form @submit.prevent="updateRequestList">
@@ -32,8 +32,7 @@
                     Separate tags with <strong>commas</strong>
                 </span>
                 <div class="ffr-tags-list">
-                    <span v-for="tag in tags" :key="tag" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag)">{{tag}}</span>
-                    {{details}}
+                    <span v-for="tag in tags" :key="tag.id" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag.name)">{{tag.name}}</span>
                 </div>
             </div>
             <div class="input-group">
@@ -65,15 +64,16 @@ export default {
             tempTag: '',
             tags: [],
             isUpdating: false,
+            updateDone: false
         }
     },
     methods: {
         addTag(e) {
             this.$refs.tempTag.value = this.$refs.tempTag.value.replace(',', '')
             if (e.key === "," && this.$refs.tempTag.value) {
-                if (!this.tags.includes(this.$refs.tempTag.value)) {
+                // if (!this.tags.includes(this.$refs.tempTag.value)) {
                 this.tags.push(this.$refs.tempTag.value);
-                }
+                // }
                 this.$refs.tempTag.value = "";
             }
         },
@@ -84,20 +84,30 @@ export default {
         },
         updateRequestList() {
             const that = this;
-            $.ajax({
-                type: 'POST',
-                url: ajax_url.ajaxurl,
-                data: {
-                    action: 'updateFeatureRequestList',
-                    title: that.$refs.upd_title.value,
-                    description: that.$refs.upd_description.value,
-                    is_public: that.$refs.is_public.value,
-                    status: that.$refs.upd_status.value,
-                    tags: that.tags,
-                    parent_id: that.details.parent_id,
-                    id: that.details.id
-                }
-            })
+            this.isUpdating = true
+            setTimeout(() => {
+                $.ajax({
+                    type: 'POST',
+                    url: ajax_url.ajaxurl,
+                    data: {
+                        action: 'updateFeatureRequestList',
+                        title: that.$refs.upd_title.value,
+                        description: that.$refs.upd_description.value,
+                        is_public: that.$refs.is_public.value,
+                        status: that.$refs.upd_status.value,
+                        tags: that.tags,
+                        parent_id: that.details.parent_id,
+                        id: that.details.id
+                    },
+                    success: function() {
+                        that.isUpdating = false;
+                        that.updateDone = true;
+                        setTimeout(() => {
+                            that.updateDone = false;
+                        }, 100000);
+                    }
+                })
+            }, 2500);
         },
         changeTitle() {
             this.details.title = this.$refs.upd_title.value
@@ -110,6 +120,9 @@ export default {
         },
         changeDetails() {
             this.details.description = this.$refs.upd_description.value
+        },
+        closeUpdateDone() {
+            this.updateDone = false
         }
     },
     mounted() {
@@ -117,9 +130,13 @@ export default {
         $.ajax({
             type: 'POST',
             url: ajax_url.ajaxurl,
+            dataType: 'json',
             data: {
                 action: 'getTagsByCurrentRequest',
                 id: that.details.id
+            },
+            success: function(res) {
+                that.tags = res.data;
             }
         })
     },
@@ -302,5 +319,13 @@ export default {
     .ffb-single-wrap .input-group .ffr-tags-list span:hover {
         background: #ba42ec;
         color: #ffffff;
+    }
+    @keyframes rotating {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>

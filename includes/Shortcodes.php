@@ -30,9 +30,9 @@ class Shortcodes {
                     <?php 
                     foreach($form as $item) { ?>
                         <h1><?php echo esc_html( $item->title ); ?></h1>
-                        <span class="tags"><?php echo esc_html($item->tags); ?></span>
+                        <span class="tags"><?php //echo esc_html($item->tags); ?></span>
                         <p>
-                            <?php echo esc_html($item->description); ?>
+                            <?php //echo esc_html($item->description); ?>
                         </p>
                     <?php } ?>
                 </div>
