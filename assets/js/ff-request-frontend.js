@@ -5,6 +5,13 @@
             $('.ff-requests-header .ff-requests-form-wrap').toggleClass('active');
         });
 
+        // Show Logout Button
+        var hideLogoutOption = true;
+        $(document).on('click', '.ff-requests-list-home header .header-right ul .user-logout>a', function(e) {
+            e.preventDefault();
+            $(".ff-requests-list-home header .header-right ul .user-logout-dropdown").toggle();
+        })
+
 
         // Searching Request
         $('.ff-requests-list-home').each(function(index, el) {

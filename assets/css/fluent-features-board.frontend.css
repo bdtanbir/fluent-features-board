@@ -79,7 +79,8 @@ button:focus {
 }
 
 .ff-requests-list-home header .header-right .user-login.user-in {
-    display: inline-block;
+    display: block;
+    text-align: center;
 }
 
 .ff-requests-list-home header .header-right ul {
@@ -108,7 +109,7 @@ button:focus {
 }
 
 .ff-requests-list-home header .header-right ul .user-logout.user-out {
-    display: none;
+    /* display: none; */
 }
 
 .ff-requests-list-home header .header-right ul .user-logout a {
@@ -143,6 +144,7 @@ button:focus {
     padding: 10px;
     min-width: 160px;
     right: 0;
+    display: none;
 }
 
 .ff-requests-list-home header .header-right ul .user-logout-dropdown a {

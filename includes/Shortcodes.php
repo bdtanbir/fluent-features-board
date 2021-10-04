@@ -43,17 +43,20 @@ class Shortcodes {
                 $col .= '<div class="header-right">';
 
                 $col .= '<ul>';
-                $col .= '<li><a class="user-login user-in" href="#">Login</a></li>';
-                $col .= '<li class="user-logout user-out">';
-                $col .= '<a href="#">';
-                $col .= 'Hi Tanbir <span class="downicon"></span>';
-                $col .= '</a>';
-                $col .= '<div class="user-logout-dropdown">';
-                $col .= '<a class="user-logout" href="#">';
-                $col .= '<span class="logout-power-icon"></span> Logout';
-                $col .= '</a>';
-                $col .= '</div>';
-                $col .= '</li>';
+                if(!is_user_logged_in(  )) {
+                    $col .= '<li><a class="user-login user-in" href="#">Login</a></li>';
+                } else {
+                    $col .= '<li class="user-logout user-out">';
+                    $col .= '<a href="#">';
+                    $col .= 'Hi Tanbir <span class="downicon"></span>';
+                    $col .= '</a>';
+                    $col .= '<div class="user-logout-dropdown">';
+                    $col .= '<a class="user-logout" href="'.wp_logout_url( home_url() ).'">';
+                    $col .= '<span class="logout-power-icon"></span> Logout';
+                    $col .= '</a>';
+                    $col .= '</div>';
+                    $col .= '</li>';
+                }
                 $col .= '</ul>';
 
                 $col .= '</div>';
