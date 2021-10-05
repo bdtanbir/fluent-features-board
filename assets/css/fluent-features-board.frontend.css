@@ -602,6 +602,20 @@ button:focus {
     transition: .3s;
 }
 
+.ff-request-board-login-register-body form #ffb-register-submit[disabled],
+.ff-request-board-login-register-body form #ffb-login-submit[disabled] {
+    opacity: 0.2;
+    cursor: no-drop;
+}
+
+.ff-request-board-login-register-body form #ffb-register-submit[disabled],
+.ff-request-board-login-register-body form #ffb-login-submit[disabled],
+.ff-request-board-login-register-body form #ffb-register-submit[disabled]:hover,
+.ff-request-board-login-register-body form #ffb-login-submit[disabled]:hover {
+    background: #000 !important;
+    color: #fff !important;
+}
+
 .ff-request-board-login-register-body form #ffb-register-submit:hover,
 .ff-request-board-login-register-body form #ffb-login-submit:hover {
     background: #aaa;
@@ -609,6 +623,22 @@ button:focus {
 
 .ff-request-board-login-register-body #ff-request-board-register {
     display: none;
+}
+
+.ff-request-board-login-register-body .ffrb-msg-status {
+    background: green;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    padding: 4px 0;
+    margin: 0 0 10px 0;
+    border-radius: 4px;
+    display: none;
+    font-weight: 600;
+}
+
+.ff-request-board-login-register-body .ffrb-msg-status.loginerror {
+    background: #d30000;
 }
 
 @keyframes rotating {

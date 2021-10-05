@@ -98,6 +98,88 @@
 
 
         // Login / Register Form
+        var loginicon = document.querySelector('#ffb-login-submit');
+        var registericon = document.querySelector('#ffb-register-submit');
+        jQuery('form#ff-request-board-login, form#ff-request-board-register').on('submit', function(e) {
+            e.preventDefault();
+            var curElement = "#" + jQuery(this).attr('id');
+            jQuery(curElement + ' p.status', this).show().text(ajax_url.loadingmessage);
+            if (jQuery(this).attr('id') === 'ff-request-board-register') {
+                action = 'fluent_features_board_ajaxregister';
+                username = jQuery('#reg-username').val();
+                password = jQuery('#reg-password').val();
+                password2 = jQuery('#reg-password2').val()
+                email = jQuery('#reg-email').val();
+                security = jQuery('#signonsecurity').val();
+                ctrl = jQuery(this);
+                registericon.innerHTML = '<i class="la la-refresh rotating"></i> Please Wait...';
+                registericon.setAttribute('disabled', 'disabled');
+                setTimeout(function() {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        url: ajax_url.ajaxurl,
+                        data: {
+                            'action': action,
+                            'username': username,
+                            'password': password,
+                            'password2': password2,
+                            'email': email,
+                            'security': security,
+                        },
+                        success: function(data) {
+                            jQuery(curElement + ' p.ffrb-msg-status').text(data.message);
+                            if (data.loggedin == true) {
+                                jQuery('.ffrb-msg-status').removeClass('loginerror');
+                                jQuery('.ffrb-msg-status').addClass('loginsucess');
+                                document.location.href = jQuery(ctrl).attr('id') == 'register' ? ajax_url.register_redirect : ajax_url.redirecturl;
+                            } else {
+                                jQuery('.ffrb-msg-status').addClass('loginerror');
+                                registericon.innerHTML = 'Register Account';
+                                registericon.removeAttribute('disabled');
+                            }
+                        }
+                    })
+                }, 2000)
+            } else {
+                var action = 'fluent_features_board_ajaxlogin';
+                var username = jQuery('form#ff-request-board-login #username').val();
+                var password = jQuery('form#ff-request-board-login #password').val();
+                var security = jQuery('form#ff-request-board-login #security').val();
+                var ctrl = jQuery(this);
+                loginicon.innerHTML = '<span class="loader"></span> Please Wait...';
+                loginicon.setAttribute('disabled', 'disabled');
+                setTimeout(function() {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        url: ajax_url.ajaxurl,
+                        data: {
+                            'action': action,
+                            'username': username,
+                            'password': password,
+                            'security': security,
+                        },
+                        success: function(data) {
+                            jQuery(curElement + ' p.ffrb-msg-status').text(data.message);
+                            jQuery('.ffrb-msg-status').show();
+                            if (data.loggedin === true) {
+                                jQuery('.ffrb-msg-status').removeClass('loginerror');
+                                jQuery('.ffrb-msg-status').addClass('loginsucess');
+                                loginicon.removeAttribute('disabled');
+                                loginicon.innerHTML = 'Login';
+                                document.location.href = jQuery(ctrl).attr('id') == 'register' ? ajax_url.register_redirect : ajax_url.redirecturl;
+                            } else {
+                                jQuery('.ffrb-msg-status').addClass('loginerror');
+                                loginicon.innerHTML = 'Login Account';
+                                loginicon.removeAttribute('disabled');
+                            }
+
+                        }
+                    })
+                }, 2000)
+            }
+        });
 
 
     })

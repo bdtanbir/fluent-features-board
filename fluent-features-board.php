@@ -53,6 +53,9 @@ final class Fluent_Features_board {
         add_action( 'wp_enqueue_scripts', [$this, 'ffb_frontend_scripts'] );
         add_action( 'admin_enqueue_scripts', [$this, 'ffb_admin_scripts'] );
         add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
+		add_action( 'set_logged_in_cookie', [$this, 'ffb_loggedin_cookie'] );
+        add_action( 'wp_ajax_fluent_features_board_ajaxlogin', [$this, 'fluent_features_board_ajaxlogin'] );
+        add_action( 'wp_ajax_nopriv_fluent_features_board_ajaxlogin', [$this, 'fluent_features_board_ajaxlogin'] );
     }
 
     /**
@@ -120,6 +123,45 @@ final class Fluent_Features_board {
         $this->includes();
         $this->init_hooks();
         $this->ffb_wpdb_tables();
+        // $this->fluent_features_board_ajaxlogin();
+    }
+    public function fluent_features_board_ajaxlogin() {
+        // First check the nonce, if it fails the function will break
+        check_ajax_referer( 'ajax-login-nonce', 'security' );
+
+        // Nonce is checked, get the POST data and sign user on
+        // Call auth_user_login
+        $this->ffb_auth_user_login($_POST['username'], $_POST['password'], 'Login');
+
+        die();
+    }
+
+    public function ffb_auth_user_login($user_login, $password, $login) {
+		$info                  = array();
+		$info['user_login']    = $user_login;
+		$info['user_password'] = $password;
+
+
+		$user_signon = wp_signon( $info, is_ssl() ? true : false);
+		if ( is_wp_error($user_signon) ){
+			echo json_encode(array('loggedin'=>false, 'message'=>esc_html__('Wrong username or password.','fluent-features-board')));
+		} else {
+			global $current_user;
+			wp_set_current_user($user_signon->ID);
+			if($login=="Login"){
+				echo json_encode(array('loggedin'=>true, 'message'=>esc_html__('Login successful, redirecting...','fluent-features-board')));
+			}
+			else{
+				echo json_encode(array('loggedin'=>true, 'message'=>esc_html__('Registration successful, redirecting...','fluent-features-board')));
+			}
+
+		}
+
+		die();
+    }
+
+    public function ffb_loggedin_cookie( $logged_in_cookie ){
+        $_COOKIE[LOGGED_IN_COOKIE] = $logged_in_cookie;
     }
 
     public function ffb_frontend_scripts() {
