@@ -5,6 +5,7 @@ button:focus {
     outline: none !important;
 }
 
+.ff-request-list-single-wrap,
 .ff-requests-list-home {
     width: 100%;
     max-width: 650px !important;
@@ -514,12 +515,13 @@ button:focus {
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     justify-content: center;
     align-items: flex-start;
     padding-top: 50px;
     z-index: 9999;
     display: none;
+    max-width: 1920px !important;
 }
 
 .ff-request-board-login-register-wrap.active {

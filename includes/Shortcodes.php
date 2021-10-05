@@ -14,6 +14,9 @@ class Shortcodes {
     }
 
 	public function ffb_shortcode( $atts = []) {
+        if (!is_admin()) {
+            require_once FFB_INCLUDES . '/layout/user-login.php';
+        }
         global $wpdb;
         $atts = array_change_key_case((array) $atts, CASE_LOWER);
         $ffb_atts = shortcode_atts( 
@@ -130,7 +133,7 @@ class Shortcodes {
                         }
                         $col .= '<div class="ff-request-content">';
                             $col .= '<h3>';
-                                $col .= '<a href="">';
+                                $col .= '<a href="'.esc_url(home_url('/ff_request/')).$item->id.'">';
                                     $col .= esc_html($item->title);
                                 $col .= '</a>';
                             $col .= '</h3>';

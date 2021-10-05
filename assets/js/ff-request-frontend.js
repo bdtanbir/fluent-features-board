@@ -59,19 +59,17 @@
                         title: title,
                         description: description,
                         id: parent_id
-                    },
-                    success: function(data) {
-                        console.log('Success');
-                        $("#ff-request-frontend-form input[name='title']").val('');
-                        $("#ff-request-frontend-form textarea[name='description']").val('');
-                        $(that).removeClass('submitting');
-                        submit_btn.removeAttribute("disabled");
-                        thankyou.show();
-                        // setTimeout(() => {
-                        //     window.location.reload()
-                        // }, 2000);
                     }
                 });
+                console.log('Success');
+                $("#ff-request-frontend-form input[name='title']").val('');
+                $("#ff-request-frontend-form textarea[name='description']").val('');
+                $(that).removeClass('submitting');
+                submit_btn.removeAttribute("disabled");
+                thankyou.show();
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000);
             }, 2000);
         });
 

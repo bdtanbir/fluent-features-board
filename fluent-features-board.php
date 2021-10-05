@@ -56,6 +56,7 @@ final class Fluent_Features_board {
 		add_action( 'set_logged_in_cookie', [$this, 'ffb_loggedin_cookie'] );
         add_action( 'wp_ajax_fluent_features_board_ajaxlogin', [$this, 'fluent_features_board_ajaxlogin'] );
         add_action( 'wp_ajax_nopriv_fluent_features_board_ajaxlogin', [$this, 'fluent_features_board_ajaxlogin'] );
+        add_filter( 'template_include', [$this, 'load_custom_ffrequest_route_template'] );
     }
 
     /**
@@ -203,6 +204,15 @@ final class Fluent_Features_board {
 
     }
 
+    public function load_custom_ffrequest_route_template( $original_template ) {
+        global $wp;
+        $request = explode( '/', $wp->request );
+        if ( is_page( 'ff_request' ) || current( $request ) == "ff_request" ) {
+            return plugin_dir_path( __FILE__ ) . 'templates/single-ff_request.php';
+        }
+        return $original_template;
+    }
+
     /**
      * Include the required files
      *
@@ -213,9 +223,7 @@ final class Fluent_Features_board {
         require_once FFB_INCLUDES . '/database/model-table.php';
         require_once FFB_INCLUDES . '/Assets.php';
         require_once FFB_INCLUDES . '/Shortcodes.php';
-        if (!is_admin()) {
-            require_once FFB_INCLUDES . '/layout/user-login.php';
-        }
+        require_once FFB_INCLUDES . '/custom_router.php';
 
         // if ( $this->is_request( 'admin' ) ) {
             require_once FFB_INCLUDES . '/Admin.php';

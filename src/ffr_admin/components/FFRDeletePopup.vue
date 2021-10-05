@@ -38,12 +38,10 @@ export default {
                     data: {
                         action: 'action_deleteFeatureRequestRow',
                         id: that.id
-                    },
-                    success: function() {
-                        that.isDeleting = false;
-                        window.location.reload();
                     }
                 });
+                that.isDeleting = false;
+                window.location.reload();
             }, 2000)
         },
     },
