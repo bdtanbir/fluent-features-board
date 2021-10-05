@@ -6,11 +6,14 @@
         </div>
         <div class="ff-request-content">
             <h3 v-if="item.title">{{item.title}}</h3>
-            <p v-if="item.description">{{item.description.substr(0,100)}}</p>
+            <p class="status">
+                <span :class="item.status">{{item.status}}</span>
+            </p>
+            <p class="description" v-if="item.description">{{item.description.substr(0,100)}}</p>
         </div>
         <div class="ff-request-comment-count">
             <span class="comment-icon"></span>
-            <span class="comment-number">10</span>
+            <span class="comment-number">{{item.comments_count}}</span>
         </div>
     </div>
 </template>
@@ -70,7 +73,7 @@ export default {
     .ff-requests-list .ff-request-list .ff-request-content h3 {
         font-size: 18px;
         font-weight: 500;
-        margin: 0 0 5px 0;
+        margin: 0 0 2px 0;
     }
     .ff-requests-list .ff-request-list .ff-request-content h3 a {
         text-decoration: none;
@@ -79,11 +82,11 @@ export default {
     .ff-requests-list .ff-request-list .ff-request-content h3 a:hover {
         color: #8f42ec;
     }
-    .ff-requests-list .ff-request-list .ff-request-content p {
+    .ff-requests-list .ff-request-list .ff-request-content .description {
         font-size: 15px;
         font-weight: 400;
         color: #878787;
-        margin: 0;
+        margin: 0 0 5px 0;
     }
     .ff-requests-list .ff-request-list .ff-request-comment-count {
         display: flex;
@@ -113,6 +116,35 @@ export default {
         display: inline-block;
         margin-left: 5px;
         color: #828897;
+    }
+    .ff-requests-list .ff-request-list .status {
+        line-height: 18px;
+        margin: 0 0 5px 0;
+    }
+
+    .ff-requests-list .ff-request-list .status span {
+        display: inline-block;
+        background: #1fa0ff;
+        color: #fff;
+        line-height: 18px;
+        border-radius: 4px;
+        font-size: 10px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        padding: 1px 6px;
+    }
+
+    .ff-requests-list .ff-request-list .status span.inprogress {
+        background: #04d704;
+    }
+
+    .ff-requests-list .ff-request-list .status span.closed {
+        background: #ff0000;
+    }
+
+    .ff-requests-list .ff-request-list .status span.shipped {
+        background: #ffa500;
     }
     
 </style>

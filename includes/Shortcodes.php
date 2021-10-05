@@ -25,8 +25,17 @@ class Shortcodes {
         if(!empty($ffb_atts['id'])) {
             $current_feature_board = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."fluent_features_board WHERE id=".$ffb_atts['id']);
 
-            $form = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id']);
             foreach($current_feature_board as $board) {
+                if ($board->sort_by == 'upvotes') {
+                    $sort_by = '';
+                } elseif ($board->sort_by == 'alphabetical') {
+                    $sort_by = ' ORDER BY title';
+                } elseif ($board->sort_by == 'comments') {
+                    $sort_by = ' ORDER BY comments_count';
+                } else {
+                    $sort_by = '';
+                }
+                $form = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$sort_by);
                 $col = '<div class="ff-requests-list-home">';
 
                 $col .= '<header>';
@@ -48,7 +57,7 @@ class Shortcodes {
                 } else {
                     $col .= '<li class="user-logout user-out">';
                     $col .= '<a href="#">';
-                    $col .= 'Hi, '.get_the_author().' <span class="downicon"></span>';
+                    $col .= esc_html__('Hi, ', 'fluent-features-board').get_the_author().' <span class="downicon"></span>';
                     $col .= '</a>';
                     $col .= '<div class="user-logout-dropdown">';
                     $col .= '<a class="user-logout" href="'.wp_logout_url( home_url() ).'">';
@@ -70,7 +79,7 @@ class Shortcodes {
                 $col .= '<div class="ff-requests-header">';
                 $col .= '<div class="d-flex">';
                 $col .= '<button class="ff-addnewrequest">';
-                $col .= 'New Feature Request';
+                $col .= esc_html__('New Feature Request', 'fluent-features-board');
                 $col .= '</button>';
                 $col .= '<div class="ff-requests-search">';
                 $col .= '<input id="search-request" type="text" name="search" placeholder="'.esc_attr__('Search feature requests', 'fluent-features-board').'">';
@@ -84,11 +93,11 @@ class Shortcodes {
                 $col .= '<input id="search-request" type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'">';
                 $col .= '</div>';
                 $col .= '<div class="input-group">';
-                $col .= '<textarea name="description" id="description" placeholder="Why do you want this"></textarea>';
+                $col .= '<textarea name="description" id="description" placeholder="'.esc_html__('Why do you want this', 'fluent-features-board').'"></textarea>';
                 $col .= '</div>';
                 $col .= '<div class="input-group">';
                 $col .= '<button class="ff-request-submit">';
-                $col .= 'Suggest Feature';
+                $col .= esc_html__('Suggest Feature', 'fluent-features-board');
                 $col .= '</button>';
                 $col .= '</div>';
                 $col .= '</form>';
@@ -96,28 +105,42 @@ class Shortcodes {
                 $col .= '</div>';
 
                 $col .= '<div class="ff-requests-list-box">';
-                $col .= '<p>('.count($form).') feature requests</p> ';
+                $col .= '<p>('.count($form).') '.esc_html__('feature requests', 'fluent-features-board').'</p> ';
                 $col .= '<div class="ff-requests-list-body">';
 
                 foreach($form as $item) {
-                    // $t_slug = strtolower(str_replace(' ', '-', $item->title));
+                    $status = strtolower(str_replace(' ', '-', $item->status));
+                    if($item->status == 'inprogress') {
+                        $status_text = "In Progress";
+                    } elseif($item->status == 'planned') {
+                        $status_text = "Planned";
+                    } elseif($item->status == 'closed') {
+                        $status_text = "Closed";
+                    } else {
+                        $status_text = "Shipped";
+                    }
                     $col .= '<div class="ff-request-item" data-name="'.$item->title.'">';
-                    $col .= '<div class="ff-request-vote">';
-                    $col .= '<span class="ff-request-vote-btn"></span>';
-                    $col .= '<span class="ff-request-vote-count">10</span>';
-                    $col .= '</div>';
-                    $col .= '<div class="ff-request-content">';
-                    $col .= '<h3>';
-                    $col .= '<a href="">';
-                    $col .= $item->title;
-                    $col .= '</a>';
-                    $col .= '</h3>';
-                    $col .= '<p>'.$item->description.'</p>';
-                    $col .= '</div>';
-                    $col .= '<a href="" class="ff-request-comment-count">';
-                    $col .= '<span class="comment-icon"></span>';
-                    $col .= '<span class="comment-number">10</span>';
-                    $col .= '</a>';
+                        if($board->show_upvotes == 'yes') {
+                            $col .= '<div class="ff-request-vote">';
+                                $col .= '<span class="ff-request-vote-btn"></span>';
+                                $col .= '<span class="ff-request-vote-count">10</span>';
+                            $col .= '</div>';
+                        }
+                        $col .= '<div class="ff-request-content">';
+                            $col .= '<h3>';
+                                $col .= '<a href="">';
+                                    $col .= esc_html($item->title);
+                                $col .= '</a>';
+                            $col .= '</h3>';
+                            if($item->status) {
+                                $col .= '<p class="status"><span class="'.esc_attr($status).'">'.esc_html($status_text).'</span></p>';
+                            }
+                            $col .= '<p class="description">'.esc_html($item->description).'</p>';
+                        $col .= '</div>';
+                        $col .= '<a href="" class="ff-request-comment-count">';
+                        $col .= '<span class="comment-icon"></span>';
+                        $col .= '<span class="comment-number">10</span>';
+                        $col .= '</a>';
                     $col .= '</div>';
                 }
 

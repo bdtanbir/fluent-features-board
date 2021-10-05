@@ -169,6 +169,7 @@ export default {
             url: ajax_url.ajaxurl,
             data: {
                 action: 'get_feature_requests_list',
+                sort_by: that.FRBsingle.sort_by,
                 id: that.FRBsingle.id
             },
             success: function(res) {

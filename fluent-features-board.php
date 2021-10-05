@@ -124,7 +124,7 @@ final class Fluent_Features_board {
 
     public function ffb_frontend_scripts() {
         wp_enqueue_style( 'fluent-features-board-global-frontend', FFB_ASSETS .'/css/fluent-features-board.frontend.css' );
-        wp_enqueue_script( 'ff-request-frontend', FFB_ASSETS .'/js/ff-request-frontend.js', null, true );
+        wp_enqueue_script( 'ff-request-frontend', FFB_ASSETS .'/js/ff-request-frontend.js', ['jquery'], true );
     }
 
     public function ffb_admin_scripts() {
@@ -219,6 +219,7 @@ final class Fluent_Features_board {
         status text NOT NULL,
         parent_id int NOT NULL,
         is_public text NOT NULL,
+        comments_count int NOT NULL,
         PRIMARY KEY  (id)
         ) $charset_collate;";
 

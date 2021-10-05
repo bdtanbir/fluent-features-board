@@ -173,8 +173,19 @@ class FFB_Model_Table {
     public function get_feature_requests_list() {
         global $wpdb;
         $post_id          = (isset($_POST['id']) ? $_POST['id'] : '');
+        $sort_by          = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
+        error_log(print_r($sort_by, 1));
+        if ($sort_by == 'upvotes') {
+            $sorting = '';
+        } elseif ($sort_by == 'alphabetical') {
+            $sorting = ' ORDER BY title';
+        } elseif ($sort_by == 'comments') {
+            $sorting = ' ORDER BY comments_count';
+        } else {
+            $sorting = '';
+        }
         $feature_request_lists = $wpdb->get_results(
-            "SELECT * FROM {$wpdb->prefix}ff_requests_list WHERE parent_id = {$post_id}"
+            "SELECT * FROM {$wpdb->prefix}ff_requests_list WHERE parent_id = {$post_id} {$sorting}"
         );
         
         if( is_wp_error( $feature_request_lists ) ) {

@@ -367,19 +367,50 @@ button:focus {
 .ff-requests-list-box .ff-request-item .ff-request-content h3 {
     font-size: 18px;
     font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-content h3 a {
     text-decoration: none;
-    color: #ba42ec;
+    color: #000;
+    display: inline-block;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-content h3 a:hover {
-    color: #8f42ec;
+    color: #ba42ec;
 }
 
-.ff-requests-list-box .ff-request-item .ff-request-content p {
+.ff-requests-list-box .ff-request-item .ff-request-content .status {
+    line-height: 18px;
+    margin-bottom: 5px;
+}
+
+.ff-requests-list-box .ff-request-item .ff-request-content .status span {
+    display: inline-block;
+    background: #1fa0ff;
+    color: #fff;
+    line-height: 18px;
+    border-radius: 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    padding: 1px 6px;
+}
+
+.ff-requests-list-box .ff-request-item .ff-request-content .status span.inprogress {
+    background: #04d704;
+}
+
+.ff-requests-list-box .ff-request-item .ff-request-content .status span.closed {
+    background: #ff0000;
+}
+
+.ff-requests-list-box .ff-request-item .ff-request-content .status span.shipped {
+    background: #ffa500;
+}
+
+.ff-requests-list-box .ff-request-item .ff-request-content .description {
     font-size: 15px;
     font-weight: 400;
     color: #878787;
