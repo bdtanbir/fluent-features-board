@@ -35,6 +35,7 @@ export default {
                 $.ajax({
                     type: "POST",
                     url: ajax_url.ajaxurl,
+                    dataType: 'json',
                     data: {
                         action: "delete_ffb_table_column",
                         id: that.id

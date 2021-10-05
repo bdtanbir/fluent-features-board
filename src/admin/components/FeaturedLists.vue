@@ -54,6 +54,7 @@ export default {
         $.ajax({
             type: "POST",
             url: ajax_url.ajaxurl,
+            dataType: 'json',
             data: {
                 action: "get_ffb_lists",
             },

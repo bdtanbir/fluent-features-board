@@ -88,18 +88,20 @@ class Shortcodes {
 
                 $col .= '<div class="ff-requests-form-wrap">';
                 $col .= '<form class="ff-requests-form" id="ff-request-frontend-form">';
+                $col .= '<p class="thankyou">Thank You for submitting!</p>';
                 $col .= '<h1>'.esc_html__('Suggest new feature', 'fluent-features-board').'</h1>';
                 $col .= '<div class="input-group">';
-                $col .= '<input id="search-request" type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'">';
+                $col .= '<input id="search-request" type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'" required>';
                 $col .= '</div>';
                 $col .= '<div class="input-group">';
-                $col .= '<textarea name="description" id="description" placeholder="'.esc_html__('Why do you want this', 'fluent-features-board').'"></textarea>';
+                $col .= '<textarea name="description" id="description" placeholder="'.esc_html__('Why do you want this', 'fluent-features-board').'" required></textarea>';
                 $col .= '</div>';
                 $col .= '<div class="input-group">';
                 $col .= '<button class="ff-request-submit">';
-                $col .= esc_html__('Suggest Feature', 'fluent-features-board');
+                $col .= '<span class="loader"></span>'.esc_html__('Suggest Feature', 'fluent-features-board');
                 $col .= '</button>';
                 $col .= '</div>';
+                $col .= '<input type="hidden" value="'.$board->id.'" id="parent_board_id" />';
                 $col .= '</form>';
                 $col .= '</div>';
                 $col .= '</div>';

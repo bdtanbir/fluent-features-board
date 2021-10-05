@@ -120,6 +120,7 @@ export default {
                 $.ajax({
                     type: "POST",
                     url: ajax_url.ajaxurl,
+                    dataType: 'json',
                     data: {
                         action: "update_fluent_features_board",
                         title: title,

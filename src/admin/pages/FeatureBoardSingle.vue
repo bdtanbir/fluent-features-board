@@ -134,6 +134,7 @@ export default {
                 $.ajax({
                     type: "POST",
                     url: ajax_url.ajaxurl,
+                    dataType: 'json',
                     data: {
                         action: 'submit_feature_request',
                         title: that.title,
@@ -167,6 +168,7 @@ export default {
         $.ajax({
             type: 'POST',
             url: ajax_url.ajaxurl,
+            dataType: 'json',
             data: {
                 action: 'get_feature_requests_list',
                 sort_by: that.FRBsingle.sort_by,

@@ -6,7 +6,6 @@
         });
 
         // Show Logout Button
-        var hideLogoutOption = true;
         $(document).on('click', '.ff-requests-list-home header .header-right ul .user-logout>a', function(e) {
             e.preventDefault();
             $(".ff-requests-list-home header .header-right ul .user-logout-dropdown").toggle();
@@ -40,9 +39,40 @@
         });
 
         // Submit Feature Request
-        $('#ff-request-frontend-form').submit(function(e) {
+        $('#ff-request-frontend-form').on('submit', function(e) {
             e.preventDefault();
-            console.log('submitted');
+            var title = $("#ff-request-frontend-form input[name='title']").val();
+            var description = $("#ff-request-frontend-form textarea[name='description']").val();
+            var parent_id = $("#ff-request-frontend-form #parent_board_id").val();
+            var thankyou = $(".ff-requests-form .thankyou");
+            var submit_btn = document.querySelector('#ff-request-frontend-form .ff-request-submit');
+            const that = this;
+            $(this).addClass('submitting');
+            submit_btn.setAttribute("disabled", "");
+            setTimeout(() => {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: ajax_url.ajaxurl,
+                    data: {
+                        action: 'addFeatureRequestFromFrontend',
+                        title: title,
+                        description: description,
+                        parent_id: parent_id
+                    },
+                    success: function(data) {
+                        console.log('Success ');
+                        $("#ff-request-frontend-form input[name='title']").val('');
+                        $("#ff-request-frontend-form textarea[name='description']").val('');
+                        $(that).removeClass('submitting');
+                        submit_btn.removeAttribute("disabled");
+                        thankyou.show();
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 2000);
+                    }
+                });
+            }, 2000);
         })
     })
 

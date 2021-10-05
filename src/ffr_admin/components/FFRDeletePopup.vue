@@ -34,6 +34,7 @@ export default {
                 $.ajax({
                     type: 'POST',
                     url: ajax_url.ajaxurl,
+                    dataType: 'json',
                     data: {
                         action: 'action_deleteFeatureRequestRow',
                         id: that.id

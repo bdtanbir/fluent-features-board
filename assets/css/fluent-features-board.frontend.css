@@ -267,6 +267,19 @@ button:focus {
     padding: 15px 20px 20px 20px;
 }
 
+.ff-requests-form .thankyou {
+    background: green;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 5px 5px;
+    display: none;
+}
+
 .ff-requests-form h1 {
     font-size: 20px;
     font-weight: 600;
@@ -300,6 +313,27 @@ button:focus {
     padding: 8px 18px;
     font-size: 15px;
     border-radius: 4px;
+}
+
+.ff-requests-form .ff-request-submit[disabled] {
+    cursor: no-drop;
+    opacity: 0.3;
+}
+
+.ff-requests-form .ff-request-submit .loader {
+    width: 10px;
+    height: 10px;
+    display: none;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    margin-right: 5px;
+}
+
+.ff-requests-form.submitting .ff-request-submit .loader {
+    animation: rotating 1s infinite linear;
+    display: inline-block;
 }
 
 .ff-requests-form-wrap {
@@ -462,10 +496,21 @@ button:focus {
     border: 1px solid #e1eaea;
     padding: 15px;
     border-radius: 4px;
+    max-height: 576px;
+    overflow-x: hidden;
 }
 
 .ff-requests-list-box>p {
     font-size: 15px;
     color: #828897;
     margin: 0 0 5px 0;
+}
+
+@keyframes rotating {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
