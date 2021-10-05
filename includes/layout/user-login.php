@@ -14,6 +14,8 @@
         <div class="ff-request-board-login-register-body">
             <form class="active" id="ff-request-board-login">
                 <h2><?php esc_html_e('Login', 'fluent-features-board'); ?></h2>
+                <p class="ffrb-msg-status"></p>
+                <?php wp_nonce_field('ajax-login-nonce', 'security'); ?>
                 <div class="input-group">
                     <label class="label-text" for="username">
                         <?php esc_html_e('Username', 'fluent-features-board'); ?>

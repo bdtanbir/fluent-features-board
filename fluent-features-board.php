@@ -126,7 +126,9 @@ final class Fluent_Features_board {
         wp_enqueue_style( 'fluent-features-board-global-frontend', FFB_ASSETS .'/css/fluent-features-board.frontend.css' );
         wp_enqueue_script( 'ff-request-frontend', FFB_ASSETS .'/js/ff-request-frontend.js', ['jquery'], true );
         wp_localize_script( 'ff-request-frontend', 'ajax_url', array(
-            'ajaxurl' => admin_url('admin-ajax.php')
+            'ajaxurl'         => admin_url('admin-ajax.php'),
+            'redirecturl'     => home_url(),
+            'loadingmessage'  => esc_html__('Sending user info, please wait...','fluent-features-board')
         ));
     }
 

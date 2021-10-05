@@ -36,9 +36,6 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_updateFeatureRequestList', [$this, 'updateFeatureRequestList'] );
         add_action( 'wp_ajax_action_deleteFeatureRequestRow', [$this, 'action_deleteFeatureRequestRow'] );
         add_action( 'wp_ajax_nopriv_action_deleteFeatureRequestRow', [$this, 'action_deleteFeatureRequestRow'] );
-
-        add_action( 'wp_ajax_addFeatureRequestFromFrontend', [$this, 'addFeatureRequestFromFrontend'] );
-        add_action( 'wp_ajax_nopriv_addFeatureRequestFromFrontend', [$this, 'addFeatureRequestFromFrontend'] );
         
     }
 
@@ -150,14 +147,12 @@ class FFB_Model_Table {
      */
     public function submit_feature_request() {
         global $wpdb;
-        // $table_tag  = $wpdb->prefix . $this->ffr_tags;
         $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
         $id          = (isset($_POST['id']) ? $_POST['id'] : '');
         $title       = (isset($_POST['title']) ? $_POST['title'] : '');
         $description = (isset($_POST['description']) ? $_POST['description'] : '');
-        // $tags        = (isset($_POST['tags']) ? $_POST['tags'] : '');
-        $status      = (isset($_POST['status']) ? $_POST['status'] : '');
-        $is_public   = (isset($_POST['is_public']) ? $_POST['is_public'] : '');
+        $status      = (isset($_POST['status']) ? $_POST['status'] : 'inprogress');
+        $is_public   = (isset($_POST['is_public']) ? $_POST['is_public'] : 'true');
 
         $wpdb->insert(
             $table_ffr,
@@ -291,28 +286,4 @@ class FFB_Model_Table {
         die();
     }
     
-
-    public function addFeatureRequestFromFrontend() {
-        global $wpdb;
-        // Tables
-        $table_name = $wpdb->prefix . $this->ff_requests_list;
-        $parent_id = (isset($_POST['parent_id']) ? $_POST['parent_id'] : '');
-        $title = (isset($_POST['title']) ? $_POST['title'] : '');
-        $description = (isset($_POST['description']) ? $_POST['description'] : '');
-        $status      = (isset($_POST['status']) ? $_POST['status'] : 'inprogress');
-        $is_public   = (isset($_POST['is_public']) ? $_POST['is_public'] : 'true');
-        $wpdb->insert(
-            $table_name,
-            array( 
-                'title'       =>  $title,
-                'description' =>  $description,
-                'status' =>  $status,
-                'parent_id' => $parent_id,
-                'is_public' =>  $is_public,
-            ) 
-        );
-        die();
-    }
-
-
 }

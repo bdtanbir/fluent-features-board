@@ -55,10 +55,10 @@
                     dataType: 'json',
                     url: ajax_url.ajaxurl,
                     data: {
-                        action: 'addFeatureRequestFromFrontend',
+                        action: 'submit_feature_request',
                         title: title,
                         description: description,
-                        parent_id: parent_id
+                        id: parent_id
                     },
                     success: function(data) {
                         console.log('Success');
@@ -67,15 +67,15 @@
                         $(that).removeClass('submitting');
                         submit_btn.removeAttribute("disabled");
                         thankyou.show();
-                        setTimeout(() => {
-                            window.location.reload()
-                        }, 2000);
+                        // setTimeout(() => {
+                        //     window.location.reload()
+                        // }, 2000);
                     }
                 });
             }, 2000);
         });
 
-        // Popup Login Form
+        // Popup Login Form Toggle
         $(document).on('click', '.ff-request-board-login-register-nav button', function() {
             $(".ff-request-board-login-register-nav button").removeClass('active');
             $(this).addClass('active');
@@ -94,7 +94,12 @@
         })
         $(document).on('click', '.ff-request-board-login-register-wrap .ff-request-board-login-register-overlay', function() {
             $(".ff-request-board-login-register-wrap").removeClass('active');
-        })
+        });
+
+
+        // Login / Register Form
+
+
     })
 
 })(jQuery);
