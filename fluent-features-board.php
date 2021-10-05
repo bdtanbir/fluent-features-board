@@ -169,6 +169,9 @@ final class Fluent_Features_board {
         require_once FFB_INCLUDES . '/database/model-table.php';
         require_once FFB_INCLUDES . '/Assets.php';
         require_once FFB_INCLUDES . '/Shortcodes.php';
+        if (!is_admin()) {
+            require_once FFB_INCLUDES . '/layout/user-login.php';
+        }
 
         // if ( $this->is_request( 'admin' ) ) {
             require_once FFB_INCLUDES . '/Admin.php';

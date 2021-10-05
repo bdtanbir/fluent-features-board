@@ -506,6 +506,111 @@ button:focus {
     margin: 0 0 5px 0;
 }
 
+
+/* Login/Register */
+
+.ff-request-board-login-register-wrap {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    z-index: 9999;
+    display: none;
+}
+
+.ff-request-board-login-register-wrap.active {
+    display: flex;
+}
+
+.ff-request-board-login-register-wrap .ff-request-board-login-register-overlay {
+    background: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+.ff-request-board-login-register-wrap .ff-request-board-login-register-inner {
+    background: #fff;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.ff-request-board-login-register-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ff-request-board-login-register-nav button {
+    width: 50%;
+    padding: 8px 5px;
+    background: #eee !important;
+    color: #000 !important;
+    font-size: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+}
+
+.ff-request-board-login-register-nav button.active {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.ff-request-board-login-register-body form>h2 {
+    font-size: 22px;
+    margin: 15px 0 15px 0;
+    font-weight: 500;
+}
+
+.ff-request-board-login-register-body form input {
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 7px 15px;
+}
+
+.ff-request-board-login-register-body form label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #777;
+}
+
+.ff-request-board-login-register-body form .input-group+.input-group {
+    margin-top: 15px;
+}
+
+.ff-request-board-login-register-body form #ffb-register-submit,
+.ff-request-board-login-register-body form #ffb-login-submit {
+    border: none;
+    padding: 6px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff !important;
+    transition: .3s;
+}
+
+.ff-request-board-login-register-body form #ffb-register-submit:hover,
+.ff-request-board-login-register-body form #ffb-login-submit:hover {
+    background: #aaa;
+}
+
+.ff-request-board-login-register-body #ff-request-board-register {
+    display: none;
+}
+
 @keyframes rotating {
     0% {
         transform: rotate(0);
