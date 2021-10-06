@@ -214,6 +214,32 @@
         });
 
 
+
+        // Delete Request From Frontend
+        $(document).on('click', '.ff-request-item .ff-request-content h3 .user-action #delete-feature-request', function(e) {
+            e.preventDefault();
+            const that = this;
+            var post_id = parseInt(this.dataset.id);
+            console.log('Delete Request ->' + post_id);
+            that.innerHTML = 'Deleting...';
+            $(that).addClass('deleting')
+            setTimeout(() => {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: ajax_url.ajaxurl,
+                    data: {
+                        action: 'action_deleteFeatureRequestRow',
+                        id: post_id
+                    }
+                });
+                $(that).removeClass('deleting');
+                that.innerHTML = 'Delete';
+                window.location.reload()
+            }, 2000);
+        })
+
+
         // Single Feature Request
         // $(document).on('click', '.ff-requests-list-box .ff-request-item .ff-request-content h3 a', function(e) {
         //     e.preventDefault();
@@ -229,6 +255,7 @@
         //     //     }
         //     // })
         // })
+
 
     })
 

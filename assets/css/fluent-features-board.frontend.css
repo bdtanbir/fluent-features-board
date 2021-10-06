@@ -779,6 +779,7 @@ button:focus {
     font-weight: 500;
 }
 
+.ff-request-item .ff-request-content h3 .user-action a.deleting,
 .ff-requests-form .user-not-loggedin a:hover,
 .ff-request-comment-form .not-loggedin h1 a {
     color: #ba42ec;
