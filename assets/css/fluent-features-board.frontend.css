@@ -1,3 +1,4 @@
+.ff-request-item .ff-request-content h3 .user-action>a:focus,
 input:focus,
 select:focus,
 textarea:focus,
@@ -285,6 +286,16 @@ button:focus {
     display: none;
 }
 
+.ff-requests-form .user-not-loggedin {
+    font-size: 16px;
+    color: #888;
+}
+
+.ff-requests-form .user-not-loggedin a {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
 .ff-requests-form h1 {
     font-size: 20px;
     font-weight: 600;
@@ -320,14 +331,16 @@ button:focus {
     border-radius: 4px;
 }
 
+#ff-request-comment-form.submitting .submit-comment button[disabled],
 .ff-requests-form .ff-request-submit[disabled] {
     cursor: no-drop;
     opacity: 0.3;
 }
 
+.submit-comment .loader,
 .ff-requests-form .ff-request-submit .loader {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     display: none;
     border: 2px solid #fff;
     border-radius: 100%;
@@ -336,8 +349,9 @@ button:focus {
     margin-right: 5px;
 }
 
+#ff-request-comment-form.submitting .submit-comment .loader,
 .ff-requests-form.submitting .ff-request-submit .loader {
-    animation: rotating 1s infinite linear;
+    animation: rotating 0.5s infinite linear;
     display: inline-block;
 }
 
@@ -501,7 +515,7 @@ button:focus {
     border: 1px solid #e1eaea;
     padding: 15px;
     border-radius: 4px;
-    max-height: 576px;
+    max-height: 580px;
     overflow-x: hidden;
 }
 
@@ -659,7 +673,7 @@ button:focus {
     z-index: 999;
     background: #fff;
     padding: 0 0 20px 0;
-    /* display: none; */
+    display: none;
 }
 
 .ff-request-item-details-wrap .ff-request-title {
@@ -729,7 +743,7 @@ button:focus {
 
 .ff-request-comments-list .ff-request-comment li {
     list-style: none;
-    padding-top: 20px;
+    margin-top: 20px;
 }
 
 .ff-request-comments-list .ff-request-comment li .ff-request-comment-author {
@@ -760,8 +774,28 @@ button:focus {
     font-weight: 500;
 }
 
+.ff-requests-form .user-not-loggedin a:hover,
 .ff-request-comment-form .not-loggedin h1 a {
     color: #ba42ec;
+}
+
+.ff-request-item .ff-request-content h3 .user-action {
+    display: inline-block;
+    margin-left: 10px;
+    background: #eee;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 30px;
+    color: #888;
+}
+
+.ff-request-item .ff-request-content h3 .user-action>a {
+    margin: 0 5px
+}
+
+.ff-request-item .ff-request-content h3 .user-action>a:focus {
+    text-decoration: none;
+    background: transparent;
 }
 
 @keyframes rotating {

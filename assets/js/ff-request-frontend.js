@@ -181,9 +181,29 @@
 
 
         // Submit Comment
+        var submitbtn = document.querySelector(".submit-comment button");
         $("#ff-request-comment-form").on('submit', function(e) {
             e.preventDefault();
+            var that = this;
+            var comment = $('textarea[name="comment"]', that).val();
+            var comment_post_id = $('input[name="comment_post_id"]', that).val();
+
             console.log('Submitted a New Comment');
+            submitbtn.innerHTML = '<span class="loader"></span> Submitting';
+            submitbtn.setAttribute('disabled', '');
+            $(that).addClass('submitting');
+
+            $.ajax({
+                type: 'POST',
+                url: ajax_url.ajaxurl,
+                dataType: 'json',
+                data: {
+                    action: 'submit_new_comment_action',
+                    comment_content: comment,
+                    comment_post_id: comment_post_id
+                }
+            })
+
 
         });
 

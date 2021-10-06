@@ -273,6 +273,7 @@ final class Fluent_Features_board {
 
         $sql2 = "CREATE TABLE $ffr_table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
+        post_author int NOT NULL,
         title text NOT NULL,
         description text NOT NULL,
         status text NOT NULL,

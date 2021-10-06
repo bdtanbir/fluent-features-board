@@ -31,18 +31,17 @@ class Shortcodes {
         if(!empty($ffb_atts['id'])) {
             $current_feature_board = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."fluent_features_board WHERE id=".$ffb_atts['id']);
 
-            if(is_user_logged_in(  )) {
+            // if(is_user_logged_in(  )) {
                 global $current_user;
                 wp_get_current_user();
-                $useremail = $current_user->user_email;
-                $username = $current_user->user_login;
-                $firstname = $current_user->user_firstname;
-                $lastname = $current_user->user_lastname;
-                $userid = $current_user->id;
-                $userrole = $current_user->roles;
+                // $useremail = $current_user->user_email;
+                // $username = $current_user->user_login;
+                // $firstname = $current_user->user_firstname;
+                // $lastname = $current_user->user_lastname;
+                // $userid = $current_user->id;
+                // $userrole = $current_user->roles;
 
-                error_log(print_r($current_user, 1));
-            }
+            // }
 
             foreach($current_feature_board as $board) {
                 if ($board->sort_by == 'upvotes') {
@@ -76,7 +75,7 @@ class Shortcodes {
                 } else {
                     $col .= '<li class="user-logout user-out">';
                     $col .= '<a href="#">';
-                    $col .= esc_html__('Hi, ', 'fluent-features-board').get_the_author().' <span class="downicon"></span>';
+                    $col .= esc_html__('Hi, ', 'fluent-features-board').$current_user->display_name.' <span class="downicon"></span>';
                     $col .= '</a>';
                     $col .= '<div class="user-logout-dropdown">';
                     $col .= '<a class="user-logout" href="'.wp_logout_url( home_url() ).'">';
@@ -106,23 +105,27 @@ class Shortcodes {
                 $col .= '</div>';
 
                 $col .= '<div class="ff-requests-form-wrap">';
-                $col .= '<form class="ff-requests-form" id="ff-request-frontend-form">';
-                $col .= '<p class="thankyou">Thank You for submitting!</p>';
-                $col .= '<h1>'.esc_html__('Suggest new feature', 'fluent-features-board').'</h1>';
-                $col .= '<div class="input-group">';
-                $col .= '<input id="search-request" type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'" required>';
-                $col .= '</div>';
-                $col .= '<div class="input-group">';
-                $col .= '<textarea name="description" id="description" placeholder="'.esc_html__('Why do you want this', 'fluent-features-board').'" required></textarea>';
-                $col .= '</div>';
-                $col .= '<div class="input-group">';
-                $col .= '<button class="ff-request-submit">';
-                $col .= '<span class="loader"></span>'.esc_html__('Suggest Feature', 'fluent-features-board');
-                $col .= '</button>';
-                $col .= '</div>';
-                $col .= '<input type="hidden" value="'.$board->id.'" id="parent_board_id" />';
-                $col .= '</form>';
-                $col .= '</div>';
+                    $col .= '<form class="ff-requests-form" id="ff-request-frontend-form">';
+                        if(is_user_logged_in(  )) {
+                            $col .= '<p class="thankyou">Thank You for submitting!</p>';
+                            $col .= '<h1>'.esc_html__('Suggest new feature', 'fluent-features-board').'</h1>';
+                            $col .= '<div class="input-group">';
+                            $col .= '<input id="search-request" type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'" required>';
+                            $col .= '</div>';
+                            $col .= '<div class="input-group">';
+                            $col .= '<textarea name="description" id="description" placeholder="'.esc_html__('Why do you want this', 'fluent-features-board').'" required></textarea>';
+                            $col .= '</div>';
+                            $col .= '<div class="input-group">';
+                            $col .= '<button class="ff-request-submit">';
+                            $col .= '<span class="loader"></span>'.esc_html__('Suggest Feature', 'fluent-features-board');
+                            $col .= '</button>';
+                            $col .= '</div>';
+                            $col .= '<input type="hidden" value="'.$board->id.'" id="parent_board_id" />';
+                        } else {
+                            $col .= '<h2 class="user-not-loggedin">Login/Register to submit feature request. <a href="#" id="ffr-login-register-popup">Login/Register</a></h2>';
+                        }
+                        $col .= '</form>';
+                    $col .= '</div>';
                 $col .= '</div>';
 
                 $col .= '<div class="ff-requests-list-box">';
@@ -152,12 +155,13 @@ class Shortcodes {
 
 
                         $col .= '<form class="ff-request-comment-form" id="ff-request-comment-form">';
+                            $col .= '<input type="hidden" name="comment_post_id" value="1"/>';
                             if(is_user_logged_in(  )) {
                                 $col .= '<div class="input-group">';
                                     $col .= '<textarea name="comment" placeholder="Leave A Comment" required></textarea>';
                                 $col .= '</div>';
 
-                                $col .= '<div class="input-group">';
+                                $col .= '<div class="input-group submit-comment">';
                                     $col .= '<button>Submit</button>';
                                 $col .= '</div>';
                             } else {
@@ -196,6 +200,9 @@ class Shortcodes {
                                 $col .= '<a href="#" data-id="'.$item->id.'">';
                                     $col .= esc_html($item->title);
                                 $col .= '</a>';
+                                if($item->post_author == $current_user->ID) {
+                                    $col .= '<span class="user-action"><a href="">Edit</a>|<a id="delete-feature-request" href="#" data-id="'.$item->id.'">Delete</a></span>';
+                                }
                             $col .= '</h3>';
                             if($item->status) {
                                 $col .= '<p class="status"><span class="'.esc_attr($status).'">'.esc_html($status_text).'</span></p>';

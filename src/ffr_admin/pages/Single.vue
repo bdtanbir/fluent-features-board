@@ -99,15 +99,13 @@ export default {
                         tags: that.tags,
                         parent_id: that.details.parent_id,
                         id: that.details.id
-                    },
-                    success: function() {
-                        that.isUpdating = false;
-                        that.updateDone = true;
-                        setTimeout(() => {
-                            that.updateDone = false;
-                        }, 100000);
                     }
-                })
+                });
+                that.isUpdating = false;
+                that.updateDone = true;
+                setTimeout(() => {
+                    that.updateDone = false;
+                }, 100000);
             }, 2500);
         },
         changeTitle() {

@@ -11,6 +11,7 @@ class FFB_Model_Table {
     public $fluent_features_board = 'fluent_features_board';
     public $ff_requests_list = 'ff_requests_list';
     public $ffr_tags = 'ffr_tags';
+    public $ffr_comments = 'ffr_comments';
 
     public function __construct()
     {
@@ -36,6 +37,8 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_updateFeatureRequestList', [$this, 'updateFeatureRequestList'] );
         add_action( 'wp_ajax_action_deleteFeatureRequestRow', [$this, 'action_deleteFeatureRequestRow'] );
         add_action( 'wp_ajax_nopriv_action_deleteFeatureRequestRow', [$this, 'action_deleteFeatureRequestRow'] );
+        add_action( 'wp_ajax_submit_new_comment_action', [$this, 'submit_new_comment_action'] );
+        add_action( 'wp_ajax_nopriv_submit_new_comment_action', [$this, 'submit_new_comment_action'] );
         
     }
 
@@ -147,11 +150,13 @@ class FFB_Model_Table {
      */
     public function submit_feature_request() {
         global $wpdb;
+        global $current_user;
+        wp_get_current_user();
         $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
         $id          = (isset($_POST['id']) ? $_POST['id'] : '');
         $title       = (isset($_POST['title']) ? $_POST['title'] : '');
         $description = (isset($_POST['description']) ? $_POST['description'] : '');
-        $status      = (isset($_POST['status']) ? $_POST['status'] : 'inprogress');
+        $status      = (isset($_POST['status']) ? $_POST['status'] : '');
         $is_public   = (isset($_POST['is_public']) ? $_POST['is_public'] : 'true');
 
         $wpdb->insert(
@@ -162,6 +167,7 @@ class FFB_Model_Table {
                 'status' =>  $status,
                 'parent_id' => $id,
                 'is_public' =>  $is_public,
+                'post_author' =>  $current_user->ID,
             ) 
         );
         die();
@@ -283,6 +289,48 @@ class FFB_Model_Table {
         $table_name = $wpdb->prefix . $this->ff_requests_list;
         $id    = (isset($_POST['id']) ? $_POST['id'] : '');
         $wpdb->delete( $table_name, array( 'id' => $id ) );
+        die();
+    }
+
+
+    /**
+     * Inserting Feature Requests Comments
+     */
+    public function submit_new_comment_action() {
+        global $wpdb;
+        $comment_post_id = isset($_POST['comment_post_id']) ? $_POST['comment_post_id'] : '';
+        $comment_content = isset($_POST['comment_content']) ? $_POST['comment_content'] : '';
+        error_log(print_r($comment_content, 1));
+        if(is_user_logged_in(  )) {
+            global $current_user;
+            wp_get_current_user();
+            // $username = $current_user->user_login;
+            // $userid = $current_user->ID;
+            // $userrole = $current_user->roles;
+
+            if(empty($current_user->user_firstname)) {
+                $author = $current_user->display_name;
+            } else {
+                $author = $current_user->user_firstname .' '.$current_user->user_lastname;
+            }
+            // error_log(print_r($comment_post_id, 1));
+            // error_log(print_r($current_user, 1));
+
+            $ffr_comments = $wpdb->prefix . $this->ffr_comments;
+            // $wpdb->insert(
+            //     $ffr_comments,
+            //     array( 
+            //         'comment_post_id'       =>  $comment_post_id,
+            //         'comment_author' =>  $author,
+            //         'comment_content' =>  $status,
+            //         'comment_date' => '',
+            //         'comment_author_email' =>  $current_user->user_email,
+            //         'comment_author_url' =>  $current_user->user_url,
+            //         'comment_author_IP' =>  '',
+            //         'comment_user_id' =>  $current_user->ID,
+            //     ) 
+            // );
+        }
         die();
     }
     
