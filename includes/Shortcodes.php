@@ -196,18 +196,20 @@ class Shortcodes {
                             $col .= '</div>';
                         }
                         $col .= '<div class="ff-request-content">';
-                            $col .= '<h3>';
-                                $col .= '<a href="#" data-id="'.esc_attr($item->id).'">';
-                                    $col .= esc_html($item->title);
-                                $col .= '</a>';
-                                if($item->post_author == $current_user->ID) {
-                                    $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
+                            $col .= '<div class="ff-request-content-inner">';
+                                $col .= '<h3>';
+                                    $col .= '<a href="#" data-id="'.esc_attr($item->id).'">';
+                                        $col .= esc_html($item->title);
+                                    $col .= '</a>';
+                                $col .= '</h3>';
+                                if($item->status) {
+                                    $col .= '<p class="status"><span class="'.esc_attr($status).'">'.esc_html($status_text).'</span></p>';
                                 }
-                            $col .= '</h3>';
-                            if($item->status) {
-                                $col .= '<p class="status"><span class="'.esc_attr($status).'">'.esc_html($status_text).'</span></p>';
+                                $col .= '<p class="description">'.esc_html($item->description).'</p>';
+                            $col .= '</div>';
+                            if($item->post_author == $current_user->ID) {
+                                $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
                             }
-                            $col .= '<p class="description">'.esc_html($item->description).'</p>';
                         $col .= '</div>';
                         $col .= '<a href="" class="ff-request-comment-count">';
                         $col .= '<span class="comment-icon"></span>';

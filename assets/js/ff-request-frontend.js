@@ -220,7 +220,6 @@
             e.preventDefault();
             const that = this;
             var post_id = parseInt(this.dataset.id);
-            console.log('Delete Request ->' + post_id);
             that.innerHTML = 'Deleting...';
             $(that).addClass('deleting')
             setTimeout(() => {

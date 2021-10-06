@@ -1,4 +1,4 @@
-.ff-request-item .ff-request-content h3 .user-action>a:focus,
+.ff-request-item .ff-request-content .user-action a:focus,
 input:focus,
 select:focus,
 textarea:focus,
@@ -419,6 +419,10 @@ button:focus {
     margin: 0 15px;
 }
 
+.ff-requests-list-box .ff-request-item .ff-request-content .ff-request-content-inner {
+    cursor: pointer;
+}
+
 .ff-requests-list-box .ff-request-item .ff-request-content h3 {
     font-size: 18px;
     font-weight: 500;
@@ -779,15 +783,9 @@ button:focus {
     font-weight: 500;
 }
 
-.ff-request-item .ff-request-content h3 .user-action a.deleting,
-.ff-requests-form .user-not-loggedin a:hover,
-.ff-request-comment-form .not-loggedin h1 a {
-    color: #ba42ec;
-}
-
-.ff-request-item .ff-request-content h3 .user-action {
+.ff-request-item .ff-request-content .user-action {
     display: inline-block;
-    margin-left: 10px;
+    margin: 12px 0 0 0;
     background: #eee;
     padding: 4px 8px;
     font-size: 12px;
@@ -795,12 +793,21 @@ button:focus {
     color: #888;
 }
 
-.ff-request-item .ff-request-content h3 .user-action>a {
+.ff-request-item .ff-request-content .user-action a {
     margin: 0 5px;
     color: #7c7c7c;
+    text-decoration: none;
+    font-weight: 500;
 }
 
-.ff-request-item .ff-request-content h3 .user-action>a:focus {
+.ff-request-item .ff-request-content .user-action a:hover,
+.ff-request-item .ff-request-content .user-action a.deleting,
+.ff-requests-form .user-not-loggedin a:hover,
+.ff-request-comment-form .not-loggedin h1 a {
+    color: #ba42ec;
+}
+
+.ff-request-item .ff-request-content .user-action a:focus {
     text-decoration: none;
     background: transparent;
 }
