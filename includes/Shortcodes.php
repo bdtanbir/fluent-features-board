@@ -33,7 +33,6 @@ class Shortcodes {
 
             // if(is_user_logged_in(  )) {
                 global $current_user;
-                wp_get_current_user();
                 // $useremail = $current_user->user_email;
                 // $username = $current_user->user_login;
                 // $firstname = $current_user->user_firstname;
@@ -61,7 +60,7 @@ class Shortcodes {
                 $col .= '<div class="header-left">';
                 $col .= '<img src="'.$board->logo.'" alt="">';
                 $col .= '<div class="header-left-content">';
-                $col .= '<h3><a href="">'.$board->title.'</a></h3>';
+                $col .= '<h3><a href="">'.esc_html($board->title).'</a></h3>';
                 $col .= '<div class="links">';
                 $col .= '<a href="https://adreastrian.com/">'.esc_html__('AuthLab Homepage', 'fluent-features-board').'</a>';
                 $col .= '</div>';
@@ -120,9 +119,9 @@ class Shortcodes {
                             $col .= '<span class="loader"></span>'.esc_html__('Suggest Feature', 'fluent-features-board');
                             $col .= '</button>';
                             $col .= '</div>';
-                            $col .= '<input type="hidden" value="'.$board->id.'" id="parent_board_id" />';
+                            $col .= '<input type="hidden" value="'.esc_attr($board->id).'" id="parent_board_id" />';
                         } else {
-                            $col .= '<h2 class="user-not-loggedin">Login/Register to submit feature request. <a href="#" id="ffr-login-register-popup">Login/Register</a></h2>';
+                            $col .= '<h2 class="user-not-loggedin">'.esc_html__('Login/Register to submit feature request. ', 'fluent-features-board').'<a href="#" id="ffr-login-register-popup">'.esc_html__('Login/Register', 'fluent-features-board').'</a></h2>';
                         }
                         $col .= '</form>';
                     $col .= '</div>';
@@ -132,48 +131,8 @@ class Shortcodes {
                 $col .= '<p>('.count($form).') '.esc_html__('feature requests', 'fluent-features-board').'</p> ';
                 $col .= '<div class="ff-requests-list-body">';
 
-                // Request Details Modal
-                $col .= '<div class="ff-request-item-details-wrap" >';
-                    $col .= '<div class="ff-request-item-details-content">';
-                        $col .= '<h1 class="ff-request-title">1st title - UPD</h1>';
-                        $col .= '<h2 class="ff-request-author">'.get_avatar( get_the_author_meta( 'ID' ), 32 ).get_the_author().'</h2>';
-                        $col .= '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,</p>';
-
-                        // Comments List
-                        $col .= '<div class="ff-request-comments-list">';
-                            $col .= '<ul class="ff-request-comment">';
-                                $col .= '<li>';
-                                    $col .= '<h2 class="ff-request-comment-author">';
-                                        $col .= get_avatar( get_the_author_meta('ID'), 32).get_the_author();
-                                    $col .= '</h2>';
-                                    $col .= '<p class="ff-request-comment-content">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s
-                                    </p>';
-                                $col .= '</li>';
-                            $col .= '</ul>';
-                        $col .= '</div>';
-
-
-                        $col .= '<form class="ff-request-comment-form" id="ff-request-comment-form">';
-                            $col .= '<input type="hidden" name="comment_post_id" value="1"/>';
-                            if(is_user_logged_in(  )) {
-                                $col .= '<div class="input-group">';
-                                    $col .= '<textarea name="comment" placeholder="Leave A Comment" required></textarea>';
-                                $col .= '</div>';
-
-                                $col .= '<div class="input-group submit-comment">';
-                                    $col .= '<button>Submit</button>';
-                                $col .= '</div>';
-                            } else {
-                                $col .= '<div class="not-loggedin">';
-                                    $col .= '<h1>Login to submit a comment. <a id="ffr-login-register-popup" href="#">Login</a></h1>';
-                                $col .= '</div>';
-                            }
-                        $col .= '</form>';
-                    $col .= '</div>';
-                $col .= '</div>';
-
                 foreach($form as $item) {
+                    $user_info = get_userdata($item->post_author);
                     $status = strtolower(str_replace(' ', '-', $item->status));
                     if($item->status == 'inprogress') {
                         $status_text = "In Progress";
@@ -186,22 +145,63 @@ class Shortcodes {
                     }
 
 
-                    $col .= '<div class="ff-request-item" data-name="'.$item->title.'">';
+                    $col .= '<div class="ff-request-item" data-name="'.esc_attr($item->title).'">';
+
+                        // Request Details Modal
+                        $col .= '<div class="ff-request-item-details-wrap" >';
+                            $col .= '<div class="ff-request-item-details-content">';
+                                $col .= '<h1 class="ff-request-title">'.esc_html__('1st Title', 'fluent-features-board').'</h1>';
+                                $col .= '<h2 class="ff-request-author"><img width="32" height="32" src="'.esc_url(get_avatar_url($item->post_author)).'" />'.$user_info->display_name.'</h2>';
+                                $col .= '<p>'.esc_html__('description of 1st title', 'fluent-features-board').'</p>';
+        
+                                // Comments List
+                                $col .= '<div class="ff-request-comments-list">';
+                                    $col .= '<ul class="ff-request-comment">';
+                                        $col .= '<li>';
+                                            $col .= '<h2 class="ff-request-comment-author">';
+                                                $col .= get_avatar( get_the_author_meta($current_user->ID), 32).$current_user->display_name;
+                                            $col .= '</h2>';
+                                            $col .= '<p class="ff-request-comment-content">
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s
+                                            </p>';
+                                        $col .= '</li>';
+                                    $col .= '</ul>';
+                                $col .= '</div>';
+        
+        
+                                $col .= '<form class="ff-request-comment-form" id="ff-request-comment-form">';
+                                    $col .= '<input type="hidden" name="comment_post_id" value="1"/>';
+                                    if(is_user_logged_in(  )) {
+                                        $col .= '<div class="input-group">';
+                                            $col .= '<textarea name="comment" placeholder="'.esc_attr__('Leave A Comment', 'fluent-features-board').'" required></textarea>';
+                                        $col .= '</div>';
+        
+                                        $col .= '<div class="input-group submit-comment">';
+                                            $col .= '<button>'.esc_html__('Submit', 'fluent-features-board').'</button>';
+                                        $col .= '</div>';
+                                    } else {
+                                        $col .= '<div class="not-loggedin">';
+                                            $col .= '<h1>'.esc_html__('Login to submit a comment. ', 'fluent-features-board').'<a id="ffr-login-register-popup" href="#">'.esc_html__('Login', 'fluent-features-board').'</a></h1>';
+                                        $col .= '</div>';
+                                    }
+                                $col .= '</form>';
+                            $col .= '</div>';
+                        $col .= '</div>';
 
 
                         if($board->show_upvotes == 'yes') {
                             $col .= '<div class="ff-request-vote">';
                                 $col .= '<span class="ff-request-vote-btn"></span>';
-                                $col .= '<span class="ff-request-vote-count">10</span>';
+                                $col .= '<span class="ff-request-vote-count">'.esc_html__('10', 'fluent-features-board').'</span>';
                             $col .= '</div>';
                         }
                         $col .= '<div class="ff-request-content">';
                             $col .= '<h3>';
-                                $col .= '<a href="#" data-id="'.$item->id.'">';
+                                $col .= '<a href="#" data-id="'.esc_attr($item->id).'">';
                                     $col .= esc_html($item->title);
                                 $col .= '</a>';
                                 if($item->post_author == $current_user->ID) {
-                                    $col .= '<span class="user-action"><a href="">Edit</a>|<a id="delete-feature-request" href="#" data-id="'.$item->id.'">Delete</a></span>';
+                                    $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
                                 }
                             $col .= '</h3>';
                             if($item->status) {
@@ -211,7 +211,7 @@ class Shortcodes {
                         $col .= '</div>';
                         $col .= '<a href="" class="ff-request-comment-count">';
                         $col .= '<span class="comment-icon"></span>';
-                        $col .= '<span class="comment-number">10</span>';
+                        $col .= '<span class="comment-number">'.esc_html($item->comments_count).'</span>';
                         $col .= '</a>';
                     $col .= '</div>';
                 }

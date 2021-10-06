@@ -691,10 +691,13 @@ button:focus {
 .ff-request-item-details-wrap .ff-request-author img {
     border-radius: 100%;
     margin-right: 10px;
+    width: 32px;
+    height: 32px;
 }
 
 .ff-request-item-details-wrap p {
     font-size: 15px;
+    padding-left: 41px;
 }
 
 .ff-request-comment-form {
@@ -792,7 +795,8 @@ button:focus {
 }
 
 .ff-request-item .ff-request-content h3 .user-action>a {
-    margin: 0 5px
+    margin: 0 5px;
+    color: #7c7c7c;
 }
 
 .ff-request-item .ff-request-content h3 .user-action>a:focus {
