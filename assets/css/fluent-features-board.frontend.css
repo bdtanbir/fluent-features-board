@@ -337,6 +337,7 @@ button:focus {
     opacity: 0.3;
 }
 
+.ff-request-board-login-register-body form button .loader,
 .submit-comment .loader,
 .ff-requests-form .ff-request-submit .loader {
     width: 12px;
@@ -349,6 +350,7 @@ button:focus {
     margin-right: 5px;
 }
 
+.ff-request-board-login-register-body form button .loader,
 #ff-request-comment-form.submitting .submit-comment .loader,
 .ff-requests-form.submitting .ff-request-submit .loader {
     animation: rotating 0.5s infinite linear;

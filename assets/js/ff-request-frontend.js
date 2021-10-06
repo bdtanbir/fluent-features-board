@@ -81,10 +81,16 @@
         $(document).on('click', '.ff-request-board-login-register-nav button.btn-login', function() {
             $("#ff-request-board-login").show();
             $("#ff-request-board-register").hide();
+            $('.ff-request-board-login-register-body form .ffrb-msg-status').hide();
+            $(".ff-request-board-login-register-body form #username").val('');
+            $(".ff-request-board-login-register-body form #password").val('');
         })
         $(document).on('click', '.ff-request-board-login-register-nav button.btn-register', function() {
             $("#ff-request-board-login").hide();
             $("#ff-request-board-register").show();
+            $('.ff-request-board-login-register-body form .ffrb-msg-status').hide();
+            $(".ff-request-board-login-register-body form #username").val('');
+            $(".ff-request-board-login-register-body form #password").val('');
         })
         $(document).on('click', '#ffr-login-register-popup', function(e) {
             e.preventDefault();
@@ -103,14 +109,14 @@
             var curElement = "#" + jQuery(this).attr('id');
             jQuery(curElement + ' p.status', this).show().text(ajax_url.loadingmessage);
             if (jQuery(this).attr('id') === 'ff-request-board-register') {
-                action = 'fluent_features_board_ajaxregister';
-                username = jQuery('#reg-username').val();
-                password = jQuery('#reg-password').val();
-                password2 = jQuery('#reg-password2').val()
-                email = jQuery('#reg-email').val();
-                security = jQuery('#signonsecurity').val();
-                ctrl = jQuery(this);
-                registericon.innerHTML = '<i class="la la-refresh rotating"></i> Please Wait...';
+                var action = 'fluent_features_board_ajaxregister';
+                var username = jQuery('#reg-username').val();
+                var password = jQuery('#reg-password').val();
+                var password2 = jQuery('#reg-password2').val()
+                var email = jQuery('#reg-email').val();
+                var security = jQuery('#signonsecurity').val();
+                var ctrl = jQuery(this);
+                registericon.innerHTML = '<span class="loader"></span> Please Wait...';
                 registericon.setAttribute('disabled', 'disabled');
                 setTimeout(function() {
                     $.ajax({
@@ -169,7 +175,7 @@
                                 document.location.href = jQuery(ctrl).attr('id') == 'register' ? ajax_url.register_redirect : ajax_url.redirecturl;
                             } else {
                                 jQuery('.ffrb-msg-status').addClass('loginerror');
-                                loginicon.innerHTML = 'Login Account';
+                                loginicon.innerHTML = 'Login';
                                 loginicon.removeAttribute('disabled');
                             }
 

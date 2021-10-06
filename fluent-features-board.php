@@ -57,6 +57,9 @@ final class Fluent_Features_board {
 		add_action( 'set_logged_in_cookie', [$this, 'ffb_loggedin_cookie'] );
         add_action( 'wp_ajax_fluent_features_board_ajaxlogin', [$this, 'fluent_features_board_ajaxlogin'] );
         add_action( 'wp_ajax_nopriv_fluent_features_board_ajaxlogin', [$this, 'fluent_features_board_ajaxlogin'] );
+
+        add_action( 'wp_ajax_fluent_features_board_ajaxregister', [$this, 'fluent_features_board_ajaxregister'] );
+        add_action( 'wp_ajax_nopriv_fluent_features_board_ajaxregister', [$this, 'fluent_features_board_ajaxregister'] );
         add_filter( 'template_include', [$this, 'load_custom_ffrequest_route_template'] );
     }
 
@@ -125,7 +128,6 @@ final class Fluent_Features_board {
         $this->includes();
         $this->init_hooks();
         $this->ffb_wpdb_tables();
-        // $this->fluent_features_board_ajaxlogin();
     }
     public function fluent_features_board_ajaxlogin() {
         // First check the nonce, if it fails the function will break
@@ -136,6 +138,52 @@ final class Fluent_Features_board {
         $this->ffb_auth_user_login($_POST['username'], $_POST['password'], 'Login');
 
         die();
+    }
+
+
+    public function fluent_features_board_ajaxregister() {
+        global $options; $options = get_option('ffb_register_login');
+
+		// First check the nonce, if it fails the function will break
+		check_ajax_referer( 'ajax-register-nonce', 'security' );
+
+		// Nonce is checked, get the POST data and sign user on
+		$info = array();
+		$info['user_nicename'] = $info['nickname'] = $info['display_name'] = $info['first_name'] = $info['user_login'] = sanitize_user($_POST['username']) ;
+		$info['user_pass']     = sanitize_text_field($_POST['password']);
+		$info['user_email']    = sanitize_email( $_POST['email']);
+
+		// Register the user
+
+		if(!is_email($info['user_email']) ){
+			echo json_encode(array('loggedin'=>false, 'message'=>esc_html__("Please enter a valid email address","fluent-features-board")));
+			die();
+		}
+		if(sanitize_text_field($_POST['password2'])!=$info['user_pass']){
+			echo json_encode(array('loggedin'=>false, 'message'=>esc_html__("Please enter same password in both fields","fluent-features-board")));
+			die();
+		}
+		if(!isset($info['user_pass'])|| !(strlen($info['user_pass']) >0 ) ){
+			echo json_encode(array('loggedin'=>false, 'message'=>esc_html__("Password fields cannot be blank","fluent-features-board")));
+			die();
+		}
+
+		$user_register = wp_insert_user( $info );
+		if ( is_wp_error($user_register) ){
+			$error  = $user_register->get_error_codes() ;
+
+			if(in_array('empty_user_login', $error))
+				echo json_encode(array('loggedin'=>false, 'message'=>$user_register->get_error_message('empty_user_login')));
+			elseif(in_array('existing_user_login',$error))
+				echo json_encode(array('loggedin'=>false, 'message'=>esc_html__('This username is already registered.','fluent-features-board')));
+			elseif(in_array('existing_user_email',$error))
+				echo json_encode(array('loggedin'=>false, 'message'=>esc_html__('This email address is already registered.','fluent-features-board')));
+		} else {
+
+			$this->ffb_auth_user_login($info['nickname'], $info['user_pass'], 'Registration');
+		}
+
+		die();
     }
 
     public function ffb_auth_user_login($user_login, $password, $login) {

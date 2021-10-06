@@ -46,7 +46,7 @@
             <form id="ff-request-board-register">
                 <h2><?php esc_html_e('Register', 'fluent-features-board'); ?></h2>
                 <p class="ffrb-msg-status"></p>
-                <?php //wp_nonce_field('ajax-register-nonce', 'signonsecurity'); ?>
+                <?php wp_nonce_field('ajax-register-nonce', 'signonsecurity'); ?>
                 <div class="input-group">
                     <label class="label-text" for="username">
                         <?php esc_html_e('Username', 'fluent-features-board'); ?>
