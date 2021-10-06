@@ -86,7 +86,7 @@
             $("#ff-request-board-login").hide();
             $("#ff-request-board-register").show();
         })
-        $(document).on('click', '.ff-requests-list-home header .header-right .user-login.user-in', function(e) {
+        $(document).on('click', '#ffr-login-register-popup', function(e) {
             e.preventDefault();
             $(".ff-request-board-login-register-wrap").addClass('active');
         })
@@ -179,6 +179,30 @@
             }
         });
 
+
+        // Submit Comment
+        $("#ff-request-comment-form").on('submit', function(e) {
+            e.preventDefault();
+            console.log('Submitted a New Comment');
+
+        });
+
+
+        // Single Feature Request
+        // $(document).on('click', '.ff-requests-list-box .ff-request-item .ff-request-content h3 a', function(e) {
+        //     e.preventDefault();
+        //     var request_id = parseInt(this.dataset.id);
+        //     // alert('hello')
+        //     // $.ajax({
+        //     //     type: 'POST',
+        //     //     dataType: 'json',
+        //     //     url: ajax_url.ajaxurl,
+        //     //     data: {
+        //     //         action: 'ff_request_single_callback',
+        //     //         id: request_id
+        //     //     }
+        //     // })
+        // })
 
     })
 

@@ -6,10 +6,13 @@ namespace FFB;
  * Shortcodes Handler
  */
 class Shortcodes {
+    public $current_requestId = '';
 
     public function __construct() {
         
         add_shortcode( 'fluent_features_board', [$this, 'ffb_shortcode'] );
+        add_action( 'wp_ajax_ff_request_single_callback', [$this, 'ff_request_single_callback'] );
+        add_action( 'wp_ajax_nopriv_ff_request_single_callback', [$this, 'ff_request_single_callback'] );
         
     }
 
@@ -27,6 +30,19 @@ class Shortcodes {
     
         if(!empty($ffb_atts['id'])) {
             $current_feature_board = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."fluent_features_board WHERE id=".$ffb_atts['id']);
+
+            if(is_user_logged_in(  )) {
+                global $current_user;
+                wp_get_current_user();
+                $useremail = $current_user->user_email;
+                $username = $current_user->user_login;
+                $firstname = $current_user->user_firstname;
+                $lastname = $current_user->user_lastname;
+                $userid = $current_user->id;
+                $userrole = $current_user->roles;
+
+                error_log(print_r($current_user, 1));
+            }
 
             foreach($current_feature_board as $board) {
                 if ($board->sort_by == 'upvotes') {
@@ -56,7 +72,7 @@ class Shortcodes {
 
                 $col .= '<ul>';
                 if(!is_user_logged_in(  )) {
-                    $col .= '<li><a class="user-login user-in" href="#">'.esc_html__('Login', 'fluent-features-board').'</a></li>';
+                    $col .= '<li><a class="user-login user-in" id="ffr-login-register-popup" href="#">'.esc_html__('Login', 'fluent-features-board').'</a></li>';
                 } else {
                     $col .= '<li class="user-logout user-out">';
                     $col .= '<a href="#">';
@@ -113,6 +129,46 @@ class Shortcodes {
                 $col .= '<p>('.count($form).') '.esc_html__('feature requests', 'fluent-features-board').'</p> ';
                 $col .= '<div class="ff-requests-list-body">';
 
+                // Request Details Modal
+                $col .= '<div class="ff-request-item-details-wrap" >';
+                    $col .= '<div class="ff-request-item-details-content">';
+                        $col .= '<h1 class="ff-request-title">1st title - UPD</h1>';
+                        $col .= '<h2 class="ff-request-author">'.get_avatar( get_the_author_meta( 'ID' ), 32 ).get_the_author().'</h2>';
+                        $col .= '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,</p>';
+
+                        // Comments List
+                        $col .= '<div class="ff-request-comments-list">';
+                            $col .= '<ul class="ff-request-comment">';
+                                $col .= '<li>';
+                                    $col .= '<h2 class="ff-request-comment-author">';
+                                        $col .= get_avatar( get_the_author_meta('ID'), 32).get_the_author();
+                                    $col .= '</h2>';
+                                    $col .= '<p class="ff-request-comment-content">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s
+                                    </p>';
+                                $col .= '</li>';
+                            $col .= '</ul>';
+                        $col .= '</div>';
+
+
+                        $col .= '<form class="ff-request-comment-form" id="ff-request-comment-form">';
+                            if(is_user_logged_in(  )) {
+                                $col .= '<div class="input-group">';
+                                    $col .= '<textarea name="comment" placeholder="Leave A Comment" required></textarea>';
+                                $col .= '</div>';
+
+                                $col .= '<div class="input-group">';
+                                    $col .= '<button>Submit</button>';
+                                $col .= '</div>';
+                            } else {
+                                $col .= '<div class="not-loggedin">';
+                                    $col .= '<h1>Login to submit a comment. <a id="ffr-login-register-popup" href="#">Login</a></h1>';
+                                $col .= '</div>';
+                            }
+                        $col .= '</form>';
+                    $col .= '</div>';
+                $col .= '</div>';
+
                 foreach($form as $item) {
                     $status = strtolower(str_replace(' ', '-', $item->status));
                     if($item->status == 'inprogress') {
@@ -124,7 +180,11 @@ class Shortcodes {
                     } else {
                         $status_text = "Shipped";
                     }
+
+
                     $col .= '<div class="ff-request-item" data-name="'.$item->title.'">';
+
+
                         if($board->show_upvotes == 'yes') {
                             $col .= '<div class="ff-request-vote">';
                                 $col .= '<span class="ff-request-vote-btn"></span>';
@@ -133,7 +193,7 @@ class Shortcodes {
                         }
                         $col .= '<div class="ff-request-content">';
                             $col .= '<h3>';
-                                $col .= '<a href="'.esc_url(home_url('/ff_request/')).$item->id.'">';
+                                $col .= '<a href="#" data-id="'.$item->id.'">';
                                     $col .= esc_html($item->title);
                                 $col .= '</a>';
                             $col .= '</h3>';
@@ -160,6 +220,14 @@ class Shortcodes {
             return $col;
         }
 
+    }
+
+    public function ff_request_single_callback() {
+        global $wpdb;
+        $id = isset($_POST['id']) ? $_POST['id'] : '';
+        $this->current_requestId = $id;
+
+        
     }
 
 }
