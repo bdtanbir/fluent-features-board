@@ -129,7 +129,7 @@ class Shortcodes {
                 $col .= '<div class="ff-requests-list-box">';
                 $col .= '<p>('.count($form).') '.esc_html__('feature requests', 'fluent-features-board').'</p> ';
                 $col .= '<div class="ff-requests-list-body">';
-                    $col .= '<span id="back-to-all-requests-list">Back</span>';
+                $col .= '<span id="back-to-all-requests-list">Back</span>';
 
                 foreach($form as $item) {
                     global $wpdb;
@@ -165,8 +165,10 @@ class Shortcodes {
                     
                     $col .= '<div class="ff-request-item'.esc_attr($is_current_user_loggedin). ' '.$is_administrator.'" data-name="'.esc_attr($item->title).'">';
 
-                        if($item->post_author == $current_user->ID && !$current_user->roles[0] == 'administrator') {
-                            $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
+                        if($item->post_author == $current_user->ID ) {
+                            if($current_user->roles[0] == 'subscriber') {
+                                $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
+                            }
                         }
 
                         if($board->show_upvotes == 'yes') {
@@ -219,8 +221,8 @@ class Shortcodes {
         
         
                                 $col .= '<form class="ff-request-comment-form" >';
-                                    $col .= '<p class="success_message">Success!</p>';
-                                    $col .= '<input type="hidden" name="comment_post_id" value="'.$item->id.'"/>';
+                                    $col .= '<p class="success_message">'.esc_html__('Success!', 'fluent-features-board').'</p>';
+                                    $col .= '<input type="hidden" name="comment_post_id" value="'.esc_attr($item->id).'"/>';
                                     if(is_user_logged_in(  )) {
                                         $col .= '<div class="input-group">';
                                             $col .= '<textarea name="comment" placeholder="'.esc_attr__('Leave A Comment', 'fluent-features-board').'" required></textarea>';
