@@ -807,6 +807,8 @@ button:focus {
 .ff-request-comments-list .ff-request-comment li .ff-request-comment-author img {
     border-radius: 100%;
     margin-right: 10px;
+    width: 32px;
+    height: 32px;
 }
 
 .ff-request-comments-list .ff-request-comment li .ff-request-comment-content {

@@ -213,7 +213,7 @@
                 submitbtn.removeAttribute('disabled');
                 $('.ff-request-comment-form .success_message').show();
                 window.location.reload();
-            }, 3000);
+            }, 2000);
 
 
         });

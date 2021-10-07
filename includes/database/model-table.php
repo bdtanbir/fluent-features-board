@@ -151,7 +151,6 @@ class FFB_Model_Table {
     public function submit_feature_request() {
         global $wpdb;
         global $current_user;
-        wp_get_current_user();
         $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
         $id          = (isset($_POST['id']) ? $_POST['id'] : '');
         $title       = (isset($_POST['title']) ? $_POST['title'] : '');
@@ -179,7 +178,6 @@ class FFB_Model_Table {
         global $wpdb;
         $post_id          = (isset($_POST['id']) ? $_POST['id'] : '');
         $sort_by          = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
-        error_log(print_r($sort_by, 1));
         if ($sort_by == 'upvotes') {
             $sorting = '';
         } elseif ($sort_by == 'alphabetical') {
@@ -303,20 +301,13 @@ class FFB_Model_Table {
         $comment_date    = date(get_option('date_format'));
         if(is_user_logged_in(  )) {
             global $current_user;
-            error_log(print_r($current_user->user_url, 1));
-
-            if(empty($current_user->user_firstname)) {
-                $author = $current_user->display_name;
-            } else {
-                $author = $current_user->user_firstname .' '.$current_user->user_lastname;
-            }
 
             $ffr_comments = $wpdb->prefix . $this->ffr_comments;
             $wpdb->insert(
                 $ffr_comments,
                 array( 
                     'comment_post_id'      =>  $comment_post_id,
-                    'comment_author'       =>  $author,
+                    'comment_author'       =>  $current_user->display_name,
                     'comment_content'      =>  $comment_content,
                     'comment_date'         =>  $comment_date,
                     'comment_author_email' =>  $current_user->user_email,

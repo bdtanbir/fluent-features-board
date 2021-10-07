@@ -133,6 +133,7 @@ class Shortcodes {
                     $col .= '<span id="back-to-all-requests-list">Back</span>';
 
                 foreach($form as $item) {
+                    global $wpdb;
                     $user_info = get_userdata($item->post_author);
                     $status = strtolower(str_replace(' ', '-', $item->status));
                     if($item->status == 'inprogress') {
@@ -149,6 +150,19 @@ class Shortcodes {
                     } else {
                         $is_current_user_loggedin = '';
                     }
+
+
+                    $comments = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ffr_comments WHERE comment_post_ID={$item->id}");
+                    $count_comments = count($comments);
+                    $ffr_requests_list = $wpdb->prefix.'ff_requests_list';
+                    $where = [ 'id' => $item->id ];
+                    $wpdb->update(
+                        $ffr_requests_list,
+                        array(
+                            'comments_count' => $count_comments
+                        ),
+                        $where                
+                    );
 
 
                     $col .= '<div class="ff-request-item'.esc_attr($is_current_user_loggedin).'" data-name="'.esc_attr($item->title).'">';
@@ -181,21 +195,24 @@ class Shortcodes {
                         // Request Details Modal
                         $col .= '<div class="ff-request-item-details-wrap" >';
                             $col .= '<div class="ff-request-item-details-content">';
-                                // $col .= '<h1 class="ff-request-title">'.esc_html__('1st Title', 'fluent-features-board').'</h1>';
                                 $col .= '<h2 class="ff-request-author"><img width="32" height="32" src="'.esc_url(get_avatar_url($item->post_author)).'" />'.$user_info->display_name.'</h2>';
                                 $col .= '<p>'.esc_html__('description of 1st title', 'fluent-features-board').'</p>';
         
                                 // Comments List
                                 $col .= '<div class="ff-request-comments-list">';
                                     $col .= '<ul class="ff-request-comment">';
+                                    
+                                    $comments = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ffr_comments WHERE comment_post_ID={$item->id}");
+
+                                    foreach($comments as $comment) {
                                         $col .= '<li>';
                                             $col .= '<h2 class="ff-request-comment-author">';
-                                                $col .= get_avatar( get_the_author_meta($current_user->ID), 32).$current_user->display_name;
+                                                $col .= '<img width="32" height="32" src="'.get_avatar_url($comment->comment_user_id).'"/>'.$comment->comment_author;
                                             $col .= '</h2>';
-                                            $col .= '<p class="ff-request-comment-content">
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s
-                                            </p>';
+                                            $col .= '<p class="ff-request-comment-content">'.$comment->comment_content.'</p>';
                                         $col .= '</li>';
+                                    }
+
                                     $col .= '</ul>';
                                 $col .= '</div>';
         
