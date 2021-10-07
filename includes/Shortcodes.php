@@ -187,7 +187,7 @@ class Shortcodes {
                         $col .= '</div>';
                         $col .= '<a href="" class="ff-request-comment-count">';
                         $col .= '<span class="comment-icon"></span>';
-                        $col .= '<span class="comment-number">'.esc_html($item->comments_count).'</span>';
+                        $col .= '<span class="comment-number" data-comments="'.esc_attr($item->comments_count).'">'.esc_html($item->comments_count).'</span>';
                         $col .= '</a>';
 
 
@@ -195,7 +195,7 @@ class Shortcodes {
                         // Request Details Modal
                         $col .= '<div class="ff-request-item-details-wrap" >';
                             $col .= '<div class="ff-request-item-details-content">';
-                                $col .= '<h2 class="ff-request-author"><img width="32" height="32" src="'.esc_url(get_avatar_url($item->post_author)).'" />'.$user_info->display_name.'</h2>';
+                                $col .= '<h2 class="ff-request-author"><img width="32" height="32" src="'.esc_url(get_avatar_url($item->post_author)).'" />'.esc_html($user_info->display_name).'</h2>';
                                 $col .= '<p>'.esc_html__('description of 1st title', 'fluent-features-board').'</p>';
         
                                 // Comments List
@@ -207,9 +207,9 @@ class Shortcodes {
                                     foreach($comments as $comment) {
                                         $col .= '<li>';
                                             $col .= '<h2 class="ff-request-comment-author">';
-                                                $col .= '<img width="32" height="32" src="'.get_avatar_url($comment->comment_user_id).'"/>'.$comment->comment_author;
+                                                $col .= '<img width="32" height="32" src="'.get_avatar_url($comment->comment_user_id).'"/>'.esc_html($comment->comment_author);
                                             $col .= '</h2>';
-                                            $col .= '<p class="ff-request-comment-content">'.$comment->comment_content.'</p>';
+                                            $col .= '<p class="ff-request-comment-content">'.esc_html($comment->comment_content).'</p>';
                                         $col .= '</li>';
                                     }
 

@@ -6,7 +6,7 @@
         </div>
         <div class="ff-request-content">
             <h3 v-if="item.title">{{item.title}}</h3>
-            <p class="status">
+            <p v-if="item.status" class="status">
                 <span :class="item.status">{{item.status}}</span>
             </p>
             <p class="description" v-if="item.description">{{item.description.substr(0,100)}}</p>
