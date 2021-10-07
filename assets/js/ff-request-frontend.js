@@ -186,7 +186,7 @@
 
 
         // Submit Comment
-        var submitbtn = document.querySelector(".ff-request-comment-form .submit-comment button");
+        var submitbtn = document.querySelector(".ff-requests-list-box .ff-request-item.active .ff-request-comment-form .submit-comment button");
         $(".ff-request-comment-form").on('submit', function(e) {
             e.preventDefault();
             var that = this;

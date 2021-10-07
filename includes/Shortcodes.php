@@ -11,8 +11,6 @@ class Shortcodes {
     public function __construct() {
         
         add_shortcode( 'fluent_features_board', [$this, 'ffb_shortcode'] );
-        add_action( 'wp_ajax_ff_request_single_callback', [$this, 'ff_request_single_callback'] );
-        add_action( 'wp_ajax_nopriv_ff_request_single_callback', [$this, 'ff_request_single_callback'] );
         
     }
 
@@ -252,14 +250,6 @@ class Shortcodes {
             return $col;
         }
 
-    }
-
-    public function ff_request_single_callback() {
-        global $wpdb;
-        $id = isset($_POST['id']) ? $_POST['id'] : '';
-        $this->current_requestId = $id;
-
-        
     }
 
 }
