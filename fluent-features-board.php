@@ -328,6 +328,7 @@ final class Fluent_Features_board {
         parent_id int NOT NULL,
         is_public text NOT NULL,
         comments_count int NOT NULL,
+        votes_count int NOT NULL,
         PRIMARY KEY  (id)
         ) $charset_collate;";
 

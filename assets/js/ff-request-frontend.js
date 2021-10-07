@@ -267,11 +267,21 @@
         })
 
 
-        // Request Vote
-        var voteNumber = document.querySelector('.ff-request-item .ff-request-vote .ff-request-vote-count').value;
+        // Vote
         $(document).on('click', '.ff-request-item .ff-request-vote', function() {
+            var voteNumber = document.querySelector('.ff-request-item > .ff-request-vote .ff-request-vote-count').value;
+            var postID = parseInt(this.getAttribute('data-postid'));
             var result = parseInt(voteNumber) + 1;
             console.log(result);
+            // $.ajax({
+            //     type: 'POST',
+            //     url: ajax_url.ajaxurl,
+            //     dataType: 'json',
+            //     data: {
+            //         action: 'action_requestList_vote',
+            //         post_id: ''
+            //     }
+            // })
         })
     })
 
