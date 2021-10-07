@@ -201,6 +201,7 @@ class Shortcodes {
         
         
                                 $col .= '<form class="ff-request-comment-form" >';
+                                    $col .= '<p class="success_message">Success!</p>';
                                     $col .= '<input type="hidden" name="comment_post_id" value="'.$item->id.'"/>';
                                     if(is_user_logged_in(  )) {
                                         $col .= '<div class="input-group">';
@@ -208,7 +209,7 @@ class Shortcodes {
                                         $col .= '</div>';
         
                                         $col .= '<div class="input-group submit-comment">';
-                                            $col .= '<button>'.esc_html__('Submit', 'fluent-features-board').'</button>';
+                                            $col .= '<button type="submit">'.esc_html__('Submit', 'fluent-features-board').'</button>';
                                         $col .= '</div>';
                                     } else {
                                         $col .= '<div class="not-loggedin">';

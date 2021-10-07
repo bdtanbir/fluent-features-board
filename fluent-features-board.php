@@ -355,7 +355,7 @@ final class Fluent_Features_board {
         comment_author_email varchar(100) NULL,
         comment_author_url varchar(200) NULL,
         comment_author_IP varchar(100) NULL,
-        comment_date datetime NOT NULL,
+        comment_date date NOT NULL,
         comment_content text NOT NULL,
         comment_user_id bigint NOT NULL,
         PRIMARY KEY  (id)

@@ -300,36 +300,31 @@ class FFB_Model_Table {
         global $wpdb;
         $comment_post_id = isset($_POST['comment_post_id']) ? $_POST['comment_post_id'] : '';
         $comment_content = isset($_POST['comment_content']) ? $_POST['comment_content'] : '';
-        error_log(print_r($comment_content, 1));
+        $comment_date    = date(get_option('date_format'));
         if(is_user_logged_in(  )) {
             global $current_user;
-            wp_get_current_user();
-            // $username = $current_user->user_login;
-            // $userid = $current_user->ID;
-            // $userrole = $current_user->roles;
+            error_log(print_r($current_user->user_url, 1));
 
             if(empty($current_user->user_firstname)) {
                 $author = $current_user->display_name;
             } else {
                 $author = $current_user->user_firstname .' '.$current_user->user_lastname;
             }
-            // error_log(print_r($comment_post_id, 1));
-            // error_log(print_r($current_user, 1));
 
             $ffr_comments = $wpdb->prefix . $this->ffr_comments;
-            // $wpdb->insert(
-            //     $ffr_comments,
-            //     array( 
-            //         'comment_post_id'       =>  $comment_post_id,
-            //         'comment_author' =>  $author,
-            //         'comment_content' =>  $status,
-            //         'comment_date' => '',
-            //         'comment_author_email' =>  $current_user->user_email,
-            //         'comment_author_url' =>  $current_user->user_url,
-            //         'comment_author_IP' =>  '',
-            //         'comment_user_id' =>  $current_user->ID,
-            //     ) 
-            // );
+            $wpdb->insert(
+                $ffr_comments,
+                array( 
+                    'comment_post_id'      =>  $comment_post_id,
+                    'comment_author'       =>  $author,
+                    'comment_content'      =>  $comment_content,
+                    'comment_date'         =>  $comment_date,
+                    'comment_author_email' =>  $current_user->user_email,
+                    'comment_author_url'   =>  $current_user->user_url,
+                    'comment_author_IP'    =>  '',
+                    'comment_user_id'      =>  $current_user->ID,
+                ) 
+            );
         }
         die();
     }

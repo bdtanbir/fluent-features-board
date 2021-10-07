@@ -186,7 +186,7 @@
 
 
         // Submit Comment
-        var submitbtn = document.querySelector(".submit-comment button");
+        var submitbtn = document.querySelector(".ff-request-comment-form .submit-comment button");
         $(".ff-request-comment-form").on('submit', function(e) {
             e.preventDefault();
             var that = this;
@@ -195,18 +195,25 @@
 
             submitbtn.innerHTML = '<span class="loader"></span> Submitting';
             submitbtn.setAttribute('disabled', '');
-            $(that).addClass('submitting');
+            $(this).addClass('submitting');
 
-            $.ajax({
-                type: 'POST',
-                url: ajax_url.ajaxurl,
-                dataType: 'json',
-                data: {
-                    action: 'submit_new_comment_action',
-                    comment_content: comment,
-                    comment_post_id: comment_post_id
-                }
-            })
+            setTimeout(() => {
+                $.ajax({
+                    type: 'POST',
+                    url: ajax_url.ajaxurl,
+                    dataType: 'json',
+                    data: {
+                        action: 'submit_new_comment_action',
+                        comment_content: comment,
+                        comment_post_id: comment_post_id
+                    }
+                });
+                submitbtn.innerHTML = 'Submit';
+                $(that).removeClass('submitting');
+                submitbtn.removeAttribute('disabled');
+                $('.ff-request-comment-form .success_message').show();
+                window.location.reload();
+            }, 3000);
 
 
         });
@@ -258,25 +265,6 @@
                 'display': 'flex'
             })
         })
-
-
-        // Single Feature Request
-        // $(document).on('click', '.ff-requests-list-box .ff-request-item .ff-request-content h3 a', function(e) {
-        //     e.preventDefault();
-        //     var request_id = parseInt(this.dataset.id);
-        //     // alert('hello')
-        //     // $.ajax({
-        //     //     type: 'POST',
-        //     //     dataType: 'json',
-        //     //     url: ajax_url.ajaxurl,
-        //     //     data: {
-        //     //         action: 'ff_request_single_callback',
-        //     //         id: request_id
-        //     //     }
-        //     // })
-        // })
-
-
     })
 
 })(jQuery);
