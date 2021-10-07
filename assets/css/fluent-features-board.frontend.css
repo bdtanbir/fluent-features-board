@@ -1,4 +1,4 @@
-.ff-request-item .ff-request-content .user-action a:focus,
+.ff-request-item .user-action a:focus,
 input:focus,
 select:focus,
 textarea:focus,
@@ -331,7 +331,7 @@ button:focus {
     border-radius: 4px;
 }
 
-#ff-request-comment-form.submitting .submit-comment button[disabled],
+.ff-request-comment-form.submitting .submit-comment button[disabled],
 .ff-requests-form .ff-request-submit[disabled] {
     cursor: no-drop;
     opacity: 0.3;
@@ -351,7 +351,7 @@ button:focus {
 }
 
 .ff-request-board-login-register-body form button .loader,
-#ff-request-comment-form.submitting .submit-comment .loader,
+.ff-request-comment-form.submitting .submit-comment .loader,
 .ff-requests-form.submitting .ff-request-submit .loader {
     animation: rotating 0.5s infinite linear;
     display: inline-block;
@@ -370,12 +370,42 @@ button:focus {
 .ff-requests-list-box .ff-request-item {
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
+    position: relative;
 }
 
 .ff-requests-list-box .ff-request-item+.ff-request-item {
     margin-top: 20px;
     border-top: 1px solid #eee;
     padding-top: 20px;
+}
+
+.ff-requests-list-box .ff-request-item.active {
+    padding-top: 65px;
+}
+
+.ff-requests-list-box .ff-request-item.single-request {
+    padding-top: 0;
+    border: none;
+    margin-top: 20px;
+}
+
+.ff-requests-list-body #back-to-all-requests-list {
+    display: none;
+    font-size: 13px;
+    background: #ededed;
+    color: #555;
+    padding: 3px 15px;
+    border-radius: 30px;
+    margin: 0 !important;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: .3s;
+}
+
+.ff-requests-list-body #back-to-all-requests-list:hover {
+    background: #a8adb9;
+    color: #ffffff;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-vote {
@@ -417,10 +447,11 @@ button:focus {
 .ff-requests-list-box .ff-request-item .ff-request-content {
     flex: 1;
     margin: 0 15px;
+    cursor: pointer;
 }
 
-.ff-requests-list-box .ff-request-item .ff-request-content .ff-request-content-inner {
-    cursor: pointer;
+.ff-requests-list-box .ff-request-item.single-request .ff-request-content {
+    cursor: auto;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-content h3 {
@@ -429,10 +460,8 @@ button:focus {
     margin-bottom: 2px;
 }
 
-.ff-requests-list-box .ff-request-item .ff-request-content h3 a {
-    text-decoration: none;
-    color: #000;
-    display: inline-block;
+.ff-requests-list-box .ff-request-item.single-request .ff-request-content h3 {
+    margin: 10px 0 2px 0;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-content h3 a:hover {
@@ -521,7 +550,7 @@ button:focus {
     border: 1px solid #e1eaea;
     padding: 15px;
     border-radius: 4px;
-    max-height: 580px;
+    max-height: 700px;
     overflow-x: hidden;
 }
 
@@ -671,7 +700,7 @@ button:focus {
 /* Request Details */
 
 .ff-request-item-details-wrap {
-    position: absolute;
+    position: relative;
     left: 0;
     top: 0;
     width: 100%;
@@ -680,6 +709,11 @@ button:focus {
     background: #fff;
     padding: 0 0 20px 0;
     display: none;
+    margin: 20px 0 0 0;
+}
+
+.ff-requests-list-box .ff-request-item.single-request .ff-request-item-details-wrap {
+    display: block;
 }
 
 .ff-request-item-details-wrap .ff-request-title {
@@ -703,6 +737,16 @@ button:focus {
     font-size: 15px;
     padding-left: 41px;
 }
+
+.ff-requests-list-box .ff-request-item.single-request .ff-request-content .status,
+.ff-requests-list-box .ff-request-item.single-request .ff-request-content .description {
+    display: none;
+}
+
+
+/* ,
+.ff-requests-list-box .ff-request-item.single-request .ff-request-item-details-wrap .ff-request-title,
+.ff-requests-list-box .ff-request-item.single-request .ff-request-item-details-wrap .ff-request-author  */
 
 .ff-request-comment-form {
     margin-top: 30px;
@@ -783,31 +827,34 @@ button:focus {
     font-weight: 500;
 }
 
-.ff-request-item .ff-request-content .user-action {
+.ff-request-item .user-action {
     display: inline-block;
-    margin: 12px 0 0 0;
+    margin: 0;
     background: #eee;
     padding: 4px 8px;
     font-size: 12px;
     border-radius: 30px;
     color: #888;
+    position: absolute;
+    left: 0;
+    top: 20px;
 }
 
-.ff-request-item .ff-request-content .user-action a {
+.ff-request-item .user-action a {
     margin: 0 5px;
     color: #7c7c7c;
     text-decoration: none;
     font-weight: 500;
 }
 
-.ff-request-item .ff-request-content .user-action a:hover,
-.ff-request-item .ff-request-content .user-action a.deleting,
+.ff-request-item .user-action a:hover,
+.ff-request-item .user-action a.deleting,
 .ff-requests-form .user-not-loggedin a:hover,
 .ff-request-comment-form .not-loggedin h1 a {
     color: #ba42ec;
 }
 
-.ff-request-item .ff-request-content .user-action a:focus {
+.ff-request-item .user-action a:focus {
     text-decoration: none;
     background: transparent;
 }

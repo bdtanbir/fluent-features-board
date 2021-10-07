@@ -130,6 +130,7 @@ class Shortcodes {
                 $col .= '<div class="ff-requests-list-box">';
                 $col .= '<p>('.count($form).') '.esc_html__('feature requests', 'fluent-features-board').'</p> ';
                 $col .= '<div class="ff-requests-list-body">';
+                    $col .= '<span id="back-to-all-requests-list">Back</span>';
 
                 foreach($form as $item) {
                     $user_info = get_userdata($item->post_author);
@@ -143,14 +144,44 @@ class Shortcodes {
                     } else {
                         $status_text = "Shipped";
                     }
+                    if($item->post_author == $current_user->ID) {
+                        $is_current_user_loggedin = ' active';
+                    } else {
+                        $is_current_user_loggedin = '';
+                    }
 
 
-                    $col .= '<div class="ff-request-item" data-name="'.esc_attr($item->title).'">';
+                    $col .= '<div class="ff-request-item'.esc_attr($is_current_user_loggedin).'" data-name="'.esc_attr($item->title).'">';
+                        if($item->post_author == $current_user->ID) {
+                            $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
+                        }
+
+                        if($board->show_upvotes == 'yes') {
+                            $col .= '<div class="ff-request-vote">';
+                                $col .= '<span class="ff-request-vote-btn"></span>';
+                                $col .= '<span class="ff-request-vote-count">'.esc_html__('10', 'fluent-features-board').'</span>';
+                            $col .= '</div>';
+                        }
+                        $col .= '<div class="ff-request-content">';
+                            $col .= '<h3>';
+                                $col .= esc_html($item->title);
+                            $col .= '</h3>';
+                            if($item->status) {
+                                $col .= '<p class="status"><span class="'.esc_attr($status).'">'.esc_html($status_text).'</span></p>';
+                            }
+                            $col .= '<p class="description">'.esc_html($item->description).'</p>';
+                        $col .= '</div>';
+                        $col .= '<a href="" class="ff-request-comment-count">';
+                        $col .= '<span class="comment-icon"></span>';
+                        $col .= '<span class="comment-number">'.esc_html($item->comments_count).'</span>';
+                        $col .= '</a>';
+
+
 
                         // Request Details Modal
                         $col .= '<div class="ff-request-item-details-wrap" >';
                             $col .= '<div class="ff-request-item-details-content">';
-                                $col .= '<h1 class="ff-request-title">'.esc_html__('1st Title', 'fluent-features-board').'</h1>';
+                                // $col .= '<h1 class="ff-request-title">'.esc_html__('1st Title', 'fluent-features-board').'</h1>';
                                 $col .= '<h2 class="ff-request-author"><img width="32" height="32" src="'.esc_url(get_avatar_url($item->post_author)).'" />'.$user_info->display_name.'</h2>';
                                 $col .= '<p>'.esc_html__('description of 1st title', 'fluent-features-board').'</p>';
         
@@ -169,8 +200,8 @@ class Shortcodes {
                                 $col .= '</div>';
         
         
-                                $col .= '<form class="ff-request-comment-form" id="ff-request-comment-form">';
-                                    $col .= '<input type="hidden" name="comment_post_id" value="1"/>';
+                                $col .= '<form class="ff-request-comment-form" >';
+                                    $col .= '<input type="hidden" name="comment_post_id" value="'.$item->id.'"/>';
                                     if(is_user_logged_in(  )) {
                                         $col .= '<div class="input-group">';
                                             $col .= '<textarea name="comment" placeholder="'.esc_attr__('Leave A Comment', 'fluent-features-board').'" required></textarea>';
@@ -188,33 +219,6 @@ class Shortcodes {
                             $col .= '</div>';
                         $col .= '</div>';
 
-
-                        if($board->show_upvotes == 'yes') {
-                            $col .= '<div class="ff-request-vote">';
-                                $col .= '<span class="ff-request-vote-btn"></span>';
-                                $col .= '<span class="ff-request-vote-count">'.esc_html__('10', 'fluent-features-board').'</span>';
-                            $col .= '</div>';
-                        }
-                        $col .= '<div class="ff-request-content">';
-                            $col .= '<div class="ff-request-content-inner">';
-                                $col .= '<h3>';
-                                    $col .= '<a href="#" data-id="'.esc_attr($item->id).'">';
-                                        $col .= esc_html($item->title);
-                                    $col .= '</a>';
-                                $col .= '</h3>';
-                                if($item->status) {
-                                    $col .= '<p class="status"><span class="'.esc_attr($status).'">'.esc_html($status_text).'</span></p>';
-                                }
-                                $col .= '<p class="description">'.esc_html($item->description).'</p>';
-                            $col .= '</div>';
-                            if($item->post_author == $current_user->ID) {
-                                $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
-                            }
-                        $col .= '</div>';
-                        $col .= '<a href="" class="ff-request-comment-count">';
-                        $col .= '<span class="comment-icon"></span>';
-                        $col .= '<span class="comment-number">'.esc_html($item->comments_count).'</span>';
-                        $col .= '</a>';
                     $col .= '</div>';
                 }
 

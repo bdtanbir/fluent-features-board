@@ -61,7 +61,6 @@
                         id: parent_id
                     }
                 });
-                console.log('Success');
                 $("#ff-request-frontend-form input[name='title']").val('');
                 $("#ff-request-frontend-form textarea[name='description']").val('');
                 $(that).removeClass('submitting');
@@ -188,13 +187,12 @@
 
         // Submit Comment
         var submitbtn = document.querySelector(".submit-comment button");
-        $("#ff-request-comment-form").on('submit', function(e) {
+        $(".ff-request-comment-form").on('submit', function(e) {
             e.preventDefault();
             var that = this;
             var comment = $('textarea[name="comment"]', that).val();
             var comment_post_id = $('input[name="comment_post_id"]', that).val();
 
-            console.log('Submitted a New Comment');
             submitbtn.innerHTML = '<span class="loader"></span> Submitting';
             submitbtn.setAttribute('disabled', '');
             $(that).addClass('submitting');
@@ -236,6 +234,29 @@
                 that.innerHTML = 'Delete';
                 window.location.reload()
             }, 2000);
+        })
+
+        // Single Request Popup
+        $(document).on('click', '.ff-requests-list-box .ff-request-item > .ff-request-content', function() {
+            $(".ff-requests-list-box .ff-request-item").hide();
+            $(this).parent().addClass('single-request').show();
+            $('.ff-requests-list-body #back-to-all-requests-list').css({
+                'display': 'inline-block'
+            });
+            $('.ff-request-item .user-action').hide();
+            $(".ff-requests-list-box .ff-request-item .ff-request-comment-count").hide()
+        });
+
+        // Hide single request popup
+        $(document).on('click', '#back-to-all-requests-list', function() {
+            $(".ff-requests-list-box .ff-request-item").removeClass('single-request').show();
+            $(this).hide();
+            $('.ff-request-item .user-action').css({
+                'display': 'inline-flex'
+            })
+            $(".ff-requests-list-box .ff-request-item .ff-request-comment-count").css({
+                'display': 'flex'
+            })
         })
 
 
