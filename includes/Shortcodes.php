@@ -45,8 +45,10 @@ class Shortcodes {
                 }
                 if(is_user_logged_in() && $current_user->roles[0] == 'administrator') {
                     $show_all_requests = "";
+                    $is_administrator = 'administrator';
                 } else {
                     $show_all_requests = " and is_public='true' ";
+                    $is_administrator = '';
                 }
 
                 $form = $wpdb->get_results(
@@ -163,9 +165,9 @@ class Shortcodes {
                         $where                
                     );
                     
-                    $col .= '<div class="ff-request-item'.esc_attr($is_current_user_loggedin). '" data-name="'.esc_attr($item->title).'">';
+                    $col .= '<div class="ff-request-item'.esc_attr($is_current_user_loggedin). ' '.$is_administrator.'" data-name="'.esc_attr($item->title).'">';
 
-                        if($item->post_author == $current_user->ID) {
+                        if($item->post_author == $current_user->ID && !$current_user->roles[0] == 'administrator') {
                             $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
                         }
 

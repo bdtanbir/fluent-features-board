@@ -384,6 +384,10 @@ button:focus {
     padding-top: 65px;
 }
 
+.ff-requests-list-box .ff-request-item.active.administrator {
+    padding-top: 20px;
+}
+
 .ff-requests-list-box .ff-request-item.single-request {
     padding-top: 0;
     border: none;
