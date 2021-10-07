@@ -265,6 +265,14 @@
                 'display': 'flex'
             })
         })
+
+
+        // Request Vote
+        var voteNumber = document.querySelector('.ff-request-item .ff-request-vote .ff-request-vote-count').value;
+        $(document).on('click', '.ff-request-item .ff-request-vote', function() {
+            var result = parseInt(voteNumber) + 1;
+            console.log(result);
+        })
     })
 
 })(jQuery);

@@ -123,12 +123,10 @@ export default {
                         visibility: this.visibility,
                         logo: this.previewLogo
                     },
-                    success: function() {
-                        that.title = '';
-                        that.isDone = true
-                        that.isLoading = false;
-                    }
                 });
+                that.title = '';
+                that.isDone = true
+                that.isLoading = false;
             },3000);
         },
         hideAddNewFormhandle() {

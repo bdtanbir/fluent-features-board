@@ -40,11 +40,9 @@ export default {
                         action: "delete_ffb_table_column",
                         id: that.id
                     },
-                    success: function() {
-                        that.isDeleting = false;
-                        window.location.reload();
-                    }
                 });
+                that.isDeleting = false;
+                window.location.reload();
             }, 2000)
         },
     },

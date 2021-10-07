@@ -130,15 +130,12 @@ export default {
                         visibility: visibility,
                         id: that.tableInfos.id
                     },
-                    success: function() {
-                        console.log('updated done');
-                        that.isUpdating = false;
-                        that.isUpdated  = true;
-                        setTimeout(() => {
-                            that.isUpdated = false;
-                        }, 20000)
-                    }
                 });
+                that.isUpdating = false;
+                that.isUpdated  = true;
+                setTimeout(() => {
+                    that.isUpdated = false;
+                }, 20000)
             }, 2000)
         },
         closeUpdatedAlert() {

@@ -172,7 +172,7 @@ class Shortcodes {
                         if($board->show_upvotes == 'yes') {
                             $col .= '<div class="ff-request-vote">';
                                 $col .= '<span class="ff-request-vote-btn"></span>';
-                                $col .= '<span class="ff-request-vote-count">'.esc_html__('10', 'fluent-features-board').'</span>';
+                                $col .= '<input type="text" data-id="'.$item->id.'" name="votes" value="'.esc_html__('10', 'fluent-features-board').'" class="ff-request-vote-count" readonly/>';
                             $col .= '</div>';
                         }
                         $col .= '<div class="ff-request-content">';
@@ -211,6 +211,8 @@ class Shortcodes {
                                             $col .= '<p class="ff-request-comment-content">'.esc_html($comment->comment_content).'</p>';
                                         $col .= '</li>';
                                     }
+
+                                    $col .= '';
 
                                     $col .= '</ul>';
                                 $col .= '</div>';

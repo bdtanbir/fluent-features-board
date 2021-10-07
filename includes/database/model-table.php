@@ -1,7 +1,6 @@
 <?php
 namespace FFB;
 
-use Error;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -299,6 +298,7 @@ class FFB_Model_Table {
         $comment_post_id = isset($_POST['comment_post_id']) ? $_POST['comment_post_id'] : '';
         $comment_content = isset($_POST['comment_content']) ? $_POST['comment_content'] : '';
         $comment_date    = date(get_option('date_format'));
+        echo '<h1>Extend Class</h1>';
         if(is_user_logged_in(  )) {
             global $current_user;
 
