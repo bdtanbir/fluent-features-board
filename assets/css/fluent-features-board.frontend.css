@@ -550,7 +550,7 @@ button:focus {
     border: 1px solid #e1eaea;
     padding: 15px;
     border-radius: 4px;
-    max-height: 700px;
+    max-height: 800px;
     overflow-x: hidden;
 }
 
@@ -701,13 +701,13 @@ button:focus {
 
 .ff-request-item-details-wrap {
     position: relative;
-    left: 0;
-    top: 0;
+    /* left: 0; */
+    /* top: 0; */
     width: 100%;
     /* height: 100%; */
     z-index: 999;
     background: #fff;
-    padding: 0 0 20px 0;
+    /* padding: 0 0 20px 0; */
     display: none;
     margin: 20px 0 0 0;
 }
@@ -722,7 +722,7 @@ button:focus {
 
 .ff-request-item-details-wrap .ff-request-author {
     font-size: 18px;
-    margin: 25px 0 5px 0;
+    margin: 25px 0 0 0;
     font-weight: 600;
 }
 
@@ -797,6 +797,8 @@ button:focus {
 .ff-request-comments-list .ff-request-comment li {
     list-style: none;
     margin-top: 20px;
+    border-bottom: 1px solid #f7f7f7;
+    padding-bottom: 15px;
 }
 
 .ff-request-comments-list .ff-request-comment li .ff-request-comment-author {

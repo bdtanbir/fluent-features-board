@@ -144,18 +144,16 @@ export default {
                         is_public: that.is_public,
                         id: that.FRBsingle.id
                     },
-                    success: function() {
-                        that.isSubmitting = false
-                        that.submitBtnText = 'Suggest Feature';
-                        that.isSubmitted = true;
-                        that.title = '';
-                        that.description = '';
-                        // that.tags = [];
-                        setTimeout(() => {
-                            that.isSubmitted = false;
-                        }, 100000);
-                    }
                 });
+                that.isSubmitting = false
+                that.submitBtnText = 'Suggest Feature';
+                that.isSubmitted = true;
+                that.title = '';
+                that.description = '';
+                // that.tags = [];
+                setTimeout(() => {
+                    that.isSubmitted = false;
+                }, 100000);
             }, 3000);
 
         },

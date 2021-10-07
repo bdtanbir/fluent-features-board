@@ -31,16 +31,7 @@ class Shortcodes {
         if(!empty($ffb_atts['id'])) {
             $current_feature_board = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."fluent_features_board WHERE id=".$ffb_atts['id']);
 
-            // if(is_user_logged_in(  )) {
-                global $current_user;
-                // $useremail = $current_user->user_email;
-                // $username = $current_user->user_login;
-                // $firstname = $current_user->user_firstname;
-                // $lastname = $current_user->user_lastname;
-                // $userid = $current_user->id;
-                // $userrole = $current_user->roles;
-
-            // }
+            global $current_user;
 
             foreach($current_feature_board as $board) {
                 if ($board->sort_by == 'upvotes') {
@@ -52,7 +43,15 @@ class Shortcodes {
                 } else {
                     $sort_by = '';
                 }
-                $form = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$sort_by);
+                if(is_user_logged_in() && $current_user->roles[0] == 'administrator') {
+                    $show_all_requests = "";
+                } else {
+                    $show_all_requests = " and is_public='true' ";
+                }
+
+                $form = $wpdb->get_results(
+                    "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$sort_by
+                );
                 $col = '<div class="ff-requests-list-home">';
 
                 $col .= '<header>';
@@ -163,9 +162,9 @@ class Shortcodes {
                         ),
                         $where                
                     );
+                    
+                    $col .= '<div class="ff-request-item'.esc_attr($is_current_user_loggedin). '" data-name="'.esc_attr($item->title).'">';
 
-
-                    $col .= '<div class="ff-request-item'.esc_attr($is_current_user_loggedin).'" data-name="'.esc_attr($item->title).'">';
                         if($item->post_author == $current_user->ID) {
                             $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
                         }
@@ -185,10 +184,10 @@ class Shortcodes {
                             }
                             $col .= '<p class="description">'.esc_html($item->description).'</p>';
                         $col .= '</div>';
-                        $col .= '<a href="" class="ff-request-comment-count">';
+                        $col .= '<div class="ff-request-comment-count">';
                         $col .= '<span class="comment-icon"></span>';
                         $col .= '<span class="comment-number" data-comments="'.esc_attr($item->comments_count).'">'.esc_html($item->comments_count).'</span>';
-                        $col .= '</a>';
+                        $col .= '</div>';
 
 
 
@@ -196,7 +195,7 @@ class Shortcodes {
                         $col .= '<div class="ff-request-item-details-wrap" >';
                             $col .= '<div class="ff-request-item-details-content">';
                                 $col .= '<h2 class="ff-request-author"><img width="32" height="32" src="'.esc_url(get_avatar_url($item->post_author)).'" />'.esc_html($user_info->display_name).'</h2>';
-                                $col .= '<p>'.esc_html__('description of 1st title', 'fluent-features-board').'</p>';
+                                $col .= '<p>'.esc_html($item->description).'</p>';
         
                                 // Comments List
                                 $col .= '<div class="ff-request-comments-list">';
