@@ -421,13 +421,17 @@ button:focus {
     font-size: 16px;
     position: relative;
     display: flex;
+    cursor: pointer;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    cursor: no-drop;
-    background: #d7d7d7;
     border: 1px solid #d7d7d7;
     color: #828897;
+}
+
+.ff-requests-list-box .ff-request-item .ff-request-vote.removeVote {
+    background: #000;
+    border: 1px solid #000;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-vote.addVote {
@@ -452,6 +456,12 @@ button:focus {
     border-top-color: #828897;
 }
 
+.ff-requests-list-box .ff-request-item .ff-request-vote.removeVote .ff-request-vote-btn:hover,
+.ff-requests-list-box .ff-request-item .ff-request-vote.removeVote .ff-request-vote-btn {
+    border-top-color: #fff;
+    border-right-color: #fff;
+}
+
 .ff-requests-list-box .ff-request-item .ff-request-vote .ff-request-vote-count {
     line-height: 14px;
     border: none;
@@ -459,12 +469,12 @@ button:focus {
     width: 100%;
     padding: 0;
     margin: 0;
-    cursor: no-drop;
     background: transparent;
+    cursor: pointer;
 }
 
-.ff-requests-list-box .ff-request-item .ff-request-vote.addVote .ff-request-vote-count {
-    cursor: pointer;
+.ff-requests-list-box .ff-request-item .ff-request-vote.removeVote .ff-request-vote-count {
+    color: #fff !important;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-content {

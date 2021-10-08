@@ -149,7 +149,7 @@ class Shortcodes {
                     } else {
                         $is_current_user_loggedin = '';
                     }
-                    $getVotes = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ffr_votes WHERE post_id={$item->id}");
+                    // $getVotes = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ffr_votes WHERE post_id={$item->id}");
                     $checkUserVoted = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ffr_votes WHERE post_id={$item->id} AND vote_user_id={$current_user->ID}");
 
 
@@ -174,24 +174,26 @@ class Shortcodes {
                         }
 
                         if($board->show_upvotes == 'yes') {
+                            if(is_user_logged_in()) {
+                                $notLoggedin = ' ';
                                 if($checkUserVoted) {
                                     $disabled = ' removeVote ';
                                 } else {
                                     $disabled = ' addVote ';
                                 }
-                                $col .= '<div class="ff-request-vote '.esc_attr($disabled).'" data-postid="'.esc_attr($item->id).'">';
+                            } else {
+                                $notLoggedin = ' id="ffr-login-register-popup" ';
+                                $disabled = '';
+                            }
+                                $col .= '<div '.$notLoggedin.' class="ff-request-vote '.esc_attr($disabled).'" data-postid="'.esc_attr($item->id).'">';
                                     $col .= '<span class="ff-request-vote-btn"></span>';
                                     
-                                    if($getVotes) {
-                                        $col .= '<input type="text" value="'.esc_attr($item->votes_count).'" class="ff-request-vote-count" readonly/>';
-                                        // foreach($getVotes as $vote) {
-                                        //     $allvotes = $vote->votes_count;
-                                        //     error_log(print_r($allvotes, 1));
-                                        //     $col .= '<input type="text" value="'.esc_attr($vote->votes_count).'" class="ff-request-vote-count" readonly/>';
-                                        // }
-                                    } else {
-                                        $col .= '<input type="text" value="'.esc_attr__('0', 'fluent-features-board').'" class="ff-request-vote-count" readonly/>';
-                                    }
+                                    $col .= '<input type="text" value="'.esc_attr($item->votes_count).'" class="ff-request-vote-count" readonly/>';
+                                    // foreach($getVotes as $vote) {
+                                    //     $allvotes = $vote->votes_count;
+                                    //     error_log(print_r($allvotes, 1));
+                                    //     $col .= '<input type="text" value="'.esc_attr($vote->votes_count).'" class="ff-request-vote-count" readonly/>';
+                                    // }
                                 $col .= '</div>';
                         }
                         $col .= '<div class="ff-request-content">';
