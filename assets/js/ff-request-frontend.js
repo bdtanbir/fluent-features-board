@@ -267,7 +267,7 @@
         })
 
 
-        // Vote
+        // Add Vote
         $(document).on('click', '.ff-request-item .ff-request-vote.addVote', function() {
             const that = this;
             var voteNumber = $(".ff-request-vote-count", this);
@@ -286,6 +286,27 @@
                     post_id: postID,
                 }
             })
+        });
+
+
+        // Remove Vote
+        $(document).on('click', '.ff-request-item > .ff-request-vote.removeVote', function(e) {
+            const that = this;
+            var voteNumber = $(".ff-request-vote-count", this);
+            var postID = parseInt(this.getAttribute('data-postid'));
+            if (voteNumber.val() > '0') {
+                var result = parseInt(voteNumber.val()) - 1;
+                $('.ff-request-vote-count', this).val(result);
+                $(that).removeClass('removeVote').addClass('addVote');
+                console.log('Bit');
+            } else {
+                $('.ff-request-vote-count', this).val('0');
+                var result = parseInt(voteNumber.val()) - 0;
+                console.log('Small')
+            }
+            console.log(result + ' <-> ' + postID);
+
+
         })
     })
 
