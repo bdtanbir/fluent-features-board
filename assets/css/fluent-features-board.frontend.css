@@ -413,20 +413,27 @@ button:focus {
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-vote {
-    border: 1px solid #e1eaea;
     border-radius: 4px;
     max-width: 45px;
     min-width: 45px;
     text-align: center;
     padding: 10px 0 8px 0;
-    cursor: pointer;
-    color: #828897;
     font-size: 16px;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: no-drop;
+    background: #d7d7d7;
+    border: 1px solid #d7d7d7;
+    color: #828897;
+}
+
+.ff-requests-list-box .ff-request-item .ff-request-vote.addVote {
+    border: 1px solid #e1eaea;
+    cursor: pointer;
+    background: transparent;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-vote .ff-request-vote-btn {
@@ -452,8 +459,12 @@ button:focus {
     width: 100%;
     padding: 0;
     margin: 0;
-    cursor: pointer;
+    cursor: no-drop;
     background: transparent;
+}
+
+.ff-requests-list-box .ff-request-item .ff-request-vote.addVote .ff-request-vote-count {
+    cursor: pointer;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-content {

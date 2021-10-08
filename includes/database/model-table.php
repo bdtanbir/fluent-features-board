@@ -11,6 +11,7 @@ class FFB_Model_Table {
     public $ff_requests_list = 'ff_requests_list';
     public $ffr_tags = 'ffr_tags';
     public $ffr_comments = 'ffr_comments';
+    public $ffr_votes = 'ffr_votes';
 
     public function __construct()
     {
@@ -38,6 +39,8 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_action_deleteFeatureRequestRow', [$this, 'action_deleteFeatureRequestRow'] );
         add_action( 'wp_ajax_submit_new_comment_action', [$this, 'submit_new_comment_action'] );
         add_action( 'wp_ajax_nopriv_submit_new_comment_action', [$this, 'submit_new_comment_action'] );
+        add_action( 'wp_ajax_addVotesOnRequestList', [$this, 'addVotesOnRequestList'] );
+        add_action( 'wp_ajax_nopriv_addVotesOnRequestList', [$this, 'addVotesOnRequestList'] );
         
     }
 
@@ -316,6 +319,59 @@ class FFB_Model_Table {
                     'comment_user_id'      =>  $current_user->ID,
                 ) 
             );
+        }
+        die();
+    }
+
+
+    /**
+     * Adding Votes
+     */
+    public function addVotesOnRequestList() {
+        global $wpdb;
+        global $current_user;
+        $post_id = (isset($_POST['post_id'])) ? $_POST['post_id'] : '';
+        $votes = (isset($_POST['votes'])) ? $_POST['votes'] : '';
+
+        $ffr_votes = $wpdb->prefix . $this->ffr_votes;
+
+        $updateVotes = "SELECT * FROM `$ffr_votes` WHERE vote_user_id='$current_user->ID' AND post_id='$post_id'";
+        
+        // if($updateVotes) {
+        //     // $sql = $wpdb->prepare("UPDATE `$ffr_votes` (`votes_count`) values (%s)", $votes);
+        //     $where = [ 'post_id' => $post_id ];
+        //     $wpdb->update( 
+        //         $ffr_votes, 
+        //         array( 
+        //             'votes_count'        => $votes,
+        //             'vote_user_id'        => $current_user->ID,
+        //         ), 
+        //         $where 
+        //     );
+        //     // $wpdb->query($sql);
+        // } else {
+            
+        // }
+
+        $voteCheck = "SELECT * FROM `$ffr_votes` WHERE vote_user_id='$current_user->ID' AND post_id='$post_id'";
+        $result = $wpdb->query($voteCheck);
+        if(!$result) {
+            $sql = $wpdb->prepare("INSERT INTO `$ffr_votes` (`post_id`, `vote_user_id`, `votes_count`) values (%s, %s, %s)", $post_id, $current_user->ID, $votes);
+            $wpdb->query($sql);
+
+
+            $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
+            $where = ['id' => $post_id];
+
+            $wpdb->update( 
+                $table_ffr,
+                array( 
+                    'votes_count' => $votes
+                ),
+                $where
+            );
+        } else {
+            die();
         }
         die();
     }

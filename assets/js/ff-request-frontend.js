@@ -268,20 +268,24 @@
 
 
         // Vote
-        $(document).on('click', '.ff-request-item .ff-request-vote', function() {
-            var voteNumber = document.querySelector('.ff-request-item > .ff-request-vote .ff-request-vote-count').value;
+        $(document).on('click', '.ff-request-item .ff-request-vote.addVote', function() {
+            const that = this;
+            var voteNumber = $(".ff-request-vote-count", this);
             var postID = parseInt(this.getAttribute('data-postid'));
-            var result = parseInt(voteNumber) + 1;
-            console.log(result);
-            // $.ajax({
-            //     type: 'POST',
-            //     url: ajax_url.ajaxurl,
-            //     dataType: 'json',
-            //     data: {
-            //         action: 'action_requestList_vote',
-            //         post_id: ''
-            //     }
-            // })
+            var result = parseInt(voteNumber.val()) + 1;
+            var votes_count = $('.ff-request-vote-count', this).val(result);
+            this.setAttribute('disabled', '');
+            $(that).removeClass('addVote').addClass('removeVote');
+            $.ajax({
+                type: 'POST',
+                url: ajax_url.ajaxurl,
+                dataType: 'json',
+                data: {
+                    action: 'addVotesOnRequestList',
+                    votes: votes_count.val(),
+                    post_id: postID,
+                }
+            })
         })
     })
 

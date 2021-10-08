@@ -38,6 +38,7 @@ final class Fluent_Features_board {
     public $ff_requests_list = 'ff_requests_list';
     public $ffr_tags = 'ffr_tags';
     public $ffr_comments = 'ffr_comments';
+    public $ffr_votes = 'ffr_votes';
 
     /**
      * Constructor for the Fluent_Features_board class
@@ -362,12 +363,25 @@ final class Fluent_Features_board {
         PRIMARY KEY  (id)
         ) $charset_collate;";
 
+
+        // Tables
+        $ffr_votes_table = $wpdb->prefix . $this->ffr_votes;
+
+        $sql5 = "CREATE TABLE $ffr_votes_table (
+        id bigint NOT NULL AUTO_INCREMENT,
+        post_id bigint NOT NULL,
+        vote_user_id bigint NOT NULL,
+        votes_count bigint NOT NULL,
+        PRIMARY KEY  (id)
+        ) $charset_collate;";
+
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql );
         // require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql2 );
         dbDelta( $sql3 );
         dbDelta( $sql4 );
+        dbDelta( $sql5 );
     }
 
     /**
