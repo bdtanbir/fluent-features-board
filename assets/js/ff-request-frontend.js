@@ -68,7 +68,7 @@
                 submit_btn.removeAttribute("disabled");
                 thankyou.show();
                 setTimeout(() => {
-                    window.location.reload()
+                    window.location.reload(true)
                 }, 2000);
             }, 2000);
         });
@@ -213,7 +213,7 @@
                 $(that).removeClass('submitting');
                 submitbtn.removeAttribute('disabled');
                 $('.ff-request-comment-form .success_message').show();
-                window.location.reload();
+                window.location.reload(true);
             }, 1000);
 
 
@@ -240,7 +240,7 @@
                 });
                 $(that).removeClass('deleting');
                 that.innerHTML = 'Delete';
-                window.location.reload()
+                window.location.reload(true)
             }, 2000);
         })
 

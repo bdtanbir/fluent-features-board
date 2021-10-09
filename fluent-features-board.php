@@ -61,7 +61,7 @@ final class Fluent_Features_board {
 
         add_action( 'wp_ajax_fluent_features_board_ajaxregister', [$this, 'fluent_features_board_ajaxregister'] );
         add_action( 'wp_ajax_nopriv_fluent_features_board_ajaxregister', [$this, 'fluent_features_board_ajaxregister'] );
-        add_filter( 'template_include', [$this, 'load_custom_ffrequest_route_template'] );
+        // add_filter( 'template_include', [$this, 'load_custom_ffrequest_route_template'] );
     }
 
     /**
@@ -254,14 +254,14 @@ final class Fluent_Features_board {
 
     }
 
-    public function load_custom_ffrequest_route_template( $original_template ) {
-        global $wp;
-        $request = explode( '/', $wp->request );
-        if ( is_page( 'ff_request' ) || current( $request ) == "ff_request" ) {
-            return plugin_dir_path( __FILE__ ) . 'templates/single-ff_request.php';
-        }
-        return $original_template;
-    }
+    // public function load_custom_ffrequest_route_template( $original_template ) {
+    //     global $wp;
+    //     $request = explode( '/', $wp->request );
+    //     if ( is_page( 'ff_request' ) || current( $request ) == "ff_request" ) {
+    //         return plugin_dir_path( __FILE__ ) . 'templates/single-ff_request.php';
+    //     }
+    //     return $original_template;
+    // }
 
     /**
      * Include the required files
@@ -273,7 +273,6 @@ final class Fluent_Features_board {
         require_once FFB_INCLUDES . '/database/model-table.php';
         require_once FFB_INCLUDES . '/Assets.php';
         require_once FFB_INCLUDES . '/Shortcodes.php';
-        require_once FFB_INCLUDES . '/custom_router.php';
 
         // if ( $this->is_request( 'admin' ) ) {
             require_once FFB_INCLUDES . '/Admin.php';
@@ -318,7 +317,6 @@ final class Fluent_Features_board {
 
         // Tables
         $ffr_table_name = $wpdb->prefix . $this->ff_requests_list;
-        // $charset_collate = $wpdb->get_charset_collate();
 
         $sql2 = "CREATE TABLE $ffr_table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -336,7 +334,6 @@ final class Fluent_Features_board {
 
         // Tables
         $ffr_tags_table = $wpdb->prefix . $this->ffr_tags;
-        // $charset_collate = $wpdb->get_charset_collate();
 
         $sql3 = "CREATE TABLE $ffr_tags_table (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -357,7 +354,7 @@ final class Fluent_Features_board {
         comment_author_email varchar(100) NULL,
         comment_author_url varchar(200) NULL,
         comment_author_IP varchar(100) NULL,
-        comment_date date NOT NULL,
+        comment_date text NOT NULL,
         comment_content text NOT NULL,
         comment_user_id bigint NOT NULL,
         PRIMARY KEY  (id)
@@ -377,7 +374,6 @@ final class Fluent_Features_board {
 
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql );
-        // require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql2 );
         dbDelta( $sql3 );
         dbDelta( $sql4 );
@@ -436,10 +432,6 @@ final class Fluent_Features_board {
 
             case 'cron' :
                 return defined( 'DOING_CRON' );
-
-            case 'frontend' :
-                return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
-
         }
     }
 

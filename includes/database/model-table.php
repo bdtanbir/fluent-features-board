@@ -183,11 +183,11 @@ class FFB_Model_Table {
         $post_id          = (isset($_POST['id']) ? $_POST['id'] : '');
         $sort_by          = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
         if ($sort_by == 'upvotes') {
-            $sorting = '';
+            $sorting = 'ORDER BY votes_count DESC';
         } elseif ($sort_by == 'alphabetical') {
             $sorting = ' ORDER BY title';
         } elseif ($sort_by == 'comments') {
-            $sorting = ' ORDER BY comments_count';
+            $sorting = ' ORDER BY comments_count DESC';
         } else {
             $sorting = '';
         }
@@ -300,12 +300,11 @@ class FFB_Model_Table {
      */
     public function submit_new_comment_action() {
         global $wpdb;
-        $comment_post_id = isset($_POST['comment_post_id']) ? $_POST['comment_post_id'] : '';
-        $comment_content = isset($_POST['comment_content']) ? $_POST['comment_content'] : '';
-        $comment_date    = date(get_option('date_format'));
-        echo '<h1>Extend Class</h1>';
         if(is_user_logged_in(  )) {
             global $current_user;
+            $comment_post_id = isset($_POST['comment_post_id']) ? $_POST['comment_post_id'] : '';
+            $comment_content = isset($_POST['comment_content']) ? $_POST['comment_content'] : '';
+            $comment_date    = date(get_option('date_format'));
 
             $ffr_comments = $wpdb->prefix . $this->ffr_comments;
             $wpdb->insert(

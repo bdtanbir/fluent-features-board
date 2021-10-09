@@ -6,7 +6,6 @@ namespace FFB;
  * Shortcodes Handler
  */
 class Shortcodes {
-    public $current_requestId = '';
 
     public function __construct() {
         
@@ -15,9 +14,6 @@ class Shortcodes {
     }
 
 	public function ffb_shortcode( $atts = []) {
-        if (!is_admin()) {
-            require_once FFB_INCLUDES . '/layout/user-login.php';
-        }
         global $wpdb;
         $atts = array_change_key_case((array) $atts, CASE_LOWER);
         $ffb_atts = shortcode_atts( 
@@ -30,14 +26,15 @@ class Shortcodes {
             $current_feature_board = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."fluent_features_board WHERE id=".$ffb_atts['id']);
 
             global $current_user;
+            $col = '';
 
             foreach($current_feature_board as $board) {
                 if ($board->sort_by == 'upvotes') {
-                    $sort_by = '';
+                    $sort_by = ' ORDER BY votes_count DESC';
                 } elseif ($board->sort_by == 'alphabetical') {
                     $sort_by = ' ORDER BY title';
                 } elseif ($board->sort_by == 'comments') {
-                    $sort_by = ' ORDER BY comments_count';
+                    $sort_by = ' ORDER BY comments_count DESC';
                 } else {
                     $sort_by = '';
                 }
@@ -221,7 +218,7 @@ class Shortcodes {
                                     foreach($comments as $comment) {
                                         $col .= '<li>';
                                             $col .= '<h2 class="ff-request-comment-author">';
-                                                $col .= '<img width="32" height="32" src="'.get_avatar_url($comment->comment_user_id).'"/>'.esc_html($comment->comment_author);
+                                                $col .= '<img width="32" height="32" src="'.get_avatar_url($comment->comment_user_id).'"/>'.esc_html($comment->comment_author).'<span class="ff-request-comment-date">'.$comment->comment_date.'</span>';
                                             $col .= '</h2>';
                                             $col .= '<p class="ff-request-comment-content">'.esc_html($comment->comment_content).'</p>';
                                         $col .= '</li>';
