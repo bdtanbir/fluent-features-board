@@ -129,7 +129,7 @@ class Shortcodes {
                 $col .= '<div class="ff-requests-list-box">';
                 $col .= '<p>('.count($form).') '.esc_html__('feature requests', 'fluent-features-board').'</p> ';
                 $col .= '<div class="ff-requests-list-body">';
-                $col .= '<span id="back-to-all-requests-list">Back</span>';
+                $col .= '<span id="back-to-all-requests-list">'.esc_html__('Back', 'fluent-features-board').'</span>';
 
                 foreach($form as $item) {
                     global $wpdb;
@@ -165,7 +165,7 @@ class Shortcodes {
                         $where                
                     );
                     
-                    $col .= '<div class="ff-request-item'.esc_attr($is_current_user_loggedin). ' '.$is_administrator.'" data-name="'.esc_attr($item->title).'">';
+                    $col .= '<div class="ff-request-item'.esc_attr($is_current_user_loggedin). ' '.esc_attr($is_administrator).'" data-name="'.esc_attr($item->title).'">';
 
                         if($item->post_author == $current_user->ID ) {
                             if($current_user->roles[0] == 'subscriber') {

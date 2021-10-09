@@ -116,10 +116,6 @@ button:focus {
     position: relative;
 }
 
-.ff-requests-list-home header .header-right ul .user-logout.user-out {
-    /* display: none; */
-}
-
 .ff-requests-list-home header .header-right ul .user-logout a:focus,
 .ff-requests-list-home header .header-right ul .user-logout a {
     text-decoration: none;
@@ -144,8 +140,8 @@ button:focus {
 .ff-requests-list-home header .header-right ul .user-logout>a .downicon {
     width: 6px;
     height: 6px;
-    border-left: 2px solid #878787;
-    border-bottom: 2px solid #878787;
+    border-left: 1px solid #878787;
+    border-bottom: 1px solid #878787;
     display: inline-block;
     position: absolute;
     right: 2px;

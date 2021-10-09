@@ -2,7 +2,7 @@
     <div class="ff-request-list">
         <div class="ff-request-vote">
             <span class="ff-request-vote-btn"></span>
-            <span class="ff-request-vote-count">10</span>
+            <span class="ff-request-vote-count">{{item.votes_count}}</span>
         </div>
         <div class="ff-request-content">
             <h3 v-if="item.title">{{item.title}}</h3>

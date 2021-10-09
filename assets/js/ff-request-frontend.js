@@ -144,7 +144,7 @@
                             }
                         }
                     })
-                }, 2000)
+                }, 1500)
             } else {
                 var action = 'fluent_features_board_ajaxlogin';
                 var username = jQuery('form#ff-request-board-login #username').val();
@@ -181,7 +181,7 @@
 
                         }
                     })
-                }, 2000)
+                }, 1500)
             }
         });
 
