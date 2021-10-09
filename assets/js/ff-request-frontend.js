@@ -304,7 +304,16 @@
                 var result = parseInt(voteNumber.val()) - 0;
                 console.log('Small')
             }
-            console.log(result + ' <-> ' + postID);
+            $.ajax({
+                type: 'POST',
+                url: ajax_url.ajaxurl,
+                dataType: 'json',
+                data: {
+                    action: 'removeVotesOnRequestList',
+                    votes: result,
+                    post_id: postID
+                }
+            });
 
 
         })

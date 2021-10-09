@@ -41,6 +41,8 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_submit_new_comment_action', [$this, 'submit_new_comment_action'] );
         add_action( 'wp_ajax_addVotesOnRequestList', [$this, 'addVotesOnRequestList'] );
         add_action( 'wp_ajax_nopriv_addVotesOnRequestList', [$this, 'addVotesOnRequestList'] );
+        add_action( 'wp_ajax_removeVotesOnRequestList', [$this, 'removeVotesOnRequestList'] );
+        add_action( 'wp_ajax_nopriv_removeVotesOnRequestList', [$this, 'removeVotesOnRequestList'] );
         
     }
 
@@ -335,24 +337,8 @@ class FFB_Model_Table {
 
         $ffr_votes = $wpdb->prefix . $this->ffr_votes;
 
-        $updateVotes = "SELECT * FROM `$ffr_votes` WHERE vote_user_id='$current_user->ID' AND post_id='$post_id'";
+        // $updateVotes = "SELECT * FROM `$ffr_votes` WHERE vote_user_id='$current_user->ID' AND post_id='$post_id'";
         
-        // if($updateVotes) {
-        //     // $sql = $wpdb->prepare("UPDATE `$ffr_votes` (`votes_count`) values (%s)", $votes);
-        //     $where = [ 'post_id' => $post_id ];
-        //     $wpdb->update( 
-        //         $ffr_votes, 
-        //         array( 
-        //             'votes_count'        => $votes,
-        //             'vote_user_id'        => $current_user->ID,
-        //         ), 
-        //         $where 
-        //     );
-        //     // $wpdb->query($sql);
-        // } else {
-            
-        // }
-
         $voteCheck = "SELECT * FROM `$ffr_votes` WHERE vote_user_id='$current_user->ID' AND post_id='$post_id'";
         $result = $wpdb->query($voteCheck);
         if(!$result) {
@@ -373,6 +359,33 @@ class FFB_Model_Table {
         } else {
             die();
         }
+        die();
+    }
+
+
+    /**
+     * Remove Vote by ajax
+     */
+    public function removeVotesOnRequestList() {
+        global $wpdb;
+        global $current_user;
+        $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
+        $ffr_votes = $wpdb->prefix . $this->ffr_votes;
+        $post_id = isset($_POST['post_id']) ? $_POST['post_id'] : '';
+        $votes   = isset($_POST['votes']) ? $_POST['votes'] : '';
+        error_log('Vote: '.$votes.' = and post_id: '.$post_id);
+
+        $where = ['id' => $post_id];
+
+        $wpdb->update( 
+            $table_ffr,
+            array( 
+                'votes_count' => $votes
+            ),
+            $where
+        );
+        
+        $wpdb->delete( $ffr_votes, array( 'vote_user_id' => $current_user->ID, 'post_id' => $post_id ) );
         die();
     }
     
