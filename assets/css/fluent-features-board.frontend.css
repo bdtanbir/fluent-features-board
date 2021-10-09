@@ -1,3 +1,5 @@
+.ff-requests-list-home header .header-right ul .user-logout a:focus img,
+.ff-requests-list-home header .header-right ul .user-logout>a:focus,
 .ff-request-item .user-action a:focus,
 input:focus,
 select:focus,
@@ -118,6 +120,7 @@ button:focus {
     /* display: none; */
 }
 
+.ff-requests-list-home header .header-right ul .user-logout a:focus,
 .ff-requests-list-home header .header-right ul .user-logout a {
     text-decoration: none;
 }
@@ -127,6 +130,15 @@ button:focus {
     color: #878787;
     position: relative;
     padding: 5px 15px 5px 10px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.ff-requests-list-home header .header-right ul .user-logout>a img {
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
 }
 
 .ff-requests-list-home header .header-right ul .user-logout>a .downicon {
@@ -137,8 +149,14 @@ button:focus {
     display: inline-block;
     position: absolute;
     right: 2px;
-    bottom: 10px;
+    /* bottom: 10px; */
     transform: rotate(-45deg);
+    transition: .3s;
+}
+
+.ff-requests-list-home header .header-right ul .user-logout>a.active .downicon {
+    transform: rotate(135deg);
+    bottom: 17px;
 }
 
 .ff-requests-list-home header .header-right ul .user-logout-dropdown {
@@ -832,6 +850,10 @@ button:focus {
     margin-top: 20px;
     border-bottom: 1px solid #f7f7f7;
     padding-bottom: 15px;
+}
+
+.ff-request-comments-list .ff-request-comment .ff-request-comment-ajax {
+    display: none;
 }
 
 .ff-request-comments-list .ff-request-comment li .ff-request-comment-author {

@@ -8,6 +8,7 @@
         // Show Logout Button
         $(document).on('click', '.ff-requests-list-home header .header-right ul .user-logout>a', function(e) {
             e.preventDefault();
+            $(this).toggleClass('active');
             $(".ff-requests-list-home header .header-right ul .user-logout-dropdown").toggle();
         })
 
@@ -186,10 +187,10 @@
 
 
         // Submit Comment
-        var submitbtn = document.querySelector(".ff-requests-list-box .ff-request-item.active .ff-request-comment-form .submit-comment button");
         $(".ff-request-comment-form").on('submit', function(e) {
             e.preventDefault();
             var that = this;
+            var submitbtn = document.querySelector(".submit-comment button", that);
             var comment = $('textarea[name="comment"]', that).val();
             var comment_post_id = $('input[name="comment_post_id"]', that).val();
 
@@ -213,7 +214,7 @@
                 submitbtn.removeAttribute('disabled');
                 $('.ff-request-comment-form .success_message').show();
                 window.location.reload();
-            }, 2000);
+            }, 1000);
 
 
         });
@@ -298,11 +299,9 @@
                 var result = parseInt(voteNumber.val()) - 1;
                 $('.ff-request-vote-count', this).val(result);
                 $(that).removeClass('removeVote').addClass('addVote');
-                console.log('Bit');
             } else {
                 $('.ff-request-vote-count', this).val('0');
                 var result = parseInt(voteNumber.val()) - 0;
-                console.log('Small')
             }
             $.ajax({
                 type: 'POST',

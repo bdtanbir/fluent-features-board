@@ -73,7 +73,7 @@ class Shortcodes {
                 } else {
                     $col .= '<li class="user-logout user-out">';
                     $col .= '<a href="#">';
-                    $col .= esc_html__('Hi, ', 'fluent-features-board').$current_user->display_name.' <span class="downicon"></span>';
+                    $col .= '<img width="32" height="32" src="'.get_avatar_url($current_user->ID).'"/> '.esc_html__('Hi, ', 'fluent-features-board').$current_user->display_name.' <span class="downicon"></span>';
                     $col .= '</a>';
                     $col .= '<div class="user-logout-dropdown">';
                     $col .= '<a class="user-logout" href="'.wp_logout_url( home_url() ).'">';
@@ -105,10 +105,10 @@ class Shortcodes {
                 $col .= '<div class="ff-requests-form-wrap">';
                     $col .= '<form class="ff-requests-form" id="ff-request-frontend-form">';
                         if(is_user_logged_in(  )) {
-                            $col .= '<p class="thankyou">Thank You for submitting!</p>';
+                            $col .= '<p class="thankyou">'.esc_html__('Thank You for submitting!', 'fluent-features-board').'</p>';
                             $col .= '<h1>'.esc_html__('Suggest new feature', 'fluent-features-board').'</h1>';
                             $col .= '<div class="input-group">';
-                            $col .= '<input id="search-request" type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'" required>';
+                            $col .= '<input type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'" required>';
                             $col .= '</div>';
                             $col .= '<div class="input-group">';
                             $col .= '<textarea name="description" id="description" placeholder="'.esc_html__('Why do you want this', 'fluent-features-board').'" required></textarea>';
@@ -149,7 +149,7 @@ class Shortcodes {
                     } else {
                         $is_current_user_loggedin = '';
                     }
-                    // $getVotes = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ffr_votes WHERE post_id={$item->id}");
+
                     $checkUserVoted = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ffr_votes WHERE post_id={$item->id} AND vote_user_id={$current_user->ID}");
 
 
@@ -189,11 +189,6 @@ class Shortcodes {
                                     $col .= '<span class="ff-request-vote-btn"></span>';
                                     
                                     $col .= '<input type="text" value="'.esc_attr($item->votes_count).'" class="ff-request-vote-count" readonly/>';
-                                    // foreach($getVotes as $vote) {
-                                    //     $allvotes = $vote->votes_count;
-                                    //     error_log(print_r($allvotes, 1));
-                                    //     $col .= '<input type="text" value="'.esc_attr($vote->votes_count).'" class="ff-request-vote-count" readonly/>';
-                                    // }
                                 $col .= '</div>';
                         }
                         $col .= '<div class="ff-request-content">';
@@ -209,7 +204,6 @@ class Shortcodes {
                         $col .= '<span class="comment-icon"></span>';
                         $col .= '<span class="comment-number" data-comments="'.esc_attr($item->comments_count).'">'.esc_html($item->comments_count).'</span>';
                         $col .= '</div>';
-
 
 
                         // Request Details Modal
@@ -232,8 +226,12 @@ class Shortcodes {
                                             $col .= '<p class="ff-request-comment-content">'.esc_html($comment->comment_content).'</p>';
                                         $col .= '</li>';
                                     }
-
-                                    $col .= '';
+                                    $col .= '<li class="ff-request-comment-ajax">';
+                                        $col .= '<h2 class="ff-request-comment-author">';
+                                            $col .= '<img width="32" height="32" src="'.get_avatar_url($current_user->ID).'"/>'.esc_html($current_user->display_name);
+                                        $col .= '</h2>';
+                                        $col .= '<p class="ff-request-comment-content"></p>';
+                                    $col .= '</li>';
 
                                     $col .= '</ul>';
                                 $col .= '</div>';

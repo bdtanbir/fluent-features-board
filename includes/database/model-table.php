@@ -337,8 +337,6 @@ class FFB_Model_Table {
 
         $ffr_votes = $wpdb->prefix . $this->ffr_votes;
 
-        // $updateVotes = "SELECT * FROM `$ffr_votes` WHERE vote_user_id='$current_user->ID' AND post_id='$post_id'";
-        
         $voteCheck = "SELECT * FROM `$ffr_votes` WHERE vote_user_id='$current_user->ID' AND post_id='$post_id'";
         $result = $wpdb->query($voteCheck);
         if(!$result) {
@@ -373,7 +371,6 @@ class FFB_Model_Table {
         $ffr_votes = $wpdb->prefix . $this->ffr_votes;
         $post_id = isset($_POST['post_id']) ? $_POST['post_id'] : '';
         $votes   = isset($_POST['votes']) ? $_POST['votes'] : '';
-        error_log('Vote: '.$votes.' = and post_id: '.$post_id);
 
         $where = ['id' => $post_id];
 
@@ -384,7 +381,7 @@ class FFB_Model_Table {
             ),
             $where
         );
-        
+
         $wpdb->delete( $ffr_votes, array( 'vote_user_id' => $current_user->ID, 'post_id' => $post_id ) );
         die();
     }
