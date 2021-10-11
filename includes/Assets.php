@@ -69,12 +69,6 @@ class FFB_Assets {
                 'version'   => filemtime( FFB_PATH . '/assets/js/vendors.js' ),
                 'in_footer' => true
             ],
-            'fluent-features-board-frontend' => [
-                'src'       => FFB_ASSETS . '/js/frontend.js',
-                'deps'      => [ 'jquery', 'fluent-features-board-vendor', 'fluent-features-board-runtime' ],
-                'version'   => filemtime( FFB_PATH . '/assets/js/frontend.js' ),
-                'in_footer' => true
-            ],
             'fluent-features-board' => [
                 'src'       => FFB_ASSETS . '/js/admin.js',
                 'deps'      => [ 'jquery', 'fluent-features-board-vendor', 'fluent-features-board-runtime' ],

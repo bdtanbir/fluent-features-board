@@ -277,9 +277,6 @@ final class Fluent_Features_board {
         // if ( $this->is_request( 'admin' ) ) {
             require_once FFB_INCLUDES . '/Admin.php';
         // }
-        if ( $this->is_request( 'frontend' ) ) {
-            require_once FFB_INCLUDES . '/Frontend.php';
-        }
 
         if ( $this->is_request( 'ajax' ) ) {}
     }
@@ -393,11 +390,6 @@ final class Fluent_Features_board {
         // Admin
         if ( $this->is_request( 'admin' ) ) {
             $this->container['admin'] = new FFB\FFB_Admin();
-        }
-
-        // Frontend Render
-        if ( $this->is_request( 'frontend' ) ) {
-            $this->container['frontend'] = new FFB\Frontend();
         }
 
         // Ajax
