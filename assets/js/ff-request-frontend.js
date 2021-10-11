@@ -190,9 +190,13 @@
         $(".ff-request-comment-form").on('submit', function(e) {
             e.preventDefault();
             var that = this;
-            var submitbtn = document.querySelector(".submit-comment button", that);
+            var submitbtn = document.querySelector(".ff-request-item.single-request .submit-comment button", that);
             var comment = $('textarea[name="comment"]', that).val();
             var comment_post_id = $('input[name="comment_post_id"]', that).val();
+            var ajax_cmnt_wrap = $('.ff-request-item.single-request .ff-request-comments-list .ff-request-comment .ff-request-comment-ajax');
+            var cmnt_content = $('.ff-request-item.single-request .ff-request-comment-form textarea[name="comment"]').val();
+            var cmnt_ajax = $('.ff-request-item.single-request .ff-request-comment-ajax .ff-request-comment-content')[0];
+            cmnt_ajax.innerHTML = cmnt_content;
 
             submitbtn.innerHTML = '<span class="loader"></span> Submitting';
             submitbtn.setAttribute('disabled', '');
@@ -209,11 +213,14 @@
                         comment_post_id: comment_post_id
                     }
                 });
+                ajax_cmnt_wrap.show();
                 submitbtn.innerHTML = 'Submit';
                 $(that).removeClass('submitting');
                 submitbtn.removeAttribute('disabled');
                 $('.ff-request-comment-form .success_message').show();
-                window.location.reload(true);
+                setTimeout(() => {
+                    window.location.reload(true);
+                }, 2500);
             }, 1000);
 
 

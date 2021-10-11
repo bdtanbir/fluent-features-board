@@ -165,6 +165,7 @@ button:focus {
     min-width: 160px;
     right: 0;
     display: none;
+    z-index: 999;
 }
 
 .ff-requests-list-home header .header-right ul .user-logout-dropdown a {
@@ -176,6 +177,37 @@ button:focus {
     border-radius: 4px;
     transition: .3s;
     color: #878787;
+}
+
+.user-icon {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #aaa;
+    border-radius: 100%;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    transform: rotate( 45deg) translate(5px, 5px);
+    position: relative;
+    margin-right: 5px;
+    transition: .3s;
+}
+
+.ff-requests-list-home header .header-right ul .user-logout-dropdown a:hover .user-icon {
+    border-top-color: #ba42ec;
+    border-left-color: #ba42ec;
+}
+
+.user-icon:before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    border: 1px solid #aaa;
+    border-radius: 50%;
+    transition: .3s;
 }
 
 .logout-power-icon {
@@ -203,6 +235,7 @@ button:focus {
     transition: .3s;
 }
 
+.ff-requests-list-home header .header-right ul .user-logout-dropdown a:hover .user-icon:before,
 .ff-requests-header .ff-requests-search input:focus,
 .ff-requests-form .input-group textarea:focus,
 .ff-requests-form .input-group input:focus,
