@@ -29,11 +29,14 @@
                 </label>
                 <input type="text" id="ffr-tags" ref="tempTag" @keyup.188="addTag">
                 <span class="description">
-                    Separate tags with <strong>commas</strong>
+                    Add tags with <strong>commas</strong>
                 </span>
                 <div class="ffr-tags-list">
-                    <span v-for="tag in tags" :key="tag.id" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag.name)">{{tag.name}}</span>
+                    <span v-for="tag in tags" :key="tag.id" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag)">{{tag.name}}</span>
                 </div>
+                <pre>
+                    {{tags}}
+                </pre>
             </div>
             <div class="input-group">
                 <label for="is_public">
@@ -62,9 +65,13 @@ export default {
         return {
             details: this.$route.params.item ? this.$route.params.item : {},
             tempTag: '',
+            newTags: {
+                name: '',
+                slug: ''
+            },
             tags: [],
             isUpdating: false,
-            updateDone: false
+            updateDone: false,
         }
     },
     methods: {
@@ -72,7 +79,9 @@ export default {
             this.$refs.tempTag.value = this.$refs.tempTag.value.replace(',', '')
             if (e.key === "," && this.$refs.tempTag.value) {
                 if (!this.tags.includes(this.$refs.tempTag.value)) {
-                    this.tags.push(this.$refs.tempTag.value);
+                    this.newTags.name = this.$refs.tempTag.value;
+                    this.newTags.slug = this.$refs.tempTag.value.replace(' ', '');
+                    this.tags.push(this.newTags);
                 }
                 this.$refs.tempTag.value = "";
             }
@@ -201,6 +210,16 @@ export default {
         outline: none;
         box-shadow: none;
         border-color: #2771b1;
+    }
+    .ffb-single-wrap form .description {
+        font-weight: 300;
+        color: #aaa;
+        font-style: italic;
+        margin-top: 2px;
+        display: block;
+    }
+    .ffb-single-wrap form .description strong {
+        color: #000;
     }
     .ffb-single-wrap form .ffr-single-update-btn button {
         border: none;

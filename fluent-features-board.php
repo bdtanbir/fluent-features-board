@@ -61,7 +61,6 @@ final class Fluent_Features_board {
 
         add_action( 'wp_ajax_fluent_features_board_ajaxregister', [$this, 'fluent_features_board_ajaxregister'] );
         add_action( 'wp_ajax_nopriv_fluent_features_board_ajaxregister', [$this, 'fluent_features_board_ajaxregister'] );
-        // add_filter( 'template_include', [$this, 'load_custom_ffrequest_route_template'] );
     }
 
     /**
@@ -157,15 +156,30 @@ final class Fluent_Features_board {
 		// Register the user
 
 		if(!is_email($info['user_email']) ){
-			echo json_encode(array('loggedin'=>false, 'message'=>esc_html__("Please enter a valid email address","fluent-features-board")));
+			echo json_encode(
+                array(
+                    'loggedin' => false,
+                    'message'  => esc_html__("Please enter a valid email address","fluent-features-board")
+                )
+            );
 			die();
 		}
 		if(sanitize_text_field($_POST['password2'])!=$info['user_pass']){
-			echo json_encode(array('loggedin'=>false, 'message'=>esc_html__("Please enter same password in both fields","fluent-features-board")));
+			echo json_encode(
+                array(
+                    'loggedin' => false,
+                    'message'  => esc_html__("Please enter same password in both fields","fluent-features-board")
+                )
+            );
 			die();
 		}
 		if(!isset($info['user_pass'])|| !(strlen($info['user_pass']) >0 ) ){
-			echo json_encode(array('loggedin'=>false, 'message'=>esc_html__("Password fields cannot be blank","fluent-features-board")));
+			echo json_encode(
+                array(
+                    'loggedin' => false,
+                    'message'  => esc_html__("Password fields cannot be blank","fluent-features-board")
+                )
+            );
 			die();
 		}
 
@@ -174,13 +188,27 @@ final class Fluent_Features_board {
 			$error  = $user_register->get_error_codes() ;
 
 			if(in_array('empty_user_login', $error))
-				echo json_encode(array('loggedin'=>false, 'message'=>$user_register->get_error_message('empty_user_login')));
+				echo json_encode(
+                    array(
+                        'loggedin' => false, 
+                        'message'  => $user_register->get_error_message('empty_user_login')
+                    )
+                );
 			elseif(in_array('existing_user_login',$error))
-				echo json_encode(array('loggedin'=>false, 'message'=>esc_html__('This username is already registered.','fluent-features-board')));
+				echo json_encode(
+                    array(
+                        'loggedin' => false, 
+                        'message'  => esc_html__('This username is already registered.','fluent-features-board')
+                    )
+                );
 			elseif(in_array('existing_user_email',$error))
-				echo json_encode(array('loggedin'=>false, 'message'=>esc_html__('This email address is already registered.','fluent-features-board')));
+				echo json_encode(
+                    array(
+                        'loggedin' => false, 
+                        'message'  => esc_html__('This email address is already registered.','fluent-features-board')
+                    )
+                );
 		} else {
-
 			$this->ffb_auth_user_login($info['nickname'], $info['user_pass'], 'Registration');
 		}
 
@@ -195,15 +223,30 @@ final class Fluent_Features_board {
 
 		$user_signon = wp_signon( $info, is_ssl() ? true : false);
 		if ( is_wp_error($user_signon) ){
-			echo json_encode(array('loggedin'=>false, 'message'=>esc_html__('Wrong username or password.','fluent-features-board')));
+			echo json_encode(
+                array(
+                    'loggedin' => false,
+                    'message'  => esc_html__('Wrong username or password.','fluent-features-board')
+                )
+            );
 		} else {
 			global $current_user;
 			wp_set_current_user($user_signon->ID);
 			if($login=="Login"){
-				echo json_encode(array('loggedin'=>true, 'message'=>esc_html__('Login successful, redirecting...','fluent-features-board')));
+				echo json_encode(
+                    array(
+                        'loggedin' => true,
+                        'message'  => esc_html__('Login successful, redirecting...','fluent-features-board')
+                    )
+                );
 			}
 			else{
-				echo json_encode(array('loggedin'=>true, 'message'=>esc_html__('Registration successful, redirecting...','fluent-features-board')));
+				echo json_encode(
+                    array(
+                        'loggedin' => true,
+                        'message'  => esc_html__('Registration successful, redirecting...','fluent-features-board')
+                    )
+                );
 			}
 
 		}
@@ -253,15 +296,6 @@ final class Fluent_Features_board {
     public function deactivate() {
 
     }
-
-    // public function load_custom_ffrequest_route_template( $original_template ) {
-    //     global $wp;
-    //     $request = explode( '/', $wp->request );
-    //     if ( is_page( 'ff_request' ) || current( $request ) == "ff_request" ) {
-    //         return plugin_dir_path( __FILE__ ) . 'templates/single-ff_request.php';
-    //     }
-    //     return $original_template;
-    // }
 
     /**
      * Include the required files

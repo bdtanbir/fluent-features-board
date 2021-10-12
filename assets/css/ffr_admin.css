@@ -283,6 +283,16 @@
     box-shadow: none;
     border-color: #2771b1;
 }
+.ffb-single-wrap form .description {
+    font-weight: 300;
+    color: #aaa;
+    font-style: italic;
+    margin-top: 2px;
+    display: block;
+}
+.ffb-single-wrap form .description strong {
+    color: #000;
+}
 .ffb-single-wrap form .ffr-single-update-btn button {
     border: none;
     margin-top: 0;

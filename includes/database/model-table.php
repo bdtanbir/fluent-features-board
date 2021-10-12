@@ -15,7 +15,6 @@ class FFB_Model_Table {
 
     public function __construct()
     {
-        add_action( 'plugins_loaded', [$this, 'ffb_tables_list'] );
         add_action( 'admin_enqueue_scripts', [$this, 'ffb_admin_scripts'] );
         add_action( 'wp_ajax_action_ffb_callback', [$this, 'action_ffb_callback'] );
         add_action( 'wp_ajax_nopriv_action_ffb_callback', [$this, 'action_ffb_callback'] );
@@ -43,13 +42,6 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_addVotesOnRequestList', [$this, 'addVotesOnRequestList'] );
         add_action( 'wp_ajax_removeVotesOnRequestList', [$this, 'removeVotesOnRequestList'] );
         add_action( 'wp_ajax_nopriv_removeVotesOnRequestList', [$this, 'removeVotesOnRequestList'] );
-        
-    }
-
-    /**
-     * Creating Table
-     */
-    public function ffb_tables_list() {
         
     }
 
