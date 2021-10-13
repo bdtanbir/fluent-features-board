@@ -65,10 +65,6 @@ export default {
         return {
             details: this.$route.params.item ? this.$route.params.item : {},
             tempTag: '',
-            newTags: {
-                name: '',
-                slug: ''
-            },
             tags: [],
             isUpdating: false,
             updateDone: false,
@@ -76,12 +72,17 @@ export default {
     },
     methods: {
         addTag(e) {
+            const obj = {};
             this.$refs.tempTag.value = this.$refs.tempTag.value.replace(',', '')
             if (e.key === "," && this.$refs.tempTag.value) {
                 if (!this.tags.includes(this.$refs.tempTag.value)) {
-                    this.newTags.name = this.$refs.tempTag.value;
-                    this.newTags.slug = this.$refs.tempTag.value.replace(' ', '');
-                    this.tags.push(this.newTags);
+                    const tagSlug = this.$refs.tempTag.value.replace(' ', '-');
+                    obj['id']       = '';
+                    obj['name']     = this.$refs.tempTag.value;
+                    obj['slug']     = tagSlug.toLowerCase();
+                    obj['board_id'] = this.details.id;
+
+                    this.tags.push(obj);
                 }
                 this.$refs.tempTag.value = "";
             }

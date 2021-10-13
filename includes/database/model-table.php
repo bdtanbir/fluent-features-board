@@ -221,7 +221,7 @@ class FFB_Model_Table {
         $id       = (isset($_POST['id']) ? $_POST['id'] : '');
         $parent_id = (isset($_POST['parent_id']) ? $_POST['parent_id'] : '');
         $title = (isset($_POST['title']) ? $_POST['title'] : '');
-        $description = (isset($_POST['description']) ? $_POST['description'] : '');
+        $description = sanitize_textarea_field((isset($_POST['description']) ? $_POST['description'] : ''));
         $status = (isset($_POST['status']) ? $_POST['status'] : '');
         $is_public = (isset($_POST['is_public']) ? $_POST['is_public'] : '');
         $tags = (isset($_POST['tags']) ? $_POST['tags'] : '');
@@ -240,16 +240,25 @@ class FFB_Model_Table {
             $where
         );
 
-        foreach( $tags as $tag) {
-            $tagSlug = str_replace(' ', '-', $tag);
-            $wpdb->insert(
-                $table_tag,
-                array( 
-                    'name'     =>  $tag,
-                    'slug'     =>  $tagSlug,
-                    'board_id' => $id,
-                ) 
-            );
+
+        if(!empty($tags)) {
+            foreach( $tags as $tag) {
+                $tagid = $tag['id'];
+
+                $tagCheck = "SELECT * FROM `$table_tag` WHERE id='$tagid'";
+                $result = $wpdb->query($tagCheck);
+
+                if(!$result) {
+                    $wpdb->insert(
+                        $table_tag,
+                        array( 
+                            'name'     => $tag['name'],
+                            'slug'     => $tag['slug'],
+                            'board_id' => $id,
+                        ) 
+                    );
+                }
+            }
         }
         die();
         

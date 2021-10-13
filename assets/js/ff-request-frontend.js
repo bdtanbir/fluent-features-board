@@ -219,7 +219,7 @@
                 submitbtn.removeAttribute('disabled');
                 $('.ff-request-comment-form .success_message').show();
                 setTimeout(() => {
-                    window.location.reload(true);
+                    // window.location.reload(true);
                 }, 2500);
             }, 1000);
 
