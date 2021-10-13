@@ -32,7 +32,7 @@
                     Add tags with <strong>commas</strong>
                 </span>
                 <div class="ffr-tags-list">
-                    <span v-for="tag in tags" :key="tag.id" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag)">{{tag.name}}</span>
+                    <span v-for="(tag, index) in tags" :key="index" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag)">{{tag.name}}</span>
                 </div>
                 <pre>
                     {{tags}}
@@ -68,6 +68,7 @@ export default {
             tags: [],
             isUpdating: false,
             updateDone: false,
+            deleteTagId: [],
         }
     },
     methods: {
@@ -75,9 +76,9 @@ export default {
             const obj = {};
             this.$refs.tempTag.value = this.$refs.tempTag.value.replace(',', '')
             if (e.key === "," && this.$refs.tempTag.value) {
-                if (!this.tags.includes(this.$refs.tempTag.value)) {
+                if (!this.tags['0'].name.includes(this.$refs.tempTag.value)) {
                     const tagSlug = this.$refs.tempTag.value.replace(' ', '-');
-                    obj['id']       = '';
+                    obj['id']       = Math.random();
                     obj['name']     = this.$refs.tempTag.value;
                     obj['slug']     = tagSlug.toLowerCase();
                     obj['board_id'] = this.details.id;
@@ -91,6 +92,17 @@ export default {
             this.tags = this.tags.filter((item) => {
                 return tag !== item;
             });
+            this.deleteTagId.push(tag['id']);
+            console.log(this.deleteTagId);
+            // $.ajax({
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     url: ajax_url.ajaxurl,
+            //     data: {
+            //         action: 'ffr_deleteTags',
+            //         tagID: tag['id']
+            //     }
+            // })
         },
         updateRequestList() {
             const that = this;
@@ -108,6 +120,7 @@ export default {
                         status: that.$refs.upd_status.value,
                         tags: that.tags,
                         parent_id: that.details.parent_id,
+                        tagIdDelete: that.deleteTagId,
                         id: that.details.id
                     }
                 });

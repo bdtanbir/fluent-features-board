@@ -42,6 +42,8 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_addVotesOnRequestList', [$this, 'addVotesOnRequestList'] );
         add_action( 'wp_ajax_removeVotesOnRequestList', [$this, 'removeVotesOnRequestList'] );
         add_action( 'wp_ajax_nopriv_removeVotesOnRequestList', [$this, 'removeVotesOnRequestList'] );
+        // add_action( 'wp_ajax_ffr_deleteTags', [$this, 'ffr_deleteTags'] );
+        // add_action( 'wp_ajax_nopriv_ffr_deleteTags', [$this, 'ffr_deleteTags'] );
         
     }
 
@@ -225,6 +227,7 @@ class FFB_Model_Table {
         $status = (isset($_POST['status']) ? $_POST['status'] : '');
         $is_public = (isset($_POST['is_public']) ? $_POST['is_public'] : '');
         $tags = (isset($_POST['tags']) ? $_POST['tags'] : '');
+        $tagIdDelete = (isset($_POST['tagIdDelete']) ? $_POST['tagIdDelete'] : '');
         $where = ['id' => $id];
 
         $wpdb->update( 
@@ -239,6 +242,10 @@ class FFB_Model_Table {
             ),
             $where
         );
+
+        foreach($tagIdDelete as $tagid) {
+            $wpdb->delete( $table_tag, array( 'id' => $tagid ) );
+        }
 
 
         if(!empty($tags)) {
@@ -263,6 +270,17 @@ class FFB_Model_Table {
         die();
         
     }
+
+    /**
+     * Delete Tags
+     */
+    // public function ffr_deleteTags() {
+    //     global $wpdb;
+    //     $table_tag  = $wpdb->prefix . $this->ffr_tags;
+    //     $id = isset($_POST['tagID']) ? $_POST['tagID'] : '';
+    //     $wpdb->delete( $table_tag, array( 'id' => $id ) );
+    //     die();
+    // }
 
 
     /**
