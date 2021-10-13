@@ -32,11 +32,8 @@
                     Add tags with <strong>commas</strong>
                 </span>
                 <div class="ffr-tags-list">
-                    <span v-for="(tag, index) in tags" :key="index" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag)">{{tag.name}}</span>
+                    <span v-for="(tag, index) in tags" :key="index" v-tooltip.top-center="'Click To Remove'" @click="deleteTag(tag)" v-html="tag.name"></span>
                 </div>
-                <pre>
-                    {{tags}}
-                </pre>
             </div>
             <div class="input-group">
                 <label for="is_public">

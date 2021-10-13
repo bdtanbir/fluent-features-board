@@ -22,7 +22,10 @@ export default {
     align-items: center;
     background: #fff;
     border-radius: 4px;
-    padding: 8px 15px;
+    padding: 14px 15px;
+  }
+  #fluent-features-board-backend-app header > h1 {
+    padding: 0;
   }
   #fluent-features-board-backend-app header nav {
     margin-left: 20px;

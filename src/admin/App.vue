@@ -46,9 +46,9 @@ export default {
   .ffb-single-wrap form .ffb-single-update-btn button,
   .addnew-features-list {
     display: inline-block;
-    background: #2771b1;
+    background: #ba42ec;
     color: #fff;
-    padding: 6px 15px;
+    padding: 10px 15px;
     border-radius: 4px;
     margin-top: 15px;
     cursor: pointer;

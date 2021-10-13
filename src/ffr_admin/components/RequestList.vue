@@ -77,6 +77,9 @@ export default {
     .ff-request-list-table tbody th {
         vertical-align: top;
     }
+    .ff-request-list-table tbody th .ffr-id {
+        padding-top: 3px;
+    }
     .ff-request-list-table tbody tr:hover th,
     .ff-request-list-table tbody tr:hover td {
         background: #f6f9ff;
