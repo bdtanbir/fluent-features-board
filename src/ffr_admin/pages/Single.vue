@@ -93,16 +93,6 @@ export default {
                 return tag !== item;
             });
             this.deleteTagId.push(tag['id']);
-            console.log(this.deleteTagId);
-            // $.ajax({
-            //     type: 'POST',
-            //     dataType: 'json',
-            //     url: ajax_url.ajaxurl,
-            //     data: {
-            //         action: 'ffr_deleteTags',
-            //         tagID: tag['id']
-            //     }
-            // })
         },
         updateRequestList() {
             const that = this;
