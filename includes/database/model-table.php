@@ -66,7 +66,7 @@ class FFB_Model_Table {
         // Tables
         $table_name = $wpdb->prefix . $this->fluent_features_board;
 
-        $title = (isset($_POST['title']) ? $_POST['title'] : '');
+        $title = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
         $logo = (isset($_POST['logo']) ? $_POST['logo'] : '');
         $sort_by = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
         $show_upvotes = (isset($_POST['show_upvotes']) ? $_POST['show_upvotes'] : '');
@@ -121,7 +121,7 @@ class FFB_Model_Table {
     public function update_fluent_features_board() {
         global $wpdb;
         $id = (isset($_POST['id']) ? $_POST['id'] : '');
-        $title = (isset($_POST['title']) ? $_POST['title'] : '');
+        $title = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
         $logo = (isset($_POST['logo']) ? $_POST['logo'] : '');
         $sort_by = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
         $show_upvotes = (isset($_POST['show_upvotes']) ? $_POST['show_upvotes'] : '');
@@ -151,8 +151,8 @@ class FFB_Model_Table {
         global $current_user;
         $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
         $id          = (isset($_POST['id']) ? $_POST['id'] : '');
-        $title       = (isset($_POST['title']) ? $_POST['title'] : '');
-        $description = (isset($_POST['description']) ? $_POST['description'] : '');
+        $title       = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
+        $description = sanitize_textarea_field((isset($_POST['description']) ? $_POST['description'] : ''));
         $status      = (isset($_POST['status']) ? $_POST['status'] : '');
         $is_public   = (isset($_POST['is_public']) ? $_POST['is_public'] : 'true');
 
@@ -316,7 +316,7 @@ class FFB_Model_Table {
         if(is_user_logged_in(  )) {
             global $current_user;
             $comment_post_id = isset($_POST['comment_post_id']) ? $_POST['comment_post_id'] : '';
-            $comment_content = isset($_POST['comment_content']) ? $_POST['comment_content'] : '';
+            $comment_content = sanitize_textarea_field(isset($_POST['comment_content']) ? $_POST['comment_content'] : '');
             $comment_date    = date(get_option('date_format'));
 
             $ffr_comments = $wpdb->prefix . $this->ffr_comments;
