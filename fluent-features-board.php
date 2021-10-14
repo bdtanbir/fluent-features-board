@@ -269,7 +269,7 @@ final class Fluent_Features_board {
     }
 
     public function ffb_admin_scripts() {
-        wp_enqueue_style( 'fluent-features-board-admin', FFB_ASSETS .'/css/fluent-features-board.admin.css' );
+        wp_enqueue_style( 'fluent-features-board-admin', FFB_ASSETS .'/css/fluent-features-board.admin.css', time() );
     }
 
     /**

@@ -222,6 +222,10 @@ class Shortcodes {
                                                                             $col .= '<img width="32" height="32" src="'.get_avatar_url($comment->comment_user_id).'"/>'.esc_html($comment->comment_author).'<span class="ff-request-comment-date">'.esc_html($comment->comment_date).'</span>';
                                                                         $col .= '</h2>';
                                                                         $col .= '<p class="ff-request-comment-content">'.esc_html($comment->comment_content).'</p>';
+
+                                                                        if($comment->comment_user_id == $current_user->ID) {
+                                                                            $col .= '<a href="#" class="delete-comment">Delete</a>';
+                                                                        }
                                                                     $col .= '</li>';
                                                                 }
                                                                 $col .= '<li class="ff-request-comment-ajax">';

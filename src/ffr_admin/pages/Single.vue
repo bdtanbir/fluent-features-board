@@ -73,7 +73,7 @@ export default {
             const obj = {};
             this.$refs.tempTag.value = this.$refs.tempTag.value.replace(',', '')
             if (e.key === "," && this.$refs.tempTag.value) {
-                if (!this.tags['0'].name.includes(this.$refs.tempTag.value)) {
+                // if (!this.tags['0'].name.includes(this.$refs.tempTag.value)) {
                     const tagSlug = this.$refs.tempTag.value.replace(' ', '-');
                     obj['id']       = Math.random();
                     obj['name']     = this.$refs.tempTag.value;
@@ -81,7 +81,7 @@ export default {
                     obj['board_id'] = this.details.id;
 
                     this.tags.push(obj);
-                }
+                // }
                 this.$refs.tempTag.value = "";
             }
         },

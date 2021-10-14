@@ -1,21 +1,47 @@
-#toplevel_page_fluent-features-boards>a {
-    background: linear-gradient(45deg, #ba42ec, #8f42ec, #0073aa, #ba42ec, #8f42ec) !important;
-    background-size: 400% 400% !important;
-    animation: gradientBGAnimation 10s ease infinite;
+#toplevel_page_fluent-features-boards .toplevel_page_fluent-features-boards {
+    background: linear-gradient(45deg, #ba42ec, #8f42ec, #000, #0073aa, #ba42ec, #8f42ec) !important;
+    background-size: 600% 600% !important;
+    -webkit-animation: ffr_gradientbg 5s ease infinite;
+    -moz-animation: ffr_gradientbg 5s ease infinite;
+    animation: ffr_gradientbg 5s ease infinite;
 }
 
-#toplevel_page_fluent-features-boards>a:hover {
+#toplevel_page_fluent-features-boards .toplevel_page_fluent-features-boards:hover {
     color: #ffffff;
 }
 
-@keyframes gradientBGAnimation {
+@-webkit-keyframes ffr_gradientbg {
     0% {
-        background-position: 0 50%;
+        background-position: 0% 50% !important;
     }
     50% {
-        background-position: 100% 50%;
+        background-position: 100% 50% !important;
     }
     100% {
-        background-position: 0 50%;
+        background-position: 0% 50% !important;
+    }
+}
+
+@-moz-keyframes ffr_gradientbg {
+    0% {
+        background-position: 0% 50% !important;
+    }
+    50% {
+        background-position: 100% 50% !important;
+    }
+    100% {
+        background-position: 0% 50% !important;
+    }
+}
+
+@keyframes ffr_gradientbg {
+    0% {
+        background-position: 0% 50% !important;
+    }
+    50% {
+        background-position: 100% 50% !important;
+    }
+    100% {
+        background-position: 0% 50% !important;
     }
 }
