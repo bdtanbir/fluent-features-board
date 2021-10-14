@@ -343,16 +343,27 @@
                         action: 'ffr_deleteComment',
                         comment_id: commentID
                     },
+                    error: function() {
+                        that.innerHTML = 'Delete';
+                        $(alertmsg).removeClass('success').addClass('error active');
+                        alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>Something went wrong.</p>';
+                    },
                     success: function() {
                         that.innerHTML = 'Delete';
-                        $(alertmsg).addClass('success active');
+                        $(that).parent().hide();
+                        $(alertmsg).removeClass('error').addClass('success active');
                         alertmsg.innerHTML = '<span class="close">+</span><h1>Congratulations!</h1><p>Comment has been deleted.</p>';
                         setTimeout(() => {
                             $(alertmsg).removeClass('success active')
-                        }, 6000);
+                        }, 9000);
                     }
                 })
             }, 1000);
+        });
+
+        // Hide Alert Box
+        $(document).on('click', '.ffr-alert-message .close', function() {
+            $(this).parent().removeClass('active')
         })
     })
 

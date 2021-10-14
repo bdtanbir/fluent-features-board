@@ -1014,6 +1014,7 @@ button:focus {
     right: 10px;
 }
 
+.ffr-alert-message.error:before,
 .ffr-alert-message.success:before {
     content: '';
     position: absolute;
@@ -1025,6 +1026,7 @@ button:focus {
     background: #00d700;
 }
 
+.ffr-alert-message.error:after,
 .ffr-alert-message.success:after {
     content: '';
     position: absolute;
@@ -1035,6 +1037,22 @@ button:focus {
     left: 25px;
     top: 25px;
     transform: rotate(39deg);
+}
+
+.ffr-alert-message.error:before {
+    background: #d91f1f;
+}
+
+.ffr-alert-message.error:after {
+    content: '+';
+    width: 11px;
+    height: 11px;
+    border: none;
+    text-align: center;
+    line-height: 11px;
+    left: 23px;
+    transform: rotate(45deg);
+    color: #fff;
 }
 
 .ffr-alert-message .close {
