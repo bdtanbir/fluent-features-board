@@ -403,7 +403,27 @@ class FFB_Model_Table {
      * Delete Comment
      */
     public function ffr_deleteComment() {
-        error_log('delete comment');
+        global $wpdb;
+        $comment_id = isset($_POST['comment_id']) ? $_POST['comment_id'] : '';
+        $table_name = $wpdb->prefix . $this->ffr_comments;
+        $deleteComment = $wpdb->get_results("SELECT * FROM `$table_name` WHERE id='$comment_id'");
+        if(is_wp_error( $deleteComment )) {
+            echo json_encode(
+                array(
+                    'status'  => false,
+                    'message' => esc_html__('Something went wrong!', 'fluent-features-board')
+                )
+            );
+        } else {
+            $wpdb->delete( $table_name, array( 'id' => $comment_id ) );
+            echo json_encode(
+                array(
+                    'status'  => true,
+                    'message' => esc_html__('Comment has been Deleted.', 'fluent-features-board')
+                )
+            );
+        }
+        die();
     }
     
 }

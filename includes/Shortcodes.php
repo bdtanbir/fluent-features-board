@@ -233,6 +233,10 @@ class Shortcodes {
                                                                         $col .= '<img width="32" height="32" src="'.get_avatar_url($current_user->ID).'"/>'.esc_html($current_user->display_name).' <span class="ff-request-comment-date">'.date(get_option('date_format')).'</span>';
                                                                     $col .= '</h2>';
                                                                     $col .= '<p class="ff-request-comment-content"></p>';
+
+                                                                    // if($comment->comment_user_id == $current_user->ID) {
+                                                                        $col .= '<a href="#" data-id="'.esc_attr($comment->id).'" class="delete-comment">Delete</a>';
+                                                                    // }
                                                                 $col .= '</li>';
 
                                                             $col .= '</ul>';
