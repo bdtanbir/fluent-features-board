@@ -42,6 +42,8 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_addVotesOnRequestList', [$this, 'addVotesOnRequestList'] );
         add_action( 'wp_ajax_removeVotesOnRequestList', [$this, 'removeVotesOnRequestList'] );
         add_action( 'wp_ajax_nopriv_removeVotesOnRequestList', [$this, 'removeVotesOnRequestList'] );
+        add_action( 'wp_ajax_ffr_deleteComment', [$this, 'ffr_deleteComment'] );
+        add_action( 'wp_ajax_nopriv_ffr_deleteComment', [$this, 'ffr_deleteComment'] );
         
     }
 
@@ -216,7 +218,6 @@ class FFB_Model_Table {
      */
     public function updateFeatureRequestList() {
         global $wpdb;
-        error_log(print_r($wpdb, 1));
         $table_tag  = $wpdb->prefix . $this->ffr_tags;
         $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
         $id       = (isset($_POST['id']) ? $_POST['id'] : '');
@@ -395,6 +396,14 @@ class FFB_Model_Table {
 
         $wpdb->delete( $ffr_votes, array( 'vote_user_id' => $current_user->ID, 'post_id' => $post_id ) );
         die();
+    }
+
+
+    /**
+     * Delete Comment
+     */
+    public function ffr_deleteComment() {
+        error_log('delete comment');
     }
     
 }

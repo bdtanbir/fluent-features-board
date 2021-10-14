@@ -224,7 +224,7 @@ class Shortcodes {
                                                                         $col .= '<p class="ff-request-comment-content">'.esc_html($comment->comment_content).'</p>';
 
                                                                         if($comment->comment_user_id == $current_user->ID) {
-                                                                            $col .= '<a href="#" class="delete-comment">Delete</a>';
+                                                                            $col .= '<a href="#" data-id="'.esc_attr($comment->id).'" class="delete-comment">Delete</a>';
                                                                         }
                                                                     $col .= '</li>';
                                                                 }

@@ -323,6 +323,37 @@
 
 
         })
+
+        // Delete Comment
+        var ffrwrapper = document.querySelector('.ff-requests-list-home');
+        var alertmsg = document.createElement('div');
+        alertmsg.classList.add('ffr-alert-message');
+        ffrwrapper.appendChild(alertmsg);
+        $(document).on('click', '.ff-request-comments-list .ff-request-comment li > .delete-comment', function(e) {
+            e.preventDefault();
+            const commentID = parseInt(this.getAttribute('data-id'));
+            const that = this;
+            that.innerHTML = 'Deleting...';
+            setTimeout(() => {
+                $.ajax({
+                    type: 'POST',
+                    url: ajax_url.ajaxurl,
+                    dataType: 'json',
+                    data: {
+                        action: 'ffr_deleteComment',
+                        comment_id: commentID
+                    },
+                    success: function() {
+                        that.innerHTML = 'Delete';
+                        $(alertmsg).addClass('success active');
+                        alertmsg.innerHTML = '<span class="close">+</span><h1>Congratulations!</h1><p>Comment has been deleted.</p>';
+                        setTimeout(() => {
+                            $(alertmsg).removeClass('success active')
+                        }, 6000);
+                    }
+                })
+            }, 1000);
+        })
     })
 
 })(jQuery);
