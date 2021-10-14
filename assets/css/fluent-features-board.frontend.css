@@ -634,10 +634,32 @@ button:focus {
     overflow-x: hidden;
 }
 
-.ff-requests-list-box>p {
+.ff-requests-list-box .ffr-list-sorting-and-count {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 15px 0;
+}
+
+.ff-requests-list-box .ffr-list-sorting-and-count p {
     font-size: 15px;
     color: #828897;
-    margin: 0 0 5px 0;
+    margin: 0;
+}
+
+.ff-requests-list-box .ffr-list-sorting-and-count .right {
+    display: flex;
+    align-items: center;
+}
+
+.ff-requests-list-box .ffr-list-sorting-and-count select {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 8px 25px 8px 13px;
+    line-height: normal;
+    color: #828897;
+    margin: 0 0 0 10px;
 }
 
 

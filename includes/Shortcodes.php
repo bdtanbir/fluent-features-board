@@ -6,10 +6,15 @@ namespace FFB;
  * Shortcodes Handler
  */
 class Shortcodes {
+    public $fluent_features_board = 'fluent_features_board';
+    public $sort_lists = '';
+    public $sortby = '';
 
     public function __construct() {
         
         add_shortcode( 'fluent_features_board', [$this, 'ffb_shortcode'] );
+        add_action( 'wp_ajax_ffr_sorting_requests_list', [$this, 'ffr_sorting_requests_list'] );
+        add_action( 'wp_ajax_nopriv_ffr_sorting_requests_list', [$this, 'ffr_sorting_requests_list'] );
         
     }
 
@@ -29,6 +34,7 @@ class Shortcodes {
             $col = '';
 
             foreach($current_feature_board as $board) {
+                global $sortby;
                 if ($board->sort_by == 'upvotes') {
                     $sort_by = ' ORDER BY votes_count DESC';
                 } elseif ($board->sort_by == 'alphabetical') {
@@ -45,10 +51,16 @@ class Shortcodes {
                     $show_all_requests = " and is_public='true' ";
                     $is_administrator = '';
                 }
-
-                $form = $wpdb->get_results(
-                    "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$sort_by
-                );
+                // error_log(print_r($sortby, 1));
+                // if(!empty($sortby)) {
+                //     $form = $wpdb->get_results(
+                //         "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$sortby
+                //     );
+                // } else {
+                    $form = $wpdb->get_results(
+                        "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$sort_by
+                    );
+                // }
                 $col = '<div class="ff-requests-list-home">';
 
                     $col .= '<header>';
@@ -125,7 +137,18 @@ class Shortcodes {
                                 $col .= '</div>';
 
                                 $col .= '<div class="ff-requests-list-box">';
-                                    $col .= '<p>('.count($form).') '.esc_html__('feature requests', 'fluent-features-board').'</p> ';
+                                    $col .= '<div class="ffr-list-sorting-and-count">';
+                                        $col .= '<p>('.count($form).') '.esc_html__('feature requests', 'fluent-features-board').'</p> ';
+                                        $col .= '<div class="right">';
+                                            $col .= '<p>Sort By:</p>';
+                                            $col .= '<select data-id="'.esc_attr($board->id).'">';
+                                                $col .= '<option value="alphabetical">'.esc_html__( 'Alphabetical', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option value="random">'.esc_html__( 'Random', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option value="upvotes">'.esc_html__( 'Number of Upvotes', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option value="comments">'.esc_html__( 'Number of Comments', 'fluent-features-board' ).'</option>';
+                                            $col .= '</select>';
+                                        $col .= '</div>';
+                                    $col .= '</div>';
                                     $col .= '<div class="ff-requests-list-body">';
                                         $col .= '<span id="back-to-all-requests-list">'.esc_html__('Back', 'fluent-features-board').'</span>';
 
@@ -276,6 +299,30 @@ class Shortcodes {
             }
             return $col;
         }
+
+    }
+
+    /**
+     * Sorting Requests list by ajax
+     */
+    public function ffr_sorting_requests_list() {
+        global $wpdb;
+        $table_name = $wpdb->prefix . $this->fluent_features_board;
+        $sortby     = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';
+        $board_id   = isset($_POST['board_id']) ? $_POST['board_id'] : '';
+        $this->sort_lists = $sortby;
+
+        error_log("SELECT * FROM ".$wpdb->prefix."fluent_features_board ORDER BY ".$sortby." DESC");
+
+        $where = [ 'id' => $board_id ];
+        $wpdb->update( 
+            $table_name, 
+            array( 
+                'sort_by' => $sortby,
+            ), 
+            $where 
+        );
+        die();
 
     }
 

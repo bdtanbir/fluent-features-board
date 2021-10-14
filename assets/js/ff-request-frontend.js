@@ -326,9 +326,11 @@
 
         // Delete Comment
         var ffrwrapper = document.querySelector('.ff-requests-list-home');
-        var alertmsg = document.createElement('div');
-        alertmsg.classList.add('ffr-alert-message');
-        ffrwrapper.appendChild(alertmsg);
+        if ($(ffrwrapper).length) {
+            var alertmsg = document.createElement('div');
+            alertmsg.classList.add('ffr-alert-message');
+            ffrwrapper.appendChild(alertmsg);
+        }
         $(document).on('click', '.ff-request-comments-list .ff-request-comment li > .delete-comment', function(e) {
             e.preventDefault();
             const commentID = parseInt(this.getAttribute('data-id'));
@@ -377,7 +379,29 @@
         // Hide Alert Box
         $(document).on('click', '.ffr-alert-message .close', function() {
             $(this).parent().removeClass('active')
-        })
+        });
+
+
+        // Sorting requests list from frontend
+        $(document).on('change', '.ff-requests-list-box .ffr-list-sorting-and-count select', function() {
+            const that = this;
+            const board_id = parseInt(this.getAttribute('data-id'));
+            const sorting = that.options[that.selectedIndex].value;
+            console.log(sorting);
+            $.ajax({
+                type: 'POST',
+                url: ajax_url.ajaxurl,
+                dataType: 'json',
+                data: {
+                    action: 'ffr_sorting_requests_list',
+                    board_id: board_id,
+                    sort_by: sorting
+                },
+                success: function() {
+
+                }
+            })
+        });
     })
 
 })(jQuery);
