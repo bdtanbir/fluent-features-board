@@ -319,6 +319,16 @@ class FFB_Model_Table {
             $comment_content = sanitize_textarea_field(isset($_POST['comment_content']) ? $_POST['comment_content'] : '');
             $comment_date    = date(get_option('date_format'));
 
+            $data = [
+                'content' => $comment_content,
+                'message' => esc_html__('Success!', 'fluent-features-board')
+            ];
+
+            if(is_wp_error( $data) ) {
+                return false;
+            }
+            echo json_encode( $data );
+
             $ffr_comments = $wpdb->prefix . $this->ffr_comments;
             $wpdb->insert(
                 $ffr_comments,
@@ -333,6 +343,7 @@ class FFB_Model_Table {
                     'comment_user_id'      =>  $current_user->ID,
                 ) 
             );
+
         }
         die();
     }

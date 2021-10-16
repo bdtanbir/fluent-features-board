@@ -310,7 +310,7 @@ button:focus {
     border-radius: 4px;
     padding: 7px 15px;
     font-size: 14px;
-    width: 300px;
+    width: 245px;
 }
 
 .ff-requests-form {
@@ -930,10 +930,6 @@ button:focus {
     text-decoration: none !important;
 }
 
-.ff-request-comments-list .ff-request-comment .ff-request-comment-ajax {
-    display: none;
-}
-
 .ff-request-comments-list .ff-request-comment li .ff-request-comment-author {
     display: flex;
     align-items: center;
@@ -1022,7 +1018,7 @@ button:focus {
     top: 60px;
     z-index: 999;
     background: #fff;
-    padding: 12px 15px 10px 50px;
+    padding: 12px 30px 10px 50px;
     border-radius: 4px;
     box-shadow: 0 0 40px rgb(0 0 0 / 10%);
     transition: .4s;
@@ -1044,7 +1040,8 @@ button:focus {
     height: 25px;
     border-radius: 50%;
     left: 15px;
-    top: 19px;
+    top: 50%;
+    margin-top: -11px;
     background: #00d700;
 }
 
@@ -1057,7 +1054,8 @@ button:focus {
     border-bottom: 2px solid #fff;
     border-right: 2px solid #fff;
     left: 25px;
-    top: 25px;
+    top: 50%;
+    margin-top: -5px;
     transform: rotate(39deg);
 }
 
@@ -1081,7 +1079,7 @@ button:focus {
     transition: .3s;
     position: absolute;
     right: 6px;
-    top: 6px;
+    top: 13px;
     display: inline-block;
     width: 15px;
     height: 15px;

@@ -191,12 +191,15 @@
             e.preventDefault();
             var that = this;
             var submitbtn = document.querySelector(".ff-request-item.single-request .submit-comment button", that);
+
             var comment = $('textarea[name="comment"]', that).val();
             var comment_post_id = $('input[name="comment_post_id"]', that).val();
-            var ajax_cmnt_wrap = $('.ff-request-item.single-request .ff-request-comments-list .ff-request-comment .ff-request-comment-ajax');
-            var cmnt_content = $('.ff-request-item.single-request .ff-request-comment-form textarea[name="comment"]').val();
-            var cmnt_ajax = $('.ff-request-item.single-request .ff-request-comment-ajax .ff-request-comment-content')[0];
-            cmnt_ajax.innerHTML = cmnt_content;
+            var ajax_comment = document.querySelector('.ff-request-item.single-request .ff-request-comments-list #ffr-ajax-comment');
+
+            var current_user = document.querySelector('#current_user');
+            var current_user_avatar = current_user.getAttribute('data-useravatar');
+            var current_user_displayname = current_user.getAttribute('data-displayname');
+            var current_date = current_user.getAttribute('data-currentdate');
 
             submitbtn.innerHTML = '<span class="loader"></span> Submitting';
             submitbtn.setAttribute('disabled', '');
@@ -211,19 +214,35 @@
                         action: 'submit_new_comment_action',
                         comment_content: comment,
                         comment_post_id: comment_post_id
+                    },
+                    success: function(data) {
+                        $(alertmsg).removeClass('error').addClass('success active');
+                        alertmsg.innerHTML = '<span class="close">+</span><h1>' + data.message + '</h1><p></p>';
+                        setTimeout(() => {
+                            $(alertmsg).removeClass('success active')
+                        }, 3000);
+
+                        $('textarea[name="comment"]', that).val('');
+                        submitbtn.innerHTML = 'Submit';
+                        $(that).removeClass('submitting');
+                        submitbtn.removeAttribute('disabled');
+
+                        var cmnts_infos = '<li><h2 class="ff-request-comment-author"><img width="32" height="32" src="' + current_user_avatar + '" />' + current_user_displayname + '<span class="ff-request-comment-date">' + current_date + '</span></h2><p class="ff-request-comment-content">' + data.content + '</p><a href="#" class="delete-comment">Delete</a></li>';
+                        $(ajax_comment).append(cmnts_infos);
+                    },
+                    error: function() {
+                        $(alertmsg).removeClass('success').addClass('error active');
+                        alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>Something went wrong!</p>';
+                        setTimeout(() => {
+                            $(alertmsg).removeClass('error active')
+                        }, 3000);
+                        $('textarea[name="comment"]', that).val('');
+                        submitbtn.innerHTML = 'Submit';
+                        $(that).removeClass('submitting');
+                        submitbtn.removeAttribute('disabled');
                     }
                 });
-                ajax_cmnt_wrap.show();
-                submitbtn.innerHTML = 'Submit';
-                $(that).removeClass('submitting');
-                submitbtn.removeAttribute('disabled');
-                $('.ff-request-comment-form .success_message').show();
-                setTimeout(() => {
-                    // window.location.reload(true);
-                }, 2500);
             }, 1000);
-
-
         });
 
 
@@ -351,7 +370,7 @@
                         alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>Something went wrong!</p>';
                         setTimeout(() => {
                             $(alertmsg).removeClass('success active')
-                        }, 6000);
+                        }, 3000);
                     },
                     success: function(data) {
                         if (data.status === true) {
@@ -362,14 +381,14 @@
                             alertmsg.innerHTML = '<span class="close">+</span><h1>Congratulations!</h1><p>' + data.message + '</p>';
                             setTimeout(() => {
                                 $(alertmsg).removeClass('success active')
-                            }, 6000);
+                            }, 3000);
                         } else {
                             that.innerHTML = 'Delete';
                             $(alertmsg).removeClass('success').addClass('error active');
                             alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>' + data.message + '</p>';
                             setTimeout(() => {
                                 $(alertmsg).removeClass('success active')
-                            }, 6000);
+                            }, 3000);
                         }
                     }
                 })
@@ -387,7 +406,6 @@
             const that = this;
             const board_id = parseInt(this.getAttribute('data-id'));
             const sorting = that.options[that.selectedIndex].value;
-            console.log(sorting);
             $.ajax({
                 type: 'POST',
                 url: ajax_url.ajaxurl,

@@ -52,15 +52,15 @@ class Shortcodes {
                     $is_administrator = '';
                 }
                 // error_log(print_r($sortby, 1));
-                // if(!empty($sortby)) {
-                //     $form = $wpdb->get_results(
-                //         "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$sortby
-                //     );
-                // } else {
+                if(!empty($this->sort_lists)) {
+                    $form = $wpdb->get_results(
+                        "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$this->sort_lists
+                    );
+                } else {
                     $form = $wpdb->get_results(
                         "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$sort_by
                     );
-                // }
+                }
                 $col = '<div class="ff-requests-list-home">';
 
                     $col .= '<header>';
@@ -140,7 +140,7 @@ class Shortcodes {
                                     $col .= '<div class="ffr-list-sorting-and-count">';
                                         $col .= '<p>('.count($form).') '.esc_html__('feature requests', 'fluent-features-board').'</p> ';
                                         $col .= '<div class="right">';
-                                            $col .= '<p>Sort By:</p>';
+                                            $col .= '<p>'.esc_html__('Sort By:', 'fluent-features-board').'</p>';
                                             $col .= '<select data-id="'.esc_attr($board->id).'">';
                                                 $col .= '<option value="alphabetical">'.esc_html__( 'Alphabetical', 'fluent-features-board' ).'</option>';
                                                 $col .= '<option value="random">'.esc_html__( 'Random', 'fluent-features-board' ).'</option>';
@@ -235,7 +235,7 @@ class Shortcodes {
                                 
                                                         // Comments List
                                                         $col .= '<div class="ff-request-comments-list">';
-                                                            $col .= '<ul class="ff-request-comment">';
+                                                            $col .= '<ul id="ffr-ajax-comment" class="ff-request-comment">';
                                                             
                                                                 $comments = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ffr_comments WHERE comment_post_ID={$item->id}");
 
@@ -251,17 +251,7 @@ class Shortcodes {
                                                                         }
                                                                     $col .= '</li>';
                                                                 }
-                                                                $col .= '<li class="ff-request-comment-ajax">';
-                                                                    $col .= '<h2 class="ff-request-comment-author">';
-                                                                        $col .= '<img width="32" height="32" src="'.get_avatar_url($current_user->ID).'"/>'.esc_html($current_user->display_name).' <span class="ff-request-comment-date">'.date(get_option('date_format')).'</span>';
-                                                                    $col .= '</h2>';
-                                                                    $col .= '<p class="ff-request-comment-content"></p>';
-
-                                                                    // if($comment->comment_user_id == $current_user->ID) {
-                                                                        $col .= '<a href="#" data-id="'.esc_attr($comment->id).'" class="delete-comment">Delete</a>';
-                                                                    // }
-                                                                $col .= '</li>';
-
+                                                                
                                                             $col .= '</ul>';
                                                         $col .= '</div>';
                                 
@@ -269,6 +259,8 @@ class Shortcodes {
                                                         $col .= '<form class="ff-request-comment-form" >';
                                                             $col .= '<p class="success_message">'.esc_html__('Success!', 'fluent-features-board').'</p>';
                                                             $col .= '<input type="hidden" name="comment_post_id" value="'.esc_attr($item->id).'"/>';
+                                                            $col .= '<input type="hidden" id="current_user" name="current_user" data-userid="'.$current_user->ID.'" data-displayname="'.$current_user->display_name.'" data-useravatar="'.get_avatar_url($current_user->ID).'" data-currentdate="'.date(get_option('date_format')).'" />';
+
                                                             if(is_user_logged_in(  )) {
                                                                 $col .= '<div class="input-group">';
                                                                     $col .= '<textarea name="comment" placeholder="'.esc_attr__('Leave A Comment', 'fluent-features-board').'" required></textarea>';
@@ -311,8 +303,6 @@ class Shortcodes {
         $sortby     = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';
         $board_id   = isset($_POST['board_id']) ? $_POST['board_id'] : '';
         $this->sort_lists = $sortby;
-
-        error_log("SELECT * FROM ".$wpdb->prefix."fluent_features_board ORDER BY ".$sortby." DESC");
 
         $where = [ 'id' => $board_id ];
         $wpdb->update( 
