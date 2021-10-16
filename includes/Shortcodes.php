@@ -7,7 +7,6 @@ namespace FFB;
  */
 class Shortcodes {
     public $fluent_features_board = 'fluent_features_board';
-    public $sort_lists = '';
 
     public function __construct() {
         
@@ -29,6 +28,7 @@ class Shortcodes {
         if(!empty($ffb_atts['id'])) {
             $current_feature_board = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."fluent_features_board WHERE id=".$ffb_atts['id']);
 
+            global $global_sort;
             global $current_user;
             $col = '';
 
@@ -50,9 +50,9 @@ class Shortcodes {
                     $is_administrator = '';
                 }
 
-                // if(!empty($this->sort_lists)) {
+                // if(isset($_POST['sort_by'])) {
                 //     $form = $wpdb->get_results(
-                //         "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$this->sort_lists
+                //         "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$_POST['sort_by']
                 //     );
                 // } else {
                     $form = $wpdb->get_results(
@@ -160,11 +160,10 @@ class Shortcodes {
                                                 } else {
                                                     $selected_rnmd = '';
                                                 }
-                                                error_log(print_r($board->sort_by, 1));
-                                                $col .= '<option '.$selected_alph.' value="alphabetical">'.esc_html__( 'Alphabetical', 'fluent-features-board' ).'</option>';
-                                                $col .= '<option '.$selected_rnmd.' value="random">'.esc_html__( 'Random', 'fluent-features-board' ).'</option>';
-                                                $col .= '<option '.$selected_vote.' value="upvotes">'.esc_html__( 'Number of Upvotes', 'fluent-features-board' ).'</option>';
-                                                $col .= '<option '.$selected_cmnt.' value="comments">'.esc_html__( 'Number of Comments', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option '.esc_attr($selected_alph).' value="alphabetical">'.esc_html__( 'Alphabetical', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option '.esc_attr($selected_rnmd).' value="random">'.esc_html__( 'Random', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option '.esc_attr($selected_vote).' value="upvotes">'.esc_html__( 'Number of Upvotes', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option '.esc_attr($selected_cmnt).' value="comments">'.esc_html__( 'Number of Comments', 'fluent-features-board' ).'</option>';
                                             $col .= '</select>';
                                         $col .= '</div>';
                                     $col .= '</div>';
@@ -266,7 +265,7 @@ class Shortcodes {
                                                                         $col .= '<p class="ff-request-comment-content">'.esc_html($comment->comment_content).'</p>';
 
                                                                         if($comment->comment_user_id == $current_user->ID) {
-                                                                            $col .= '<a href="#" data-id="'.esc_attr($comment->id).'" class="delete-comment">Delete</a>';
+                                                                            $col .= '<a href="#" data-id="'.esc_attr($comment->id).'" class="delete-comment">'.esc_html__('Delete', 'fluent-features-board').'</a>';
                                                                         }
                                                                     $col .= '</li>';
                                                                 }
@@ -324,7 +323,6 @@ class Shortcodes {
         $table_name = $wpdb->prefix . $this->fluent_features_board;
         $sortby     = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';
         $board_id   = isset($_POST['board_id']) ? $_POST['board_id'] : '';
-        $this->sort_lists = $sortby;
 
         $where = [ 'id' => $board_id ];
         $wpdb->update( 
