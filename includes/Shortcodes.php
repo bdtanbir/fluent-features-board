@@ -276,7 +276,6 @@ class Shortcodes {
                                 
                                 
                                                         $col .= '<form class="ff-request-comment-form" >';
-                                                            $col .= '<p class="success_message">'.esc_html__('Success!', 'fluent-features-board').'</p>';
                                                             $col .= '<input type="hidden" name="comment_post_id" value="'.esc_attr($item->id).'"/>';
                                                             $col .= '<input type="hidden" id="current_user" name="current_user" data-userid="'.$current_user->ID.'" data-displayname="'.$current_user->display_name.'" data-useravatar="'.get_avatar_url($current_user->ID).'" data-currentdate="'.date(get_option('date_format')).'" />';
 

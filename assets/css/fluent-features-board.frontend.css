@@ -971,15 +971,6 @@ button:focus {
     font-weight: 500;
 }
 
-.ff-request-comment-form .success_message {
-    display: none;
-    margin: 0 0 10px 0;
-    background: green;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 4px;
-}
-
 .ff-request-item .user-action {
     display: inline-block;
     margin: 0;
