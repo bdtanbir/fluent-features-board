@@ -8,7 +8,6 @@ namespace FFB;
 class Shortcodes {
     public $fluent_features_board = 'fluent_features_board';
     public $sort_lists = '';
-    public $sortby = '';
 
     public function __construct() {
         
@@ -34,7 +33,6 @@ class Shortcodes {
             $col = '';
 
             foreach($current_feature_board as $board) {
-                global $sortby;
                 if ($board->sort_by == 'upvotes') {
                     $sort_by = ' ORDER BY votes_count DESC';
                 } elseif ($board->sort_by == 'alphabetical') {
@@ -51,16 +49,16 @@ class Shortcodes {
                     $show_all_requests = " and is_public='true' ";
                     $is_administrator = '';
                 }
-                // error_log(print_r($sortby, 1));
-                if(!empty($this->sort_lists)) {
-                    $form = $wpdb->get_results(
-                        "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$this->sort_lists
-                    );
-                } else {
+
+                // if(!empty($this->sort_lists)) {
+                //     $form = $wpdb->get_results(
+                //         "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$this->sort_lists
+                //     );
+                // } else {
                     $form = $wpdb->get_results(
                         "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$sort_by
                     );
-                }
+                // }
                 $col = '<div class="ff-requests-list-home">';
 
                     $col .= '<header>';
@@ -142,10 +140,31 @@ class Shortcodes {
                                         $col .= '<div class="right">';
                                             $col .= '<p>'.esc_html__('Sort By:', 'fluent-features-board').'</p>';
                                             $col .= '<select data-id="'.esc_attr($board->id).'">';
-                                                $col .= '<option value="alphabetical">'.esc_html__( 'Alphabetical', 'fluent-features-board' ).'</option>';
-                                                $col .= '<option value="random">'.esc_html__( 'Random', 'fluent-features-board' ).'</option>';
-                                                $col .= '<option value="upvotes">'.esc_html__( 'Number of Upvotes', 'fluent-features-board' ).'</option>';
-                                                $col .= '<option value="comments">'.esc_html__( 'Number of Comments', 'fluent-features-board' ).'</option>';
+                                                if($board->sort_by === 'upvotes') {
+                                                    $selected_vote = 'selected';
+                                                } else {
+                                                    $selected_vote = '';
+                                                } 
+                                                if ($board->sort_by === 'alphabetical') {
+                                                    $selected_alph = 'selected';
+                                                } else {
+                                                    $selected_alph = '';
+                                                } 
+                                                if ($board->sort_by === 'comments') {
+                                                    $selected_cmnt = 'selected';
+                                                } else {
+                                                    $selected_cmnt = '';
+                                                } 
+                                                if ($board->sort_by === 'random') {
+                                                    $selected_rnmd = 'selected';
+                                                } else {
+                                                    $selected_rnmd = '';
+                                                }
+                                                error_log(print_r($board->sort_by, 1));
+                                                $col .= '<option '.$selected_alph.' value="alphabetical">'.esc_html__( 'Alphabetical', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option '.$selected_rnmd.' value="random">'.esc_html__( 'Random', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option '.$selected_vote.' value="upvotes">'.esc_html__( 'Number of Upvotes', 'fluent-features-board' ).'</option>';
+                                                $col .= '<option '.$selected_cmnt.' value="comments">'.esc_html__( 'Number of Comments', 'fluent-features-board' ).'</option>';
                                             $col .= '</select>';
                                         $col .= '</div>';
                                     $col .= '</div>';
@@ -251,7 +270,7 @@ class Shortcodes {
                                                                         }
                                                                     $col .= '</li>';
                                                                 }
-                                                                
+
                                                             $col .= '</ul>';
                                                         $col .= '</div>';
                                 
@@ -298,6 +317,10 @@ class Shortcodes {
      * Sorting Requests list by ajax
      */
     public function ffr_sorting_requests_list() {
+        // Check for nonce security      
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+            die ( 'Busted!');
+        }
         global $wpdb;
         $table_name = $wpdb->prefix . $this->fluent_features_board;
         $sortby     = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';

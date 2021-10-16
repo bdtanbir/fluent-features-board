@@ -147,6 +147,10 @@ class FFB_Model_Table {
      * Inserting New Feature Request
      */
     public function submit_feature_request() {
+        // Check for nonce security      
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+            die ( 'Busted!');
+        }
         global $wpdb;
         global $current_user;
         $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
@@ -300,6 +304,10 @@ class FFB_Model_Table {
      * Deleting Feature Request Row
      */
     public function action_deleteFeatureRequestRow() {
+        // Check for nonce security      
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+            die ( 'Busted!');
+        }
         global $wpdb;
         $table_name = $wpdb->prefix . $this->ff_requests_list;
         $id    = (isset($_POST['id']) ? $_POST['id'] : '');
@@ -312,6 +320,9 @@ class FFB_Model_Table {
      * Inserting Feature Requests Comments
      */
     public function submit_new_comment_action() {
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+            die ( 'Busted!');
+        }
         global $wpdb;
         if(is_user_logged_in(  )) {
             global $current_user;
@@ -353,6 +364,10 @@ class FFB_Model_Table {
      * Adding Votes
      */
     public function addVotesOnRequestList() {
+        // Check for nonce security      
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+            die ( 'Busted!');
+        }
         global $wpdb;
         global $current_user;
         $post_id = (isset($_POST['post_id'])) ? $_POST['post_id'] : '';
@@ -388,6 +403,10 @@ class FFB_Model_Table {
      * Remove Vote by ajax
      */
     public function removeVotesOnRequestList() {
+        // Check for nonce security      
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+            die ( 'Busted!');
+        }
         global $wpdb;
         global $current_user;
         $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
@@ -414,6 +433,10 @@ class FFB_Model_Table {
      * Delete Comment
      */
     public function ffr_deleteComment() {
+        // Check for nonce security      
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+            die ( 'Busted!');
+        }
         global $wpdb;
         $comment_id = isset($_POST['comment_id']) ? $_POST['comment_id'] : '';
         $table_name = $wpdb->prefix . $this->ffr_comments;

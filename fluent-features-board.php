@@ -264,7 +264,8 @@ final class Fluent_Features_board {
         wp_localize_script( 'ff-request-frontend', 'ajax_url', array(
             'ajaxurl'         => admin_url('admin-ajax.php'),
             'redirecturl'     => home_url(),
-            'loadingmessage'  => esc_html__('Sending user info, please wait...','fluent-features-board')
+            'loadingmessage'  => esc_html__('Sending user info, please wait...','fluent-features-board'),
+            'nonce'           => wp_create_nonce('ajax-nonce')
         ));
     }
 

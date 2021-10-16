@@ -59,7 +59,8 @@
                         action: 'submit_feature_request',
                         title: title,
                         description: description,
-                        id: parent_id
+                        id: parent_id,
+                        nonce: ajax_url.nonce
                     }
                 });
                 $("#ff-request-frontend-form input[name='title']").val('');
@@ -213,7 +214,8 @@
                     data: {
                         action: 'submit_new_comment_action',
                         comment_content: comment,
-                        comment_post_id: comment_post_id
+                        comment_post_id: comment_post_id,
+                        nonce: ajax_url.nonce
                     },
                     success: function(data) {
                         $(alertmsg).removeClass('error').addClass('success active');
@@ -261,7 +263,8 @@
                     url: ajax_url.ajaxurl,
                     data: {
                         action: 'action_deleteFeatureRequestRow',
-                        id: post_id
+                        id: post_id,
+                        nonce: ajax_url.nonce
                     }
                 });
                 $(that).removeClass('deleting');
@@ -311,6 +314,7 @@
                     action: 'addVotesOnRequestList',
                     votes: votes_count.val(),
                     post_id: postID,
+                    nonce: ajax_url.nonce
                 }
             })
         });
@@ -336,7 +340,8 @@
                 data: {
                     action: 'removeVotesOnRequestList',
                     votes: result,
-                    post_id: postID
+                    post_id: postID,
+                    nonce: ajax_url.nonce
                 }
             });
 
@@ -362,7 +367,8 @@
                     dataType: 'json',
                     data: {
                         action: 'ffr_deleteComment',
-                        comment_id: commentID
+                        comment_id: commentID,
+                        nonce: ajax_url.nonce
                     },
                     error: function() {
                         that.innerHTML = 'Delete';
@@ -413,7 +419,8 @@
                 data: {
                     action: 'ffr_sorting_requests_list',
                     board_id: board_id,
-                    sort_by: sorting
+                    sort_by: sorting,
+                    nonce: ajax_url.nonce
                 },
                 success: function() {
 
