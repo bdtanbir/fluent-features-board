@@ -8,10 +8,10 @@ if (!defined('ABSPATH')) {
 
 class FFB_Model_Table {
     public $fluent_features_board = 'fluent_features_board';
-    public $ff_requests_list = 'ff_requests_list';
-    public $ffr_tags = 'ffr_tags';
-    public $ffr_comments = 'ffr_comments';
-    public $ffr_votes = 'ffr_votes';
+    public $ff_requests_list      = 'ff_requests_list';
+    public $ffr_tags              = 'ffr_tags';
+    public $ffr_comments          = 'ffr_comments';
+    public $ffr_votes             = 'ffr_votes';
 
     public function __construct()
     {
@@ -64,22 +64,21 @@ class FFB_Model_Table {
     public function action_ffb_callback() {
         global $wpdb;
         // Tables
-        $table_name = $wpdb->prefix . $this->fluent_features_board;
-
-        $title = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
-        $logo = (isset($_POST['logo']) ? $_POST['logo'] : '');
-        $sort_by = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
+        $table_name   = $wpdb->prefix . $this->fluent_features_board;
+        $title        = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
+        $logo         = (isset($_POST['logo']) ? $_POST['logo'] : '');
+        $sort_by      = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
         $show_upvotes = (isset($_POST['show_upvotes']) ? $_POST['show_upvotes'] : '');
-        $visibility = (isset($_POST['visibility']) ? $_POST['visibility'] : '');
+        $visibility   = (isset($_POST['visibility']) ? $_POST['visibility'] : '');
 
         $wpdb->insert(
             $table_name,
             array( 
-                'title' =>  $title,
-                'logo' =>  $logo,
-                'sort_by' => $sort_by,
+                'title'        =>  $title,
+                'logo'         =>  $logo,
+                'sort_by'      => $sort_by,
                 'show_upvotes' => $show_upvotes,
-                'visibility' => $visibility,
+                'visibility'   => $visibility,
             ) 
         );
 
@@ -109,7 +108,7 @@ class FFB_Model_Table {
     public function delete_ffb_table_column() {
         global $wpdb;
         $table_name = $wpdb->prefix . $this->fluent_features_board;
-        $id = $_POST['id'];
+        $id = isset($_POST['id']) ? $_POST['id'] : '';
         $wpdb->delete( $table_name, array( 'id' => $id ) );
         die();
     }
@@ -222,17 +221,17 @@ class FFB_Model_Table {
      */
     public function updateFeatureRequestList() {
         global $wpdb;
-        $table_tag  = $wpdb->prefix . $this->ffr_tags;
-        $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
-        $id       = (isset($_POST['id']) ? $_POST['id'] : '');
-        $parent_id = (isset($_POST['parent_id']) ? $_POST['parent_id'] : '');
-        $title = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
+        $table_tag   = $wpdb->prefix . $this->ffr_tags;
+        $table_ffr   = $wpdb->prefix . $this->ff_requests_list;
+        $id          = (isset($_POST['id']) ? $_POST['id'] : '');
+        $parent_id   = (isset($_POST['parent_id']) ? $_POST['parent_id'] : '');
+        $title       = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
         $description = sanitize_textarea_field((isset($_POST['description']) ? $_POST['description'] : ''));
-        $status = (isset($_POST['status']) ? $_POST['status'] : '');
-        $is_public = (isset($_POST['is_public']) ? $_POST['is_public'] : '');
-        $tags = (isset($_POST['tags']) ? $_POST['tags'] : '');
+        $status      = (isset($_POST['status']) ? $_POST['status'] : '');
+        $is_public   = (isset($_POST['is_public']) ? $_POST['is_public'] : '');
+        $tags        = (isset($_POST['tags']) ? $_POST['tags'] : '');
         $tagIdDelete = (isset($_POST['tagIdDelete']) ? $_POST['tagIdDelete'] : '');
-        $where = ['id' => $id];
+        $where       = ['id' => $id];
 
         // Update ff_requests_list Table
         $wpdb->update( 
@@ -240,10 +239,10 @@ class FFB_Model_Table {
             array( 
                 'title'       =>  $title,
                 'description' =>  $description,
-                'status' =>  $status,
-                'parent_id' => $parent_id,
-                'is_public' =>  $is_public,
-                'parent_id' => $parent_id
+                'status'      =>  $status,
+                'parent_id'   => $parent_id,
+                'is_public'   =>  $is_public,
+                'parent_id'   => $parent_id
             ),
             $where
         );
@@ -311,6 +310,17 @@ class FFB_Model_Table {
         global $wpdb;
         $table_name = $wpdb->prefix . $this->ff_requests_list;
         $id    = (isset($_POST['id']) ? $_POST['id'] : '');
+        if(is_wp_error( $id )) {
+            echo json_encode(array(
+                'status'  => false,
+                'message' => esc_html__( 'Something went wrong!', 'fluent-features-board' )
+            ));
+            return false;
+        }
+        echo json_encode(array(
+            'status'  => true,
+            'message' => esc_html__( 'Request has been deleted', 'fluent-features-board' )
+        ));
         $wpdb->delete( $table_name, array( 'id' => $id ) );
         die();
     }
@@ -371,19 +381,19 @@ class FFB_Model_Table {
         global $wpdb;
         global $current_user;
         $post_id = (isset($_POST['post_id'])) ? $_POST['post_id'] : '';
-        $votes = (isset($_POST['votes'])) ? $_POST['votes'] : '';
+        $votes   = (isset($_POST['votes'])) ? $_POST['votes'] : '';
 
         $ffr_votes = $wpdb->prefix . $this->ffr_votes;
 
         $voteCheck = "SELECT * FROM `$ffr_votes` WHERE vote_user_id='$current_user->ID' AND post_id='$post_id'";
-        $result = $wpdb->query($voteCheck);
+        $result    = $wpdb->query($voteCheck);
         if(!$result) {
             $sql = $wpdb->prepare("INSERT INTO `$ffr_votes` (`post_id`, `vote_user_id`, `votes_count`) values (%s, %s, %s)", $post_id, $current_user->ID, $votes);
             $wpdb->query($sql);
 
 
             $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
-            $where = ['id' => $post_id];
+            $where      = ['id' => $post_id];
 
             $wpdb->update( 
                 $table_ffr,
@@ -392,8 +402,6 @@ class FFB_Model_Table {
                 ),
                 $where
             );
-        } else {
-            die();
         }
         die();
     }
@@ -410,11 +418,11 @@ class FFB_Model_Table {
         global $wpdb;
         global $current_user;
         $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
-        $ffr_votes = $wpdb->prefix . $this->ffr_votes;
-        $post_id = isset($_POST['post_id']) ? $_POST['post_id'] : '';
-        $votes   = isset($_POST['votes']) ? $_POST['votes'] : '';
+        $ffr_votes  = $wpdb->prefix . $this->ffr_votes;
+        $post_id    = isset($_POST['post_id']) ? $_POST['post_id'] : '';
+        $votes      = isset($_POST['votes']) ? $_POST['votes'] : '';
 
-        $where = ['id' => $post_id];
+        $where      = ['id' => $post_id];
 
         $wpdb->update( 
             $table_ffr,
@@ -438,8 +446,8 @@ class FFB_Model_Table {
             die ( 'Busted!');
         }
         global $wpdb;
-        $comment_id = isset($_POST['comment_id']) ? $_POST['comment_id'] : '';
-        $table_name = $wpdb->prefix . $this->ffr_comments;
+        $comment_id    = isset($_POST['comment_id']) ? $_POST['comment_id'] : '';
+        $table_name    = $wpdb->prefix . $this->ffr_comments;
         $deleteComment = $wpdb->get_results("SELECT * FROM `$table_name` WHERE id='$comment_id'");
         if(is_wp_error( $deleteComment )) {
             echo json_encode(

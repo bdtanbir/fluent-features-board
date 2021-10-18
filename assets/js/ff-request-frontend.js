@@ -248,29 +248,71 @@
         });
 
 
+        // Close Delete Request popup
+        $(document).on('click', '#ffr-delete-popup .ffr-delete-popup-overlay', function() {
+            $('#ffr-delete-popup').removeClass('active');
+        })
+        $(document).on('click', '.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action #no', function(e) {
+            e.preventDefault();
+            $('#ffr-delete-popup').removeClass('active');
+        })
 
         // Delete Request From Frontend
-        $(document).on('click', '.ff-request-item .ff-request-content h3 .user-action #delete-feature-request', function(e) {
+        $(document).on('click', '.ff-request-item > .user-action #delete-feature-request', function(e) {
             e.preventDefault();
             const that = this;
+            const varParent = $(that).parent();
+            const main_Wrapper = $(varParent).parent();
             var post_id = parseInt(this.dataset.id);
-            that.innerHTML = 'Deleting...';
-            $(that).addClass('deleting')
-            setTimeout(() => {
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    url: ajax_url.ajaxurl,
-                    data: {
-                        action: 'action_deleteFeatureRequestRow',
-                        id: post_id,
-                        nonce: ajax_url.nonce
-                    }
-                });
-                $(that).removeClass('deleting');
-                that.innerHTML = 'Delete';
-                window.location.reload(true)
-            }, 2000);
+            $(".ff-requests-list-home #ffr-delete-popup").addClass('active');
+            $(document).on('click', '.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action #delete-this-request', function(e) {
+                e.preventDefault();
+                const innerThat = this;
+                innerThat.innerHTML = 'Deleting...';
+                innerThat.setAttribute('disabled', '')
+                $(innerThat).parent().addClass('deleting');
+                setTimeout(() => {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        url: ajax_url.ajaxurl,
+                        data: {
+                            action: 'action_deleteFeatureRequestRow',
+                            id: post_id,
+                            nonce: ajax_url.nonce
+                        },
+                        error: function(data) {
+                            $('#ffr-delete-popup').removeClass('active');
+                            $(alertmsg).removeClass('success').addClass('error active');
+                            alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>' + data.message + '</p>';
+                            setTimeout(() => {
+                                $(alertmsg).removeClass('error active')
+                            }, 3000);
+                        },
+                        success: function(data) {
+                            $('#ffr-delete-popup').removeClass('active');
+                            innerThat.innerHTML = 'Delete';
+                            innerThat.removeAttribute('disabled')
+                            $(innerThat).parent().removeClass('deleting');
+                            if (data.status === true) {
+                                $(main_Wrapper).hide()
+                                $(alertmsg).removeClass('error').addClass('success active');
+                                alertmsg.innerHTML = '<span class="close">+</span><h1>Congratulations!</h1><p>' + data.message + '</p>';
+                                setTimeout(() => {
+                                    $(alertmsg).removeClass('success active')
+                                }, 3000);
+                            } else {
+                                $('#ffr-delete-popup').removeClass('active');
+                                $(alertmsg).removeClass('success').addClass('error active');
+                                alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>' + data.message + '</p>';
+                                setTimeout(() => {
+                                    $(alertmsg).removeClass('error active')
+                                }, 3000);
+                            }
+                        }
+                    });
+                }, 2000);
+            })
         })
 
         // Single Request Popup
@@ -422,10 +464,8 @@
                     sort_by: sorting,
                     nonce: ajax_url.nonce
                 },
-                success: function() {
-
-                }
             })
+            window.location.reload()
         });
     })
 

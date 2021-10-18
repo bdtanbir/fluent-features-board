@@ -999,8 +999,8 @@ button:focus {
 }
 
 .ff-request-item .user-action a:focus {
-    text-decoration: none;
-    background: transparent;
+    text-decoration: none !important;
+    background: transparent !important;
 }
 
 .ffr-alert-message {
@@ -1101,6 +1101,117 @@ button:focus {
     padding: 0;
     margin: 0;
     color: #adadad;
+}
+
+.ff-requests-list-home #ffr-delete-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.ff-requests-list-home #ffr-delete-popup.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-overlay {
+    background: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content {
+    background: #fff;
+    padding: 20px 30px 30px 30px;
+    border-radius: 4px;
+    margin-top: 60px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+    transform: translateY(-60px);
+}
+
+.ff-requests-list-home #ffr-delete-popup.active .ffr-delete-popup-content {
+    transform: translateY(0);
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content h1 {
+    font-size: 22px;
+    margin: 0 0 5px 0;
+    color: #555;
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content p {
+    font-size: 14px;
+    color: #7e7e7e;
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action button {
+    background: #d21414;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 2px 2px 0px rgb(0 0 0 / 10%);
+    margin: 0 4px;
+    border-radius: 4px;
+    padding: 5px 12px;
+    line-height: 20px;
+    font-size: 14px;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -ms-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    border: none;
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action button:hover {
+    background: #ad0d0d;
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action #delete-this-request {
+    background: #07d007;
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action.deleting button {
+    cursor: no-drop;
+    opacity: 0.4;
+}
+
+.ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action #delete-this-request:hover {
+    background: #08b308;
 }
 
 @keyframes rotating {

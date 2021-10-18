@@ -28,7 +28,6 @@ class Shortcodes {
         if(!empty($ffb_atts['id'])) {
             $current_feature_board = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."fluent_features_board WHERE id=".$ffb_atts['id']);
 
-            global $global_sort;
             global $current_user;
             $col = '';
 
@@ -50,23 +49,34 @@ class Shortcodes {
                     $is_administrator = '';
                 }
 
-                // if(isset($_POST['sort_by'])) {
-                //     $form = $wpdb->get_results(
-                //         "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$_POST['sort_by']
-                //     );
-                // } else {
-                    $form = $wpdb->get_results(
-                        "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$sort_by
-                    );
-                // }
+                $form = $wpdb->get_results(
+                    "SELECT * FROM ".$wpdb->prefix."ff_requests_list WHERE parent_id=".$ffb_atts['id'].$show_all_requests.$sort_by
+                );
                 $col = '<div class="ff-requests-list-home">';
+
+                    // Request Delete Confirmation
+                    $col .= '<div id="ffr-delete-popup">';
+                        $col .= '<div class="ffr-delete-popup-overlay"></div>';
+                        $col .= '<div class="ffr-delete-popup-content">';
+                        $col .= '<h1>'.esc_html__('Are you sure?', 'fluent-features-board').'</h1>';
+                        $col .= '<p>'.esc_html__( 'Do you want to delete this?', 'fluent-features-board' ).'</p>';
+                        $col .= '<div class="btn-action">';
+                            $col .= '<button id="no" href="#">'.esc_html__('No', 'fluent-features-board').'</button>';
+                            $col .= '<button id="delete-this-request" href="#">'.esc_html__('Yes', 'fluent-features-board').'</button>';
+                        $col .= '</div>';
+                        $col .= '</div>';
+                    $col .= '</div>';
 
                     $col .= '<header>';
                         $col .= '<div class="ffr-wrap">';
                             $col .= '<div class="header-left">';
-                                $col .= '<img src="'.$board->logo.'" alt="">';
+                                if(!empty($board->logo)) {
+                                    $col .= '<img src="'.$board->logo.'" alt="">';
+                                }
                                 $col .= '<div class="header-left-content">';
-                                    $col .= '<h3><a href="">'.esc_html($board->title).'</a></h3>';
+                                    if(!empty($board->title)) {
+                                        $col .= '<h3><a href="">'.esc_html($board->title).'</a></h3>';
+                                    }
                                     $col .= '<div class="links">';
                                         $col .= '<a href="https://adreastrian.com/">'.esc_html__('AuthLab Homepage', 'fluent-features-board').'</a>';
                                     $col .= '</div>';
@@ -141,22 +151,22 @@ class Shortcodes {
                                             $col .= '<p>'.esc_html__('Sort By:', 'fluent-features-board').'</p>';
                                             $col .= '<select data-id="'.esc_attr($board->id).'">';
                                                 if($board->sort_by === 'upvotes') {
-                                                    $selected_vote = 'selected';
+                                                    $selected_vote = __('selected', 'fluent-features-board');
                                                 } else {
                                                     $selected_vote = '';
                                                 } 
                                                 if ($board->sort_by === 'alphabetical') {
-                                                    $selected_alph = 'selected';
+                                                    $selected_alph = __('selected', 'fluent-features-board');
                                                 } else {
                                                     $selected_alph = '';
                                                 } 
                                                 if ($board->sort_by === 'comments') {
-                                                    $selected_cmnt = 'selected';
+                                                    $selected_cmnt = __('selected', 'fluent-features-board');
                                                 } else {
                                                     $selected_cmnt = '';
                                                 } 
                                                 if ($board->sort_by === 'random') {
-                                                    $selected_rnmd = 'selected';
+                                                    $selected_rnmd = __('selected', 'fluent-features-board');
                                                 } else {
                                                     $selected_rnmd = '';
                                                 }
@@ -175,16 +185,16 @@ class Shortcodes {
                                             $user_info = get_userdata($item->post_author);
                                             $status = strtolower(str_replace(' ', '-', $item->status));
                                             if($item->status == 'inprogress') {
-                                                $status_text = "In Progress";
+                                                $status_text = __("In Progress", "fluent-features-board");
                                             } elseif($item->status == 'planned') {
-                                                $status_text = "Planned";
+                                                $status_text = __("Planned", "fluent-features-board");
                                             } elseif($item->status == 'closed') {
-                                                $status_text = "Closed";
+                                                $status_text = __("Closed", "fluent-features-board");
                                             } else {
-                                                $status_text = "Shipped";
+                                                $status_text = __("Shipped", "fluent-features-board");
                                             }
                                             if($item->post_author == $current_user->ID) {
-                                                $is_current_user_loggedin = ' active';
+                                                $is_current_user_loggedin = __(' active', 'fluent-features-board');
                                             } else {
                                                 $is_current_user_loggedin = '';
                                             }
@@ -208,7 +218,7 @@ class Shortcodes {
 
                                                 if($item->post_author == $current_user->ID ) {
                                                     if($current_user->roles[0] == 'subscriber') {
-                                                        $col .= '<span class="user-action"><a href="">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
+                                                        $col .= '<span class="user-action"><a href="#">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
                                                     }
                                                 }
 

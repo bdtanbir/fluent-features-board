@@ -128,18 +128,18 @@ export default {
         top: -8px !important;
     }
     .tooltip .tooltip-inner {
-        background: #555;
+        background: #ba42ec;
         color: #fff;
-        border-radius: 4px;
-        padding: 6px 10px;
+        border-radius: 30px;
+        padding: 4px 12px;
         font-size: 12px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-shadow: 0 0 10px rgb(143 66 236 / 25%);
     }
     .tooltip .tooltip-arrow  {
         position: absolute;
         width: 10px;
         height: 10px;
-        background: #555;
+        background: #ba42ec;
         transform: rotate(45deg);
         left: 50%;
         bottom: -5px;
