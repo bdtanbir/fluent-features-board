@@ -315,6 +315,15 @@
             })
         })
 
+        // Edit Request
+        $(document).on('click', '.ff-request-item > .user-action .edit-feature-request', function(e) {
+            e.preventDefault();
+            const linkParent = $(this).parent();
+            const mainWrap = $(linkParent).parent();
+            $(mainWrap).addClass('update-request-form')
+            console.log(mainWrap);
+        })
+
         // Single Request Popup
         $(document).on('click', '.ff-requests-list-box .ff-request-item > .ff-request-content', function() {
             $(".ff-requests-list-box .ff-request-item").hide();

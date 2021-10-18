@@ -218,7 +218,7 @@ class Shortcodes {
 
                                                 if($item->post_author == $current_user->ID ) {
                                                     if($current_user->roles[0] == 'subscriber') {
-                                                        $col .= '<span class="user-action"><a href="#">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
+                                                        $col .= '<span class="user-action"><a class="edit-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Edit', 'fluent-features-board').'</a>|<a id="delete-feature-request" href="#" data-id="'.esc_attr($item->id).'">'.esc_html__('Delete', 'fluent-features-board').'</a></span>';
                                                     }
                                                 }
 
@@ -248,11 +248,29 @@ class Shortcodes {
                                                         $col .= '<p class="status"><span class="'.esc_attr($status).'">'.esc_html($status_text).'</span></p>';
                                                     }
                                                     $col .= '<p class="description">'.esc_html($item->description).'</p>';
+
                                                 $col .= '</div>';
                                                 $col .= '<div class="ff-request-comment-count">';
                                                     $col .= '<span class="comment-icon"></span>';
                                                     $col .= '<span class="comment-number" data-comments="'.esc_attr($item->comments_count).'">'.esc_html($item->comments_count).'</span>';
                                                 $col .= '</div>';
+
+                                                // Edit Request
+                                                $col .= '<form class="ffr-edit-from-frontend">';
+                                                    $col .= '<div class="input-group">';
+                                                        $col .= '<input type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'" value="'.esc_html($item->title).'" required>';
+                                                    $col .= '</div>';
+                                                    $col .= '<div class="input-group">';
+                                                        $col .= '<textarea name="description" id="description" placeholder="'.esc_html__('Why do you want this', 'fluent-features-board').'" required>'.esc_html($item->description).'</textarea>';
+                                                    $col .= '</div>';
+                                                    $col .= '<div class="input-group">';
+                                                        $col .= '<button class="ff-request-update">';
+                                                            $col .= '<span class="loader"></span>'.esc_html__('Update', 'fluent-features-board');
+                                                        $col .= '</button>';
+                                                    $col .= '</div>';
+                                                    $col .= '<input type="hidden" value="'.esc_attr($board->id).'" id="board_id" />';
+
+                                                $col .= '</form>';
 
 
                                                 // Request Details Modal

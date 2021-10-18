@@ -1214,6 +1214,53 @@ button:focus {
     background: #08b308;
 }
 
+.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend {
+    position: absolute;
+    left: 50px;
+    top: 64px;
+    width: 100%;
+    max-width: 438px;
+    background: #fff;
+    display: none;
+}
+
+.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend textarea,
+.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend input {
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 5px 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend textarea {
+    height: 90px;
+    margin-top: 10px;
+}
+
+.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend button {
+    border: none;
+    padding: 8px 20px;
+    background: #07d007 !important;
+    color: #fff !important;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.ff-requests-list-box .ff-request-item.update-request-form {
+    height: 250px;
+}
+
+.ff-request-item.update-request-form .ffr-edit-from-frontend {
+    display: block;
+}
+
+.ff-requests-list-box .ff-request-item.update-request-form .ff-request-content {
+    opacity: 0;
+    visibility: hidden;
+}
+
 @keyframes rotating {
     0% {
         transform: rotate(0);
