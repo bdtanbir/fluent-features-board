@@ -30,6 +30,10 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_get_feature_requests_list', [$this, 'get_feature_requests_list'] );
         add_action( 'wp_ajax_getAllFeatureRequests', [$this, 'getAllFeatureRequests'] );
         add_action( 'wp_ajax_nopriv_getAllFeatureRequests', [$this, 'getAllFeatureRequests'] );
+        add_action( 'wp_ajax_getAllBoardsList', [$this, 'getAllBoardsList'] );
+        add_action( 'wp_ajax_nopriv_getAllBoardsList', [$this, 'getAllBoardsList'] );
+        add_action( 'wp_ajax_sortFeaturesRequests', [$this, 'sortFeaturesRequests'] );
+        add_action( 'wp_ajax_nopriv_sortFeaturesRequests', [$this, 'sortFeaturesRequests'] );        
         add_action( 'wp_ajax_getTagsByCurrentRequest', [$this, 'getTagsByCurrentRequest'] );
         add_action( 'wp_ajax_nopriv_getTagsByCurrentRequest', [$this, 'getTagsByCurrentRequest'] );
         add_action( 'wp_ajax_updateFeatureRequestList', [$this, 'updateFeatureRequestList'] );
@@ -215,6 +219,55 @@ class FFB_Model_Table {
             return false;
         }
         wp_send_json_success( $requests, 200 ); 
+        die();
+    }
+
+
+    /**
+     * Get All Boards List
+     */
+    public function getAllBoardsList() {
+        global $wpdb;
+        $sort_by = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';
+        if($sort_by == 'all') {
+            error_log('I am All');
+        }
+        error_log(print_r($sort_by, 1));
+        
+        $requests = $wpdb->get_results(
+            "SELECT * FROM {$wpdb->prefix}fluent_features_board"
+        );
+        if(is_wp_error( $requests )) {
+            return false;
+        }
+
+        wp_send_json_success( $requests, 200 );
+        die();
+    }
+
+    /**
+     * Sorting Requests List
+     */
+    public function sortFeaturesRequests() {
+        global $wpdb;
+        $sort_by = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';
+
+        if($sort_by == 'all') {
+            $requests = $wpdb->get_results(
+                "SELECT * FROM {$wpdb->prefix}ff_requests_list"
+            );
+            if(is_wp_error( $requests )) {
+                return false;
+            }
+        } else {
+            $requests = $wpdb->get_results(
+                "SELECT * FROM {$wpdb->prefix}ff_requests_list WHERE parent_id={$sort_by}"
+            );
+            if(is_wp_error( $requests )) {
+                return false;
+            }
+        }
+        wp_send_json_success( $requests, 200 );
         die();
     }
 
