@@ -126,14 +126,14 @@ class FFB_Model_Table {
      */
     public function update_fluent_features_board() {
         global $wpdb;
-        $id = (isset($_POST['id']) ? $_POST['id'] : '');
-        $title = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
-        $logo = (isset($_POST['logo']) ? $_POST['logo'] : '');
-        $sort_by = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
+        $id           = (isset($_POST['id']) ? $_POST['id'] : '');
+        $title        = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
+        $logo         = (isset($_POST['logo']) ? $_POST['logo'] : '');
+        $sort_by      = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
         $show_upvotes = (isset($_POST['show_upvotes']) ? $_POST['show_upvotes'] : '');
-        $visibility = (isset($_POST['visibility']) ? $_POST['visibility'] : '');
-        $table_name = $wpdb->prefix . $this->fluent_features_board;
-        $where = [ 'id' => $id ];
+        $visibility   = (isset($_POST['visibility']) ? $_POST['visibility'] : '');
+        $table_name   = $wpdb->prefix . $this->fluent_features_board;
+        $where        = [ 'id' => $id ];
         $wpdb->update( 
             $table_name, 
             array( 
@@ -159,7 +159,7 @@ class FFB_Model_Table {
         }
         global $wpdb;
         global $current_user;
-        $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
+        $table_ffr   = $wpdb->prefix . $this->ff_requests_list;
         $id          = (isset($_POST['id']) ? $_POST['id'] : '');
         $title       = sanitize_text_field((isset($_POST['title']) ? $_POST['title'] : ''));
         $description = sanitize_textarea_field((isset($_POST['description']) ? $_POST['description'] : ''));
@@ -169,12 +169,12 @@ class FFB_Model_Table {
         $wpdb->insert(
             $table_ffr,
             array( 
-                'title'       =>  $title,
-                'description' =>  $description,
-                'status' =>  $status,
-                'parent_id' => $id,
-                'is_public' =>  $is_public,
-                'post_author' =>  $current_user->ID,
+                'title'       => $title,
+                'description' => $description,
+                'status'      => $status,
+                'parent_id'   => $id,
+                'is_public'   => $is_public,
+                'post_author' => $current_user->ID,
             ) 
         );
         die();
@@ -184,8 +184,8 @@ class FFB_Model_Table {
     // Getting all requests list by related board
     public function get_feature_requests_list() {
         global $wpdb;
-        $post_id          = (isset($_POST['id']) ? $_POST['id'] : '');
-        $sort_by          = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
+        $post_id = (isset($_POST['id']) ? $_POST['id'] : '');
+        $sort_by = (isset($_POST['sort_by']) ? $_POST['sort_by'] : '');
         if ($sort_by == 'upvotes') {
             $sorting = 'ORDER BY votes_count DESC';
         } elseif ($sort_by == 'alphabetical') {
@@ -293,11 +293,11 @@ class FFB_Model_Table {
         $wpdb->update( 
             $table_ffr,
             array( 
-                'title'       =>  $title,
-                'description' =>  $description,
-                'status'      =>  $status,
+                'title'       => $title,
+                'description' => $description,
+                'status'      => $status,
                 'parent_id'   => $parent_id,
-                'is_public'   =>  $is_public,
+                'is_public'   => $is_public,
                 'parent_id'   => $parent_id
             ),
             $where
@@ -473,12 +473,12 @@ class FFB_Model_Table {
         }
         global $wpdb;
         global $current_user;
-        $table_ffr  = $wpdb->prefix . $this->ff_requests_list;
-        $ffr_votes  = $wpdb->prefix . $this->ffr_votes;
-        $post_id    = isset($_POST['post_id']) ? $_POST['post_id'] : '';
-        $votes      = isset($_POST['votes']) ? $_POST['votes'] : '';
+        $table_ffr = $wpdb->prefix . $this->ff_requests_list;
+        $ffr_votes = $wpdb->prefix . $this->ffr_votes;
+        $post_id   = isset($_POST['post_id']) ? $_POST['post_id'] : '';
+        $votes     = isset($_POST['votes']) ? $_POST['votes'] : '';
 
-        $where      = ['id' => $post_id];
+        $where     = ['id' => $post_id];
 
         $wpdb->update( 
             $table_ffr,
@@ -539,7 +539,7 @@ class FFB_Model_Table {
         $requestID = isset($_POST['request_id']) ? $_POST['request_id'] : '';
         $title     = sanitize_text_field( isset($_POST['title']) ? $_POST['title'] : '' );
         $content   = sanitize_textarea_field( isset($_POST['content']) ? $_POST['content'] : '' );
-        $where      = ['id' => $requestID, 'parent_id' => $boardId];
+        $where     = ['id' => $requestID, 'parent_id' => $boardId];
 
         if(is_wp_error( $title ) || is_wp_error( $content )) {
             echo json_encode(array(
@@ -557,7 +557,7 @@ class FFB_Model_Table {
         $wpdb->update( 
             $table_ffr,
             array( 
-                'title'   => $title,
+                'title'       => $title,
                 'description' => $content
             ),
             $where

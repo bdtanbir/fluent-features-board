@@ -1106,6 +1106,7 @@ button:focus {
     color: #adadad;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup,
 .ff-requests-list-home #ffr-delete-popup {
     position: fixed;
     top: 0;
@@ -1125,11 +1126,13 @@ button:focus {
     visibility: hidden;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup.active,
 .ff-requests-list-home #ffr-delete-popup.active {
     opacity: 1;
     visibility: visible;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-overlay,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-overlay {
     background: #000;
     position: absolute;
@@ -1142,6 +1145,7 @@ button:focus {
     cursor: pointer;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content {
     background: #fff;
     padding: 20px 30px 30px 30px;
@@ -1160,21 +1164,25 @@ button:focus {
     transform: translateY(-60px);
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup.active .ffr-delete-popup-content,
 .ff-requests-list-home #ffr-delete-popup.active .ffr-delete-popup-content {
     transform: translateY(0);
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content h1,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content h1 {
     font-size: 22px;
     margin: 0 0 5px 0;
     color: #555;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content p,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content p {
     font-size: 14px;
     color: #7e7e7e;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content .btn-action,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action {
     display: flex;
     align-items: center;
@@ -1182,6 +1190,7 @@ button:focus {
     margin-top: 10px;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content .btn-action button,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action button {
     background: #d21414;
     color: #fff;
@@ -1200,19 +1209,23 @@ button:focus {
     border: none;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content .btn-action button:hover,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action button:hover {
     background: #ad0d0d;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content .btn-action #delete-this-comment,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action #delete-this-request {
     background: #07d007;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content .btn-action.deleting button,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action.deleting button {
     cursor: no-drop;
     opacity: 0.4;
 }
 
+.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content .btn-action #delete-this-comment:hover,
 .ff-requests-list-home #ffr-delete-popup .ffr-delete-popup-content .btn-action #delete-this-request:hover {
     background: #08b308;
 }

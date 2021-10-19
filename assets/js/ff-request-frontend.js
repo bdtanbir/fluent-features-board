@@ -197,7 +197,7 @@
             var comment_post_id = $('input[name="comment_post_id"]', that).val();
             var ajax_comment = document.querySelector('.ff-request-item.single-request .ff-request-comments-list #ffr-ajax-comment');
 
-            var current_user = document.querySelector('#current_user');
+            var current_user = document.querySelector('.ff-request-comment-form input[name="current_user"]');
             var current_user_avatar = current_user.getAttribute('data-useravatar');
             var current_user_displayname = current_user.getAttribute('data-displayname');
             var current_date = current_user.getAttribute('data-currentdate');
@@ -465,6 +465,16 @@
 
         })
 
+
+        // Close Delete Request popup
+        $(document).on('click', '#ffr-delete-comment-popup .ffr-delete-popup-overlay', function() {
+            $('#ffr-delete-comment-popup').removeClass('active');
+        })
+        $(document).on('click', '.ff-requests-list-home #ffr-delete-comment-popup .ffr-delete-popup-content .btn-action #no', function(e) {
+            e.preventDefault();
+            $('#ffr-delete-comment-popup').removeClass('active');
+        })
+
         // Delete Comment
         var ffrwrapper = document.querySelector('.ff-requests-list-home');
         if ($(ffrwrapper).length) {
@@ -476,46 +486,65 @@
             e.preventDefault();
             const commentID = parseInt(this.getAttribute('data-id'));
             const that = this;
-            that.innerHTML = 'Deleting...';
-            setTimeout(() => {
-                $.ajax({
-                    type: 'POST',
-                    url: ajax_url.ajaxurl,
-                    dataType: 'json',
-                    data: {
-                        action: 'ffr_deleteComment',
-                        comment_id: commentID,
-                        nonce: ajax_url.nonce
-                    },
-                    error: function() {
-                        that.innerHTML = 'Delete';
-                        $(alertmsg).removeClass('success').addClass('error active');
-                        alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>Something went wrong!</p>';
-                        setTimeout(() => {
-                            $(alertmsg).removeClass('success active')
-                        }, 3000);
-                    },
-                    success: function(data) {
-                        if (data.status === true) {
-                            console.log(data);
-                            that.innerHTML = 'Delete';
-                            $(that).parent().hide();
-                            $(alertmsg).removeClass('error').addClass('success active');
-                            alertmsg.innerHTML = '<span class="close">+</span><h1>Congratulations!</h1><p>' + data.message + '</p>';
-                            setTimeout(() => {
-                                $(alertmsg).removeClass('success active')
-                            }, 3000);
-                        } else {
-                            that.innerHTML = 'Delete';
+            $(".ff-requests-list-home #ffr-delete-comment-popup").addClass('active');
+            $(document).on('click', '#ffr-delete-comment-popup .ffr-delete-popup-content .btn-action #delete-this-comment', function(e) {
+                e.preventDefault();
+                const innerThat = this;
+                innerThat.innerHTML = 'Deleting...';
+                innerThat.setAttribute('disabled', '')
+                $(innerThat).parent().addClass('deleting');
+
+                setTimeout(() => {
+                    $.ajax({
+                        type: 'POST',
+                        url: ajax_url.ajaxurl,
+                        dataType: 'json',
+                        data: {
+                            action: 'ffr_deleteComment',
+                            comment_id: commentID,
+                            nonce: ajax_url.nonce
+                        },
+                        error: function() {
+                            $('#ffr-delete-comment-popup').removeClass('active');
+                            innerThat.innerHTML = 'Delete';
+                            innerThat.removeAttribute('disabled')
+                            $(innerThat).parent().removeClass('deleting');
+
                             $(alertmsg).removeClass('success').addClass('error active');
-                            alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>' + data.message + '</p>';
+                            alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>Something went wrong!</p>';
                             setTimeout(() => {
                                 $(alertmsg).removeClass('success active')
                             }, 3000);
+                        },
+                        success: function(data) {
+                            $('#ffr-delete-comment-popup').removeClass('active');
+                            if (data.status === true) {
+                                innerThat.innerHTML = 'Delete';
+                                innerThat.removeAttribute('disabled')
+                                $(innerThat).parent().removeClass('deleting');
+
+                                $(that).parent().hide();
+                                $(alertmsg).removeClass('error').addClass('success active');
+                                alertmsg.innerHTML = '<span class="close">+</span><h1>Congratulations!</h1><p>' + data.message + '</p>';
+                                setTimeout(() => {
+                                    $(alertmsg).removeClass('success active')
+                                }, 3000);
+                            } else {
+                                innerThat.innerHTML = 'Delete';
+                                innerThat.removeAttribute('disabled')
+                                $(innerThat).parent().removeClass('deleting');
+
+                                $(alertmsg).removeClass('success').addClass('error active');
+                                alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>' + data.message + '</p>';
+                                setTimeout(() => {
+                                    $(alertmsg).removeClass('success active')
+                                }, 3000);
+                            }
                         }
-                    }
-                })
-            }, 1000);
+                    })
+                }, 1000);
+
+            })
         });
 
         // Hide Alert Box

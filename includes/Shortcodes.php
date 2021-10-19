@@ -67,6 +67,19 @@ class Shortcodes {
                         $col .= '</div>';
                     $col .= '</div>';
 
+                    // Request Delete Confirmation
+                    $col .= '<div id="ffr-delete-comment-popup">';
+                        $col .= '<div class="ffr-delete-popup-overlay"></div>';
+                        $col .= '<div class="ffr-delete-popup-content">';
+                        $col .= '<h1>'.esc_html__('Are you sure?', 'fluent-features-board').'</h1>';
+                        $col .= '<p>'.esc_html__( 'Do you want to delete this?', 'fluent-features-board' ).'</p>';
+                        $col .= '<div class="btn-action">';
+                            $col .= '<button id="no" href="#">'.esc_html__('No', 'fluent-features-board').'</button>';
+                            $col .= '<button id="delete-this-comment" href="#">'.esc_html__('Yes', 'fluent-features-board').'</button>';
+                        $col .= '</div>';
+                        $col .= '</div>';
+                    $col .= '</div>';
+
                     $col .= '<header>';
                         $col .= '<div class="ffr-wrap">';
                             $col .= '<div class="header-left">';
@@ -93,7 +106,7 @@ class Shortcodes {
                                             $col .= '<img width="32" height="32" src="'.get_avatar_url($current_user->ID).'"/> '.esc_html__('Hi, ', 'fluent-features-board').esc_html($current_user->display_name).' <span class="downicon"></span>';
                                         $col .= '</a>';
                                         $col .= '<div class="user-logout-dropdown">';
-                                            $col .= '<a href="'.site_url( ).'/wp-admin/profile.php"><span class="user-icon"></span>Profile </a>';
+                                            $col .= '<a href="'.site_url( ).'/wp-admin/profile.php"><span class="user-icon"></span>'.esc_html__('Profile ', 'fluent-features-board').'</a>';
                                             $col .= '<a class="user-logout" href="'.wp_logout_url( home_url() ).'">';
                                                 $col .= '<span class="logout-power-icon"></span> '.esc_html__('Logout', 'fluent-features-board');
                                             $col .= '</a>';
@@ -226,15 +239,15 @@ class Shortcodes {
                                                     if(is_user_logged_in()) {
                                                         $notLoggedin = ' ';
                                                         if($checkUserVoted) {
-                                                            $disabled = ' removeVote ';
+                                                            $disabled = __(' removeVote ', 'fluent-features-board');
                                                         } else {
-                                                            $disabled = ' addVote ';
+                                                            $disabled = __(' addVote ', 'fluent-features-board');
                                                         }
                                                     } else {
                                                         $notLoggedin = ' id="ffr-login-register-popup" ';
                                                         $disabled = '';
                                                     }
-                                                        $col .= '<div '.$notLoggedin.' class="ff-request-vote '.esc_attr($disabled).'" data-postid="'.esc_attr($item->id).'">';
+                                                        $col .= '<div '.esc_attr($notLoggedin).' class="ff-request-vote '.esc_attr($disabled).'" data-postid="'.esc_attr($item->id).'">';
                                                             $col .= '<span class="ff-request-vote-btn"></span>';
                                                             
                                                             $col .= '<input type="text" value="'.esc_attr($item->votes_count).'" class="ff-request-vote-count" readonly/>';
@@ -307,7 +320,7 @@ class Shortcodes {
                                 
                                                         $col .= '<form class="ff-request-comment-form" >';
                                                             $col .= '<input type="hidden" name="comment_post_id" value="'.esc_attr($item->id).'"/>';
-                                                            $col .= '<input type="hidden" id="current_user" name="current_user" data-userid="'.$current_user->ID.'" data-displayname="'.$current_user->display_name.'" data-useravatar="'.get_avatar_url($current_user->ID).'" data-currentdate="'.date(get_option('date_format')).'" />';
+                                                            $col .= '<input type="hidden" name="current_user" data-userid="'.esc_attr($current_user->ID).'" data-displayname="'.esc_attr($current_user->display_name).'" data-useravatar="'.get_avatar_url($current_user->ID).'" data-currentdate="'.date(get_option('date_format')).'" />';
 
                                                             if(is_user_logged_in(  )) {
                                                                 $col .= '<div class="input-group">';
