@@ -318,10 +318,76 @@
         // Edit Request
         $(document).on('click', '.ff-request-item > .user-action .edit-feature-request', function(e) {
             e.preventDefault();
+            $(".ff-request-item").removeClass('update-request-form');
             const linkParent = $(this).parent();
             const mainWrap = $(linkParent).parent();
-            $(mainWrap).addClass('update-request-form')
-            console.log(mainWrap);
+            $(mainWrap).addClass('update-request-form');
+        })
+        $(document).on('submit', '.ffr-edit-from-frontend', function(e) {
+            e.preventDefault();
+            const that = this;
+            var submitbtn = document.querySelector(".ff-request-item.update-request-form .ff-request-update", that);
+            const title = $('input[name="title"]', that).val();
+            const content = $('textarea[name="description"]', that).val();
+            const requestId = $('.ff-request-item.update-request-form .ffr-edit-from-frontend #requestId').val();
+            const boardId = $('.ff-request-item.update-request-form .ffr-edit-from-frontend #boardId').val();
+
+            // update
+            const upd_title = $('.ff-request-item.update-request-form .ff-request-content h3')[0];
+            const upd_content = $('.ff-request-item.update-request-form .ff-request-content .description')[0];
+
+            submitbtn.setAttribute('disabled', '');
+            $(submitbtn).parent().addClass('updating-ffr')
+            setTimeout(() => {
+                $.ajax({
+                    type: 'POST',
+                    url: ajax_url.ajaxurl,
+                    dataType: 'json',
+                    data: {
+                        action: 'ffrEditFromFrontend',
+                        title: title,
+                        content: content,
+                        request_id: requestId,
+                        board_id: boardId,
+                        nonce: ajax_url.nonce
+                    },
+                    success: function(data) {
+                        $(".ff-request-item").removeClass('update-request-form');
+                        submitbtn.removeAttribute('disabled');
+                        $(submitbtn).parent().removeClass('updating-ffr')
+                        if (data.status === true) {
+                            upd_title.innerHTML = title;
+                            upd_content.innerHTML = content;
+
+                            $(alertmsg).removeClass('error').addClass('success active');
+                            alertmsg.innerHTML = '<span class="close">+</span><h1>Congratulations!</h1><p>' + data.message + '</p>';
+                            setTimeout(() => {
+                                $(alertmsg).removeClass('success active')
+                            }, 3000);
+                        } else {
+                            $(alertmsg).removeClass('success').addClass('error active');
+                            alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>Something went wrong!</p>';
+                            setTimeout(() => {
+                                $(alertmsg).removeClass('error active')
+                            }, 3000);
+                        }
+                    },
+                    error: function(data) {
+                        $(".ff-request-item").removeClass('update-request-form');
+                        submitbtn.removeAttribute('disabled');
+                        $(submitbtn).parent().removeClass('updating-ffr');
+                        $(alertmsg).removeClass('success').addClass('error active');
+                        alertmsg.innerHTML = '<span class="close">+</span><h1>Error!</h1><p>' + data.message + '</p>';
+                        setTimeout(() => {
+                            $(alertmsg).removeClass('error active')
+                        }, 3000);
+
+                    }
+                });
+            }, 1500);
+        })
+        $(document).on('click', '.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend .ff-request-update-cancel', function() {
+            $(".ff-request-item").removeClass('update-request-form');
         })
 
         // Single Request Popup

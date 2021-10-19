@@ -44,6 +44,9 @@ class FFB_Model_Table {
         add_action( 'wp_ajax_nopriv_removeVotesOnRequestList', [$this, 'removeVotesOnRequestList'] );
         add_action( 'wp_ajax_ffr_deleteComment', [$this, 'ffr_deleteComment'] );
         add_action( 'wp_ajax_nopriv_ffr_deleteComment', [$this, 'ffr_deleteComment'] );
+        add_action( 'wp_ajax_ffrEditFromFrontend', [$this, 'ffrEditFromFrontend'] );
+        add_action( 'wp_ajax_nopriv_ffrEditFromFrontend', [$this, 'ffrEditFromFrontend'] );
+        
         
     }
 
@@ -465,6 +468,48 @@ class FFB_Model_Table {
                 )
             );
         }
+        die();
+    }
+
+
+    /**
+     * Update Feature Request From Frontend
+     */
+    public function ffrEditFromFrontend() {
+        // Check for nonce security      
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+            die ( 'Busted!');
+        }
+        global $wpdb;
+        $table_ffr = $wpdb->prefix . $this->ff_requests_list;
+        $boardId   = isset($_POST['board_id']) ? $_POST['board_id'] : '';
+        $requestID = isset($_POST['request_id']) ? $_POST['request_id'] : '';
+        $title     = sanitize_text_field( isset($_POST['title']) ? $_POST['title'] : '' );
+        $content   = sanitize_textarea_field( isset($_POST['content']) ? $_POST['content'] : '' );
+        $where      = ['id' => $requestID, 'parent_id' => $boardId];
+
+        if(is_wp_error( $title ) || is_wp_error( $content )) {
+            echo json_encode(array(
+                'status'  => false,
+                'message' => esc_html__('Something went wrong!', 'fluent-features-board')
+            ));
+            return false;
+        }
+        echo json_encode(array(
+            'status'  => true,
+            'message' => esc_html__('Request has been updated!', 'fluent-features-board')
+        ));
+
+
+        $wpdb->update( 
+            $table_ffr,
+            array( 
+                'title'   => $title,
+                'description' => $content
+            ),
+            $where
+        );
+
         die();
     }
     

@@ -384,6 +384,7 @@ button:focus {
     opacity: 0.3;
 }
 
+.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend button .loader,
 .ff-request-board-login-register-body form button .loader,
 .submit-comment .loader,
 .ff-requests-form .ff-request-submit .loader {
@@ -397,6 +398,7 @@ button:focus {
     margin-right: 5px;
 }
 
+.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend .updating-ffr button .loader,
 .ff-request-board-login-register-body form button .loader,
 .ff-request-comment-form.submitting .submit-comment .loader,
 .ff-requests-form.submitting .ff-request-submit .loader {
@@ -518,6 +520,7 @@ button:focus {
     margin: 0;
     background: transparent;
     cursor: pointer;
+    color: #a8adb9;
 }
 
 .ff-requests-list-box .ff-request-item .ff-request-vote.removeVote .ff-request-vote-count {
@@ -1239,6 +1242,7 @@ button:focus {
     margin-top: 10px;
 }
 
+.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend .ff-request-update-cancel,
 .ff-requests-list-box .ff-request-item .ffr-edit-from-frontend button {
     border: none;
     padding: 8px 20px;
@@ -1246,6 +1250,21 @@ button:focus {
     color: #fff !important;
     font-size: 14px;
     border-radius: 4px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.ff-request-item .ffr-edit-from-frontend .ffr-edit-form-btns.updating-ffr .ff-request-update-cancel,
+.ff-request-item .ffr-edit-from-frontend .ffr-edit-form-btns.updating-ffr button {
+    cursor: no-drop;
+    opacity: 0.4;
+}
+
+.ff-requests-list-box .ff-request-item .ffr-edit-from-frontend .ff-request-update-cancel {
+    padding: 7px 20px;
+    margin-left: 10px;
+    background: #ff0000 !important;
+    font-weight: 600;
 }
 
 .ff-requests-list-box .ff-request-item.update-request-form {

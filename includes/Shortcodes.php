@@ -261,14 +261,17 @@ class Shortcodes {
                                                         $col .= '<input type="text" name="title" placeholder="'.esc_attr__('Title', 'fluent-features-board').'" value="'.esc_html($item->title).'" required>';
                                                     $col .= '</div>';
                                                     $col .= '<div class="input-group">';
-                                                        $col .= '<textarea name="description" id="description" placeholder="'.esc_html__('Why do you want this', 'fluent-features-board').'" required>'.esc_html($item->description).'</textarea>';
+                                                        $col .= '<textarea name="description" placeholder="'.esc_html__('Why do you want this', 'fluent-features-board').'" required>'.esc_html($item->description).'</textarea>';
                                                     $col .= '</div>';
-                                                    $col .= '<div class="input-group">';
+                                                    $col .= '<div class="input-group ffr-edit-form-btns">';
                                                         $col .= '<button class="ff-request-update">';
                                                             $col .= '<span class="loader"></span>'.esc_html__('Update', 'fluent-features-board');
                                                         $col .= '</button>';
+
+                                                        $col .= '<span class="ff-request-update-cancel">'.esc_html__('Cancel', 'fluent-features-board').'</span>';
                                                     $col .= '</div>';
-                                                    $col .= '<input type="hidden" value="'.esc_attr($board->id).'" id="board_id" />';
+                                                    $col .= '<input type="hidden" value="'.esc_attr($board->id).'" id="boardId" />';
+                                                    $col .= '<input type="hidden" value="'.esc_attr($item->id).'" id="requestId" />';
 
                                                 $col .= '</form>';
 
