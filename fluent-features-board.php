@@ -230,7 +230,6 @@ final class Fluent_Features_board {
                 )
             );
 		} else {
-			global $current_user;
 			wp_set_current_user($user_signon->ID);
 			if($login=="Login"){
 				echo json_encode(

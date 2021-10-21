@@ -54,7 +54,7 @@ class Shortcodes {
                 );
                 $col = '<div class="ff-requests-list-home">';
 
-                    // Request Delete Confirmation
+                    // Request(s) Delete Confirmation
                     $col .= '<div id="ffr-delete-popup">';
                         $col .= '<div class="ffr-delete-popup-overlay"></div>';
                         $col .= '<div class="ffr-delete-popup-content">';
@@ -67,7 +67,7 @@ class Shortcodes {
                         $col .= '</div>';
                     $col .= '</div>';
 
-                    // Request Delete Confirmation
+                    // Comment(s) Delete Confirmation
                     $col .= '<div id="ffr-delete-comment-popup">';
                         $col .= '<div class="ffr-delete-popup-overlay"></div>';
                         $col .= '<div class="ffr-delete-popup-content">';
