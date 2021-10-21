@@ -45,3 +45,22 @@
 #toplevel_page_fluent-features-boards>a:hover {
     color: #ffffff;
 }
+
+#toplevel_page_fluent-features-boards>a .wp-menu-name .items-number {
+    display: none;
+}
+
+#toplevel_page_fluent-features-boards ul li a .items-number {
+    background: #ba42ec;
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    line-height: 17px;
+    padding-right: 1px;
+    text-align: center;
+    border-radius: 50%;
+    font-weight: 500;
+    font-size: 11px;
+    color: #fff;
+    margin-left: 5px;
+}

@@ -16,12 +16,18 @@ class FFB_Admin {
      * @return void
      */
     public function admin_menu() {
+        global $wpdb;
         $capability = 'manage_options';
         $slug       = 'fluent-features-boards';
 
+        $boards = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."fluent_features_board");
+        $requestLists = $wpdb->get_results(
+            "SELECT * FROM ".$wpdb->prefix."ff_requests_list"
+        );
+
         $hook = add_menu_page( 
-            __( 'Fluent Features Boards', 'fluent-features-board' ), 
-            __( 'Fluent Features Boards', 'fluent-features-board' ), 
+            __( 'Fluent Features Boards <span class="items-number">'.count($boards).'</span>', 'fluent-features-board' ), 
+            __( 'Fluent Features Boards <span class="items-number">'.count($boards).'</span>', 'fluent-features-board' ), 
             $capability, 
             $slug, 
             [ $this, 'ffb_menu_page_template' ], 
@@ -30,8 +36,8 @@ class FFB_Admin {
         );
         $submenu = add_submenu_page( 
             $slug, 
-            __('Features Request Lists', 'fluent-features-board'), 
-            __('Features Request Lists', 'fluent-features-board'),
+            __('Features Request Lists <span class="items-number">'.count($requestLists).'</span>', 'fluent-features-board'), 
+            __('Features Request Lists <span class="items-number">'.count($requestLists).'</span>', 'fluent-features-board'),
             $capability, 
             'fluent-request-lists',
             [$this, 'features_request_lists']
