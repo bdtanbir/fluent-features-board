@@ -512,6 +512,7 @@ class FFB_Model_Table {
                     'message' => esc_html__('Something went wrong!', 'fluent-features-board')
                 )
             );
+            return false;
         } else {
             $wpdb->delete( $table_name, array( 'id' => $comment_id ) );
             echo json_encode(
