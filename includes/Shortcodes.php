@@ -247,7 +247,7 @@ class Shortcodes {
                                                         $notLoggedin = ' id="ffr-login-register-popup" ';
                                                         $disabled = '';
                                                     }
-                                                        $col .= '<div '.esc_attr($notLoggedin).' class="ff-request-vote '.esc_attr($disabled).'" data-postid="'.esc_attr($item->id).'">';
+                                                        $col .= '<div '.$notLoggedin.' class="ff-request-vote '.esc_attr($disabled).'" data-postid="'.esc_attr($item->id).'">';
                                                             $col .= '<span class="ff-request-vote-btn"></span>';
                                                             
                                                             $col .= '<input type="text" value="'.esc_attr($item->votes_count).'" class="ff-request-vote-count" readonly/>';
