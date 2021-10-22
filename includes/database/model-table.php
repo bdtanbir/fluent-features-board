@@ -227,13 +227,7 @@ class FFB_Model_Table {
      * Get All Boards List
      */
     public function getAllBoardsList() {
-        global $wpdb;
-        $sort_by = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';
-        if($sort_by == 'all') {
-            error_log('I am All');
-        }
-        error_log(print_r($sort_by, 1));
-        
+        global $wpdb;        
         $requests = $wpdb->get_results(
             "SELECT * FROM {$wpdb->prefix}fluent_features_board"
         );
