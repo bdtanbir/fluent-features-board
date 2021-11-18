@@ -85,7 +85,6 @@ export default {
         },
         pickLogo () {
             let input = this.$refs.logourl
-            console.log(input);
             let file = input.files
             if (file && file[0]) {
                 let reader = new FileReader

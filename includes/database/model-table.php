@@ -153,10 +153,6 @@ class FFB_Model_Table {
      * Inserting New Feature Request
      */
     public function submit_feature_request() {
-        // Check for nonce security      
-        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
-            die ( 'Busted!');
-        }
         global $wpdb;
         global $current_user;
         $table_ffr   = $wpdb->prefix . $this->ff_requests_list;

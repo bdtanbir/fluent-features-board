@@ -19,7 +19,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
  * Fluent_Features_board class
  * @class Fluent_Features_board The class that holds the entire Fluent_Features_board plugin
  */
-final class Fluent_Features_board {
+class Fluent_Features_board {
 
     /**
      * Plugin version
